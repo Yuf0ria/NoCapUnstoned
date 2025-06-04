@@ -1,0 +1,3 @@
+- Validation is necessary before Committing to main
+- Name format for branches: Name_Ver_no._a
+- before committing to branch add details of what has been added. Thank you!
