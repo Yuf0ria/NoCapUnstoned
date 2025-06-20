@@ -1,5 +1,5 @@
 DOCUMENTATION OF GITHUB FILE:
-  \nVER 0.0 (Date)
-    \nPublishing Github - Dani
-    \nBranch Created - Aundee
-  \nVER 1.0 
+  VER 0.0 (Date)
+    Publishing Github - Dani
+    Branch Created - Aundee
+  VER 1.0 
