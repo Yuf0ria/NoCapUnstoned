@@ -1,4 +1,4 @@
-# DOCUMENTATION OF GITHUB FILE:
+# Documentation:
 ##  VER 0.0 (Date)
     Publishing Github - Dani
     Branch Created - Aundee
