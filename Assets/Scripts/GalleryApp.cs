@@ -3,20 +3,21 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using DG.Tweening;
+using UnityEngine.Rendering;
 
 public class GalleryApp : MonoBehaviour
 {
     Vector2 scrollDir;
-    float scrollSpeed = 0.25f;
+    [SerializeField] private float scrollSpeed = 50f;
 
-    float scrollUpperLimit = 0;
-    float scrollLowerLimit = 6.25f;
+    float scrollUpperLimit = 200f;
+    float scrollLowerLimit = 1700f;
     [SerializeField] GameObject scrollObject;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        
+        //scrollUpperLimit = scrollObject.transform.localScale.y;
     }
 
     // Update is called once per frame
