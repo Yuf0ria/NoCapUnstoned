@@ -147,7 +147,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      Chadwick_Background_0: 3233680660623752116
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

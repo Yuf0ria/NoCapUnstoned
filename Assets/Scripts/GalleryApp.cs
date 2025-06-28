@@ -6,13 +6,8 @@ using DG.Tweening;
 
 public class GalleryApp : MonoBehaviour
 {
-<<<<<<< Updated upstream
-    Vector2 scrollDir;
-    float scrollSpeed = 0.25f;
-=======
     [SerializeField] private float scrollWheelSpeed = 50f;
     [SerializeField] private float scrollDragSpeed = 0.0025f;
->>>>>>> Stashed changes
 
     float scrollUpperLimit = 0;
     float scrollLowerLimit = 6.25f;
