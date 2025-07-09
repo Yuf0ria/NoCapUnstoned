@@ -1,6 +1,5 @@
 using UnityEngine;
 using DG.Tweening;
-using UnityEditorInternal;
 using System.Collections.Generic;
 
 public class App_Basic : MonoBehaviour
@@ -75,12 +74,15 @@ public class App_Basic : MonoBehaviour
 
     // If it remains in App_Basic, it will merge all app histories into one Stack.
     // Aundee will fix soon. Ty! ^o(Y)o^ <--- I made a lil cat.
+
+    
     static Stack<GameObject> PanelHistory = new Stack<GameObject>();
     static int PanelHsitoryCountAtPress = -1;
     static bool BackButtonPressed = false;
 
     [SerializeField] GameObject NextPanel;
     
+    /*
     public void BackToPrevPanel()
     {
 
@@ -121,4 +123,5 @@ public class App_Basic : MonoBehaviour
         NextPanel.gameObject.SetActive(true);
         this.gameObject.SetActive(false);
     }
+    */
 }
