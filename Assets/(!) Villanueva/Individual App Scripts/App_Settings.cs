@@ -1,5 +1,7 @@
 using UnityEngine;
+using UnityEngine.UI;
 using DG.Tweening;
+using TMPro;
 
 public class App_Settings : MonoBehaviour
 {
@@ -30,5 +32,11 @@ public class App_Settings : MonoBehaviour
         {
             this.gameObject.SetActive(false);
         });
+    }
+
+    public TMP_Text CurrentWiFi;
+    public void ConnectToWifi(TMP_Text NewWiFi)
+    {
+        CurrentWiFi.text = NewWiFi.GetComponentInChildren<TMP_Text>().text;
     }
 }

@@ -39,7 +39,7 @@ public class App_Messages : MonoBehaviour
     Vector3 ResponseClosedPoint = new Vector3(0, -1275, 0);
     Vector3 ResponseOpenedPoint = new Vector3(0, -750, 0);
     float ResponseTransitionTime = 0.5f;
-
+    float ReplyTransitionTime = 0.25f;
     [SerializeField] GameObject ResponseBox;
 
     public void ShowResponses(GameObject responseBox)
@@ -57,6 +57,14 @@ public class App_Messages : MonoBehaviour
 
     public void SendReply(GameObject Reply)
     {
-        //Nothing Here Yet
+        GameObject Chatbox = this.gameObject;
+
+        GameObject clone = Instantiate(Reply);
+        clone.transform.SetParent(Chatbox.transform, true);
+
+        clone.transform.localPosition = new Vector3(750, -50, 0);
+
+        clone.transform.DOLocalMove(new Vector3(232, -50, 0), ReplyTransitionTime).SetEase(Ease.OutCubic);
+
     }
 }
