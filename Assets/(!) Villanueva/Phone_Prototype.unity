@@ -4765,8 +4765,8 @@ Transform:
   - {fileID: 2850732513653784729}
   - {fileID: 972954360}
   - {fileID: 1034010370}
-  - {fileID: 2413332346087474273}
   - {fileID: 1218494753}
+  - {fileID: 2413332346087474273}
   m_Father: {fileID: 1560349535}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &275757356
@@ -9750,15 +9750,12 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 503967620}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 0f903dc1235aff741814fa0e1ef06e4a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ChildActiveOnStart: 1
-  ChildOfApp: 1
   AppIcon: {fileID: 1218494750}
-  NextPanel: {fileID: 1218494750}
 --- !u!114 &503967626
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -18760,10 +18757,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0f903dc1235aff741814fa0e1ef06e4a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ChildActiveOnStart: 0
-  ChildOfApp: 0
   AppIcon: {fileID: 270760148}
-  NextPanel: {fileID: 0}
 --- !u!114 &972954362
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -19791,10 +19785,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0f903dc1235aff741814fa0e1ef06e4a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ChildActiveOnStart: 0
-  ChildOfApp: 0
   AppIcon: {fileID: 1871284854}
-  NextPanel: {fileID: 1218494750}
 --- !u!222 &1034010373
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -23347,7 +23338,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &1218494751
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -27695,10 +27686,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0f903dc1235aff741814fa0e1ef06e4a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ChildActiveOnStart: 0
-  ChildOfApp: 1
   AppIcon: {fileID: 1218494750}
-  NextPanel: {fileID: 1748129463}
 --- !u!1 &1477209027
 GameObject:
   m_ObjectHideFlags: 0
@@ -29880,157 +29868,13 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 8690847664066548222}
-        m_TargetAssemblyTypeName: App_Gallery, Assembly-CSharp
-        m_MethodName: ReturnToMain
-        m_Mode: 2
+      - m_Target: {fileID: 1866645278}
+        m_TargetAssemblyTypeName: Phone_BackBtn, Assembly-CSharp
+        m_MethodName: PrevPage
+        m_Mode: 1
         m_Arguments:
-          m_ObjectArgument: {fileID: 503967620}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.GameObject, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 643070282}
-        m_TargetAssemblyTypeName: App_Notes, Assembly-CSharp
-        m_MethodName: ReturnToMain
-        m_Mode: 2
-        m_Arguments:
-          m_ObjectArgument: {fileID: 275376463593908244}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.GameObject, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 66419208}
-        m_TargetAssemblyTypeName: App_Notes, Assembly-CSharp
-        m_MethodName: ReturnToMain
-        m_Mode: 2
-        m_Arguments:
-          m_ObjectArgument: {fileID: 275376463593908244}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.GameObject, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 822809185}
-        m_TargetAssemblyTypeName: App_Notes, Assembly-CSharp
-        m_MethodName: ReturnToMain
-        m_Mode: 2
-        m_Arguments:
-          m_ObjectArgument: {fileID: 275376463593908244}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.GameObject, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 319945804}
-        m_TargetAssemblyTypeName: App_Notes, Assembly-CSharp
-        m_MethodName: ReturnToMain
-        m_Mode: 2
-        m_Arguments:
-          m_ObjectArgument: {fileID: 275376463593908244}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.GameObject, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 1452589753}
-        m_TargetAssemblyTypeName: App_Notes, Assembly-CSharp
-        m_MethodName: ReturnToMain
-        m_Mode: 2
-        m_Arguments:
-          m_ObjectArgument: {fileID: 275376463593908244}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.GameObject, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 835550815}
-        m_TargetAssemblyTypeName: App_Messages, Assembly-CSharp
-        m_MethodName: ReturnToMain
-        m_Mode: 2
-        m_Arguments:
-          m_ObjectArgument: {fileID: 299440589176824750}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.GameObject, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 1243984011}
-        m_TargetAssemblyTypeName: App_Messages, Assembly-CSharp
-        m_MethodName: ReturnToMain
-        m_Mode: 2
-        m_Arguments:
-          m_ObjectArgument: {fileID: 299440589176824750}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.GameObject, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 470773064}
-        m_TargetAssemblyTypeName: App_Messages, Assembly-CSharp
-        m_MethodName: ReturnToMain
-        m_Mode: 2
-        m_Arguments:
-          m_ObjectArgument: {fileID: 299440589176824750}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.GameObject, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 6654406199771158045}
-        m_TargetAssemblyTypeName: App_Postmail, Assembly-CSharp
-        m_MethodName: ReturnToInbox
-        m_Mode: 2
-        m_Arguments:
-          m_ObjectArgument: {fileID: 1904192254431826441}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.GameObject, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 1664240327}
-        m_TargetAssemblyTypeName: App_Postmail, Assembly-CSharp
-        m_MethodName: ReturnToInbox
-        m_Mode: 2
-        m_Arguments:
-          m_ObjectArgument: {fileID: 1904192254431826441}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.GameObject, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 1137577355}
-        m_TargetAssemblyTypeName: App_Postmail, Assembly-CSharp
-        m_MethodName: ReturnToInbox
-        m_Mode: 2
-        m_Arguments:
-          m_ObjectArgument: {fileID: 1904192254431826441}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.GameObject, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 1452961634}
-        m_TargetAssemblyTypeName: App_Postmail, Assembly-CSharp
-        m_MethodName: ReturnToInbox
-        m_Mode: 2
-        m_Arguments:
-          m_ObjectArgument: {fileID: 1904192254431826441}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -31995,10 +31839,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0f903dc1235aff741814fa0e1ef06e4a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ChildActiveOnStart: 0
-  ChildOfApp: 1
   AppIcon: {fileID: 1218494750}
-  NextPanel: {fileID: 2121746415}
 --- !u!1 &1753959355
 GameObject:
   m_ObjectHideFlags: 0
@@ -32054,7 +31895,7 @@ MonoBehaviour:
   m_Content: {fileID: 1478881187}
   m_Horizontal: 1
   m_Vertical: 1
-  m_MovementType: 1
+  m_MovementType: 2
   m_Elasticity: 0.1
   m_Inertia: 1
   m_DecelerationRate: 0.135
@@ -33002,10 +32843,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0f903dc1235aff741814fa0e1ef06e4a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ChildActiveOnStart: 0
-  ChildOfApp: 0
   AppIcon: {fileID: 1218494750}
-  NextPanel: {fileID: 1218494750}
 --- !u!222 &1798305491
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -33340,140 +33178,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 972954361}
-        m_TargetAssemblyTypeName: App_Basic, Assembly-CSharp
-        m_MethodName: CloseApp
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 1034010372}
-        m_TargetAssemblyTypeName: App_Basic, Assembly-CSharp
-        m_MethodName: CloseApp
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 4237469730589192270}
-        m_TargetAssemblyTypeName: App_Basic, Assembly-CSharp
-        m_MethodName: CloseApp
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 8665694310967619761}
-        m_TargetAssemblyTypeName: App_Basic, Assembly-CSharp
-        m_MethodName: CloseApp
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 8330712525565310824}
-        m_TargetAssemblyTypeName: App_Basic, Assembly-CSharp
-        m_MethodName: CloseApp
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 5821047442047258729}
-        m_TargetAssemblyTypeName: App_Basic, Assembly-CSharp
-        m_MethodName: CloseApp
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 5979382356658526758}
-        m_TargetAssemblyTypeName: App_Basic, Assembly-CSharp
-        m_MethodName: CloseApp
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 2413332346087474274}
-        m_TargetAssemblyTypeName: App_Basic, Assembly-CSharp
-        m_MethodName: CloseApp
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 8741269463008511050}
-        m_TargetAssemblyTypeName: App_Basic, Assembly-CSharp
-        m_MethodName: CloseApp
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 1989150045}
-        m_TargetAssemblyTypeName: App_Basic, Assembly-CSharp
-        m_MethodName: CloseApp
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 4150332713925660976}
-        m_TargetAssemblyTypeName: App_Basic, Assembly-CSharp
-        m_MethodName: CloseApp
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 8129137243874280318}
-        m_TargetAssemblyTypeName: App_Basic, Assembly-CSharp
+      - m_Target: {fileID: 1866645277}
+        m_TargetAssemblyTypeName: Phone_ExitBtn, Assembly-CSharp
         m_MethodName: CloseApp
         m_Mode: 1
         m_Arguments:
@@ -34878,6 +34584,67 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1865815619}
   m_CullTransparentMesh: 1
+--- !u!1 &1866645275
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1866645276}
+  - component: {fileID: 1866645277}
+  - component: {fileID: 1866645278}
+  m_Layer: 5
+  m_Name: Phone Button Manager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &1866645276
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1866645275}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1.065, y: 1.065, z: 1.065}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2111910567}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 100, y: 100}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1866645277
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1866645275}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f7fe7125484082a488f0eee850c71d41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1866645278
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1866645275}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ab529f17b46643e409517a7a3ff8e700, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1866688541
 GameObject:
   m_ObjectHideFlags: 0
@@ -35736,10 +35503,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0f903dc1235aff741814fa0e1ef06e4a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ChildActiveOnStart: 0
-  ChildOfApp: 0
   AppIcon: {fileID: 1218494750}
-  NextPanel: {fileID: 1218494750}
 --- !u!114 &1911855944
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -37642,10 +37406,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0f903dc1235aff741814fa0e1ef06e4a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ChildActiveOnStart: 0
-  ChildOfApp: 0
   AppIcon: {fileID: 834490355}
-  NextPanel: {fileID: 1218494750}
 --- !u!1 &1998289719
 GameObject:
   m_ObjectHideFlags: 0
@@ -40025,6 +39786,7 @@ RectTransform:
   - {fileID: 1064172257}
   - {fileID: 1810498255}
   - {fileID: 1647199337}
+  - {fileID: 1866645276}
   m_Father: {fileID: 1560349535}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
@@ -40604,10 +40366,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0f903dc1235aff741814fa0e1ef06e4a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ChildActiveOnStart: 1
-  ChildOfApp: 1
   AppIcon: {fileID: 1218494750}
-  NextPanel: {fileID: 1476616914}
 --- !u!1 &2128253487
 GameObject:
   m_ObjectHideFlags: 0
@@ -44826,11 +44585,12 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6147116442013628374}
+  - component: {fileID: 8736421786085074415}
   - component: {fileID: 8736421786085074413}
   - component: {fileID: 584249628236107956}
   - component: {fileID: 8736421786085074414}
   m_Layer: 5
-  m_Name: Order Summary
+  m_Name: Order Summary (Page)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -51169,9 +50929,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 7502713680177592789}
-        m_TargetAssemblyTypeName: OrderCorner_App_Script, Assembly-CSharp
-        m_MethodName: OpenOrderCornerCategory
+      - m_Target: {fileID: 7502713680177592790}
+        m_TargetAssemblyTypeName: App_Pages, Assembly-CSharp
+        m_MethodName: NextPage
         m_Mode: 2
         m_Arguments:
           m_ObjectArgument: {fileID: 781131681670475250}
@@ -52643,10 +52403,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0f903dc1235aff741814fa0e1ef06e4a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ChildActiveOnStart: 0
-  ChildOfApp: 0
   AppIcon: {fileID: 1064172256}
-  NextPanel: {fileID: 1218494750}
 --- !u!114 &2413538034441063558
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -54039,6 +53796,7 @@ GameObject:
   - component: {fileID: 5296135046817698566}
   - component: {fileID: 5808287779456462840}
   - component: {fileID: 5808287779456462841}
+  - component: {fileID: 5808287779456462842}
   - component: {fileID: 2079180682085901882}
   m_Layer: 5
   m_Name: Software Update (Page)
@@ -58746,7 +58504,7 @@ GameObject:
   - component: {fileID: 2599022667851870430}
   - component: {fileID: 6238551254878401287}
   m_Layer: 5
-  m_Name: Order Corner (1)
+  m_Name: Back Button
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -59604,7 +59362,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!222 &3955451510669727135
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -60733,10 +60491,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0f903dc1235aff741814fa0e1ef06e4a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ChildActiveOnStart: 0
-  ChildOfApp: 0
   AppIcon: {fileID: 383233074}
-  NextPanel: {fileID: 1218494750}
 --- !u!224 &4151389884069819217
 RectTransform:
   m_ObjectHideFlags: 0
@@ -61060,10 +60815,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0f903dc1235aff741814fa0e1ef06e4a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ChildActiveOnStart: 0
-  ChildOfApp: 0
   AppIcon: {fileID: 275757356}
-  NextPanel: {fileID: 1218494750}
 --- !u!222 &4245466710859959452
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -62002,13 +61754,13 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 5808287779456462841}
-        m_TargetAssemblyTypeName: App_Settings, Assembly-CSharp
-        m_MethodName: ReturnToSettingsMain
-        m_Mode: 2
+      - m_Target: {fileID: 5808287779456462842}
+        m_TargetAssemblyTypeName: App_Pages, Assembly-CSharp
+        m_MethodName: PrevPage
+        m_Mode: 1
         m_Arguments:
-          m_ObjectArgument: {fileID: 7850267597631353569}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -62962,6 +62714,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7338982189563729467}
   - component: {fileID: 1066351919873465819}
+  - component: {fileID: 7861399002539869761}
   - component: {fileID: 7861399002539869760}
   - component: {fileID: 7861399002539869759}
   m_Layer: 5
@@ -70035,12 +69788,27 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2708866640170628245}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 913b60da42551f7459466f22029edf32, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   CurrentWiFi: {fileID: 0}
+--- !u!114 &5808287779456462842
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2708866640170628245}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3d38600089ac3f440acfbc9334c3d9e7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Page_ClosedPosition: {x: 1500, y: 0, z: 0}
+  TransitionTime: 0.5
+  Prev_Page: {fileID: 7850267597631353569}
 --- !u!114 &5819660525485263221
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -70174,10 +69942,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0f903dc1235aff741814fa0e1ef06e4a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ChildActiveOnStart: 0
-  ChildOfApp: 0
   AppIcon: {fileID: 1940869123}
-  NextPanel: {fileID: 1218494750}
 --- !u!1 &5828496998496326824
 GameObject:
   m_ObjectHideFlags: 0
@@ -70959,10 +70724,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0f903dc1235aff741814fa0e1ef06e4a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ChildActiveOnStart: 0
-  ChildOfApp: 0
   AppIcon: {fileID: 961407599}
-  NextPanel: {fileID: 1218494750}
 --- !u!1 &5985857004917755388
 GameObject:
   m_ObjectHideFlags: 0
@@ -71992,13 +71754,13 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 8736421786085074414}
-        m_TargetAssemblyTypeName: OrderCorner_App_Script, Assembly-CSharp
-        m_MethodName: ReturnToOrderCornerMain
-        m_Mode: 2
+      - m_Target: {fileID: 8736421786085074415}
+        m_TargetAssemblyTypeName: App_Pages, Assembly-CSharp
+        m_MethodName: PrevPage
+        m_Mode: 1
         m_Arguments:
-          m_ObjectArgument: {fileID: 7502713680177592788}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -73675,13 +73437,13 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 9218423391638431569}
-        m_TargetAssemblyTypeName: App_Settings, Assembly-CSharp
-        m_MethodName: ReturnToSettingsMain
-        m_Mode: 2
+      - m_Target: {fileID: 9218423391638431570}
+        m_TargetAssemblyTypeName: App_Pages, Assembly-CSharp
+        m_MethodName: PrevPage
+        m_Mode: 1
         m_Arguments:
-          m_ObjectArgument: {fileID: 7850267597631353569}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -79808,9 +79570,10 @@ GameObject:
   - component: {fileID: 294811524486785605}
   - component: {fileID: 1920435735976413359}
   - component: {fileID: 4188286193381661320}
+  - component: {fileID: 7502713680177592790}
   - component: {fileID: 7502713680177592789}
   m_Layer: 5
-  m_Name: Main Page
+  m_Name: Main (Page)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -79823,11 +79586,26 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7502713680177592788}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f89ee4a3b16d1114bad5f5a792cc15c2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &7502713680177592790
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7502713680177592788}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3d38600089ac3f440acfbc9334c3d9e7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Page_ClosedPosition: {x: 0, y: -2500, z: 0}
+  TransitionTime: 0.5
+  Prev_Page: {fileID: 0}
 --- !u!114 &7503168312608340338
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -81683,6 +81461,7 @@ GameObject:
   - component: {fileID: 4058514292451537710}
   - component: {fileID: 9218423391638431568}
   - component: {fileID: 9218423391638431569}
+  - component: {fileID: 9218423391638431570}
   - component: {fileID: 958602036298659433}
   m_Layer: 5
   m_Name: Security (Page)
@@ -81799,6 +81578,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1677768897983134185}
   - component: {fileID: 7850267597631353570}
+  - component: {fileID: 7850267597631353571}
   m_Layer: 5
   m_Name: Main (Page)
   m_TagString: Untagged
@@ -81813,12 +81593,27 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7850267597631353569}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 913b60da42551f7459466f22029edf32, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   CurrentWiFi: {fileID: 0}
+--- !u!114 &7850267597631353571
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7850267597631353569}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3d38600089ac3f440acfbc9334c3d9e7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Page_ClosedPosition: {x: 1500, y: 0, z: 0}
+  TransitionTime: 0.5
+  Prev_Page: {fileID: 0}
 --- !u!1 &7855041546909058136
 GameObject:
   m_ObjectHideFlags: 0
@@ -81874,12 +81669,27 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4587893660111082071}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 913b60da42551f7459466f22029edf32, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   CurrentWiFi: {fileID: 0}
+--- !u!114 &7861399002539869761
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4587893660111082071}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3d38600089ac3f440acfbc9334c3d9e7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Page_ClosedPosition: {x: 1500, y: 0, z: 0}
+  TransitionTime: 0.5
+  Prev_Page: {fileID: 7850267597631353569}
 --- !u!224 &7861399961168992002
 RectTransform:
   m_ObjectHideFlags: 0
@@ -83216,10 +83026,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0f903dc1235aff741814fa0e1ef06e4a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ChildActiveOnStart: 0
-  ChildOfApp: 0
   AppIcon: {fileID: 547526811}
-  NextPanel: {fileID: 1218494750}
 --- !u!1 &8133600411197863576
 GameObject:
   m_ObjectHideFlags: 0
@@ -84499,10 +84306,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0f903dc1235aff741814fa0e1ef06e4a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ChildActiveOnStart: 0
-  ChildOfApp: 0
   AppIcon: {fileID: 442718814}
-  NextPanel: {fileID: 1218494750}
 --- !u!114 &8336072306297148927
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -84814,13 +84618,13 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 7861399002539869760}
-        m_TargetAssemblyTypeName: App_Settings, Assembly-CSharp
-        m_MethodName: ReturnToSettingsMain
-        m_Mode: 2
+      - m_Target: {fileID: 7861399002539869761}
+        m_TargetAssemblyTypeName: App_Pages, Assembly-CSharp
+        m_MethodName: PrevPage
+        m_Mode: 1
         m_Arguments:
-          m_ObjectArgument: {fileID: 7850267597631353569}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
@@ -85298,9 +85102,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 7850267597631353570}
-        m_TargetAssemblyTypeName: App_Settings, Assembly-CSharp
-        m_MethodName: OpenSettingsCategory
+      - m_Target: {fileID: 7850267597631353571}
+        m_TargetAssemblyTypeName: App_Pages, Assembly-CSharp
+        m_MethodName: NextPage
         m_Mode: 2
         m_Arguments:
           m_ObjectArgument: {fileID: 4587893660111082071}
@@ -85632,9 +85436,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 7850267597631353570}
-        m_TargetAssemblyTypeName: App_Settings, Assembly-CSharp
-        m_MethodName: OpenSettingsCategory
+      - m_Target: {fileID: 7850267597631353571}
+        m_TargetAssemblyTypeName: App_Pages, Assembly-CSharp
+        m_MethodName: NextPage
         m_Mode: 2
         m_Arguments:
           m_ObjectArgument: {fileID: 7808727153102240504}
@@ -86942,10 +86746,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0f903dc1235aff741814fa0e1ef06e4a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ChildActiveOnStart: 0
-  ChildOfApp: 0
   AppIcon: {fileID: 1847643183}
-  NextPanel: {fileID: 1218494750}
 --- !u!222 &8672900962491391946
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -86997,15 +86798,12 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3951784957112203104}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 0f903dc1235aff741814fa0e1ef06e4a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ChildActiveOnStart: 0
-  ChildOfApp: 1
   AppIcon: {fileID: 1218494750}
-  NextPanel: {fileID: 1218494750}
 --- !u!114 &8705553991461662504
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -87080,9 +86878,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 7850267597631353570}
-        m_TargetAssemblyTypeName: App_Settings, Assembly-CSharp
-        m_MethodName: OpenSettingsCategory
+      - m_Target: {fileID: 7850267597631353571}
+        m_TargetAssemblyTypeName: App_Pages, Assembly-CSharp
+        m_MethodName: NextPage
         m_Mode: 2
         m_Arguments:
           m_ObjectArgument: {fileID: 2708866640170628245}
@@ -87376,11 +87174,26 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 781131681670475250}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f89ee4a3b16d1114bad5f5a792cc15c2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &8736421786085074415
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 781131681670475250}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3d38600089ac3f440acfbc9334c3d9e7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Page_ClosedPosition: {x: 0, y: -2500, z: 0}
+  TransitionTime: 0.5
+  Prev_Page: {fileID: 7502713680177592788}
 --- !u!114 &8741269463008511049
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -87423,10 +87236,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0f903dc1235aff741814fa0e1ef06e4a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ChildActiveOnStart: 0
-  ChildOfApp: 0
   AppIcon: {fileID: 470356692}
-  NextPanel: {fileID: 1218494750}
 --- !u!222 &8745255072339153742
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -89333,12 +89143,27 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7808727153102240504}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 913b60da42551f7459466f22029edf32, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   CurrentWiFi: {fileID: 0}
+--- !u!114 &9218423391638431570
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7808727153102240504}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3d38600089ac3f440acfbc9334c3d9e7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Page_ClosedPosition: {x: 1500, y: 0, z: 0}
+  TransitionTime: 0.5
+  Prev_Page: {fileID: 7850267597631353569}
 --- !u!114 &9219365976714221080
 MonoBehaviour:
   m_ObjectHideFlags: 0
