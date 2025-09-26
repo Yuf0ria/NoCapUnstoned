@@ -16,33 +16,24 @@ public class App_Basic : MonoBehaviour
 
         transform.position = App_ClosedPoint;
         transform.localScale = ClosedScale;
-        OpenedPoint = Position.transform.position;
-        // ^^^^
-        //For the position of the app! (I MADE THIS SCRIPT - NICAIA)
-        //MORE SIDE NOTES:
-        //This only saves the position during the start which means if the player resizes-
-        //the game window, it will mess up the position.
+        OpenedPoint = Position.transform.position; //For the position of the app! (I MADE THIS SCRIPT - NICAIA)
     }
 
 
     //Vector3 App_ClosedPoint;
     Vector3 ClosedScale = new Vector3(0, 0, 0);
-    Vector3 OpenedPoint; //= new Vector3(540, 960, 0);
+    Vector3 OpenedPoint; //= new Vector3(540, 960, 0); <<- The hardcode one
     Vector3 OpenScale = new Vector3(1, 1, 1);
     float TransitionTime = 0.5f;
 
     public static GameObject CurrentApp;
     public static Vector3 App_ClosedPoint;
 
-    private void Update() //To update the position everytime the window is resized. I might find a better way idk but this will do :P - Nicaia
-    {
-        this.gameObject.transform.position = Position.transform.position;
-        OpenedPoint = Position.transform.position;
-    }
-
     public void OpenApp()
     {
         Debug.Log("Opening " + this.gameObject.name + "...");
+
+        OpenedPoint = Position.transform.position; //Hey, update again, this works too. (Updates the position everytime the app is opened)
 
         this.gameObject.SetActive(true);
         transform.DOMove(OpenedPoint, TransitionTime).SetEase(Ease.OutCubic);
