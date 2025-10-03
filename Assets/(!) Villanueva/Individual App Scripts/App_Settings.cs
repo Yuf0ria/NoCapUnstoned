@@ -5,20 +5,21 @@ using TMPro;
 
 public class App_Settings : MonoBehaviour
 {
-    Vector3 SettingsClosedPosition = new Vector3(0, -2500, 0);
-    Vector3 SettingsOpenedPosition = new Vector3(0, 0, 0);
-    float SettingsTransitionDuration = 0.5f;
+
+    [SerializeField] private Transform orderCornerClosedPosition; //= new Vector3(1250, -175, 0);
+    [SerializeField] private Transform orderCornerOpenedPosition; //= new Vector3(0, -175, 0);
+    float TransitionTime = 0.5f;
 
     public void OpenSettingsCategory(GameObject SettingsCategoryPage)
     {
         Debug.Log("Opening Settings Category: " + SettingsCategoryPage.name);
 
-        SettingsCategoryPage.transform.localPosition = SettingsClosedPosition;
+        SettingsCategoryPage.transform.position = orderCornerClosedPosition.position;
         SettingsCategoryPage.gameObject.SetActive(true);
 
-        this.gameObject.SetActive(false);
+        //this.gameObject.SetActive(false);
 
-        SettingsCategoryPage.transform.DOLocalMove(SettingsOpenedPosition, SettingsTransitionDuration).SetEase(Ease.OutCubic);
+        SettingsCategoryPage.transform.DOMove(orderCornerOpenedPosition.position, TransitionTime).SetEase(Ease.OutCubic);
     }
 
     public void ReturnToSettingsMain(GameObject SettingsMainPage)
@@ -27,10 +28,10 @@ public class App_Settings : MonoBehaviour
 
         SettingsMainPage.gameObject.SetActive(true);
 
-        transform.DOLocalMove(SettingsClosedPosition, SettingsTransitionDuration).SetEase(Ease.OutCubic)
+        transform.DOMove(orderCornerClosedPosition.position, TransitionTime).SetEase(Ease.OutCubic)
         .OnComplete(() =>
         {
-            this.gameObject.SetActive(false);
+            //this.gameObject.SetActive(false);
         });
     }
 

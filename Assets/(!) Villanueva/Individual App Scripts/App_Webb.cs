@@ -3,21 +3,33 @@ using DG.Tweening;
 
 public class App_Webb : MonoBehaviour
 {
-    Vector3 WebPageClosedPosition = new Vector3(0, 2500, 0);
-    Vector3 WebPageOpenedPosition = new Vector3(0, 0, 0);
-    float WebPageTransitionTime = 1f;
+    [Header("Web Page")]
+    [SerializeField] private Transform webPageClosedPosition; // = new Vector3(0, 2500, 0);
+    [SerializeField] private Transform webPageOpenedPosition; // = new Vector3(0, 0, 0);
+
+    [Header("Seach Box")]
+    [SerializeField] private Transform searchBoxClosedPosition; // = new Vector3(0, 250, 0);
+    [SerializeField] private Transform searchBoxOpenedPosition; // = new Vector3(0, -210, 0);
+
+    float transitionTime = 0.5f;
+
+    [SerializeField] GameObject SearchResultBox;  
+
+    /// <summary>
+    /// Web Pages
+    /// </summary>
 
     public void OpenWebPage(GameObject WebPage)
     {
         Debug.Log("Opening Web Page: " + WebPage.name);
 
-        WebPage.transform.localPosition = WebPageClosedPosition;
+        WebPage.transform.position = webPageClosedPosition.position;
         WebPage.gameObject.SetActive(true);
 
-        WebPage.transform.DOLocalMove(WebPageOpenedPosition, WebPageTransitionTime).SetEase(Ease.OutCubic)
+        WebPage.transform.DOMove(webPageOpenedPosition.position, transitionTime).SetEase(Ease.OutCubic)
         .OnComplete(() =>
         {
-            this.gameObject.SetActive(false);
+            //this.gameObject.SetActive(false);
         });
     }
 
@@ -27,44 +39,40 @@ public class App_Webb : MonoBehaviour
 
         BrowserMainPage.gameObject.SetActive(true);
 
-        transform.DOLocalMove(WebPageClosedPosition, WebPageTransitionTime).SetEase(Ease.OutCubic)
+        transform.DOMove(webPageClosedPosition.position, transitionTime).SetEase(Ease.OutCubic)
         .OnComplete(() =>
         {
             //this.gameObject.SetActive(false);
         });
     }
 
-
-
-    Vector3 SearchBoxClosedPosition = new Vector3(0, 250, 0);
-    Vector3 SearchBoxOpenedPosition = new Vector3(0, -210, 0);
-    float SearchBoxTransitionTime = 0.5f;
-
-    [SerializeField] GameObject SearchResultBox;
+    /// <summary>
+    /// Search Box
+    /// </summary>
 
     public void ShowSearchSuggestions(GameObject searchBox)
     {
         Debug.Log("Showing Search Suggestions...");
         SearchResultBox = searchBox;
-        SearchBoxClosedPosition = SearchResultBox.transform.localPosition;
+        searchBoxClosedPosition = SearchResultBox.transform;
         SearchResultBox.SetActive(true);
         
-        SearchResultBox.transform.DOLocalMove(SearchBoxOpenedPosition, SearchBoxTransitionTime).SetEase(Ease.OutCubic);
+        SearchResultBox.transform.DOMove(searchBoxOpenedPosition.position, transitionTime).SetEase(Ease.OutCubic);
     }
 
     public void SelectSearchResult(GameObject searchResult)
     {
         Debug.Log("Hiding Search Suggestions...");
-        SearchResultBox.transform.DOLocalMove(SearchBoxClosedPosition, SearchBoxTransitionTime).SetEase(Ease.OutCubic)
+        SearchResultBox.transform.DOMove(searchBoxClosedPosition.position, transitionTime).SetEase(Ease.OutCubic)
         .OnComplete(() =>
         {
             SearchResultBox.SetActive(false);
         });
 
-        searchResult.transform.localPosition = WebPageClosedPosition;
+        searchResult.transform.localPosition = webPageClosedPosition.position;
         searchResult.gameObject.SetActive(true);
 
-        searchResult.transform.DOLocalMove(WebPageOpenedPosition, WebPageTransitionTime).SetEase(Ease.OutCubic);
+        searchResult.transform.DOLocalMove(webPageOpenedPosition.position, transitionTime).SetEase(Ease.OutCubic);
     }
 
 
