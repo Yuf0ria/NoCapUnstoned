@@ -3,21 +3,37 @@ using DG.Tweening;
 
 public class App_Postmail : MonoBehaviour
 {
-    Vector3 MailClosedPosition = new Vector3(1250, -175, 0);
-    Vector3 MailOpenedPosition = new Vector3(0, -175, 0);
-    float MailTransitionTime = 0.5f;
+    [Header("Mail")]
+    [SerializeField] private Transform MailClosedPosition; //= new Vector3(1250, -175, 0);
+    [SerializeField] private Transform MailOpenedPosition; //= new Vector3(0, -175, 0);
+
+    [Header("Reply Box")]
+    [SerializeField] private Transform ReplyBoxHidePosition; //To hide the reply box - Nicaia
+    [SerializeField] private Transform ReplyBoxClosedPosition; //= new Vector3(0, -1275, 0);
+    [SerializeField] private Transform ReplyBoxOpenedPosition; //= new Vector3(0, -450, 0);
+
+    float TransitionTime = 0.5f; //Both has the same time transitions so...
+
+    [SerializeField] GameObject ReplyBox;
+
+    /// <summary>
+    /// Mail Thread Page
+    /// </summary>
 
     public void OpenMailThread(GameObject MailThreadPage)
     {
         Debug.Log("Opening Mail Thread: " + MailThreadPage.name);
 
-        MailThreadPage.transform.localPosition = MailClosedPosition;
+        MailThreadPage.transform.position = MailClosedPosition.position;
         MailThreadPage.gameObject.SetActive(true);
 
-        this.gameObject.SetActive(false);
+        //this.gameObject.SetActive(false); //Disabled this as it feels off setting the prev page inactive as the other goes in. - Nicaia
 
-        MailThreadPage.transform.DOLocalMove(MailOpenedPosition, MailTransitionTime).SetEase(Ease.OutCubic);
+        MailThreadPage.transform.DOMove(MailOpenedPosition.position, TransitionTime).SetEase(Ease.OutCubic);
+        ReplyBox.transform.DOMove(ReplyBoxClosedPosition.position, TransitionTime).SetEase(Ease.OutCubic); //Fancy appearing of reply box - Nicaia
     }
+
+    //I replaced the DOLocalMove to DOMove. I spent 3 hours figuring out what was going wrong. :P
 
     public void ReturnToInbox(GameObject InboxPage)
     {
@@ -25,7 +41,8 @@ public class App_Postmail : MonoBehaviour
 
         InboxPage.gameObject.SetActive(true);
 
-        transform.DOLocalMove(MailClosedPosition, MailTransitionTime).SetEase(Ease.OutCubic)
+        ReplyBox.transform.DOMove(ReplyBoxHidePosition.position, TransitionTime).SetEase(Ease.OutCubic); //Fancy hiding of reply box - Nicaia
+        transform.DOMove(MailClosedPosition.position, TransitionTime).SetEase(Ease.OutCubic)
         .OnComplete(() =>
         {
             this.gameObject.SetActive(false);
@@ -37,24 +54,24 @@ public class App_Postmail : MonoBehaviour
     // - Send makes a copy of the Reponse Game Object and adds it to the Scroll View
     // - .
 
-    Vector3 ReplyBoxClosedPosition = new Vector3(0, -1275, 0);
-    Vector3 ReplyBoxOpenedPosition = new Vector3(0, -450, 0);
-    float ReplyBoxTransitionTime = 0.5f;
-
-    [SerializeField] GameObject ReplyBox;
+    /// <summary>
+    /// ReplyBox
+    /// </summary>
 
     public void ShowReplyOptions(GameObject replyBox)
     {
         Debug.Log("Showing Reply Options...");
         ReplyBox = replyBox;
-        ReplyBoxClosedPosition = ReplyBox.transform.localPosition;
-        ReplyBox.transform.DOLocalMove(ReplyBoxOpenedPosition, ReplyBoxTransitionTime).SetEase(Ease.OutCubic);
+        ReplyBox.transform.position = ReplyBoxClosedPosition.transform.position;
+        ReplyBox.transform.DOMove(ReplyBoxOpenedPosition.position, TransitionTime).SetEase(Ease.OutCubic);
     }
 
-    public void SelectReply(GameObject Reply)
+    public void SelectReply(GameObject replyBox) //Hey, why the fuck does this one not work. bruh
     {
         Debug.Log("Hiding Reply Options...");
-        ReplyBox.transform.DOLocalMove(ReplyBoxClosedPosition, ReplyBoxTransitionTime).SetEase(Ease.OutCubic);
+        ReplyBox = replyBox;
+        ReplyBox.transform.position = ReplyBoxOpenedPosition.transform.position; //EDIT: I FIXED IT
+        ReplyBox.transform.DOMove(ReplyBoxClosedPosition.position, TransitionTime).SetEase(Ease.OutCubic);
     }
 
     public void SendReply(GameObject Reply)
