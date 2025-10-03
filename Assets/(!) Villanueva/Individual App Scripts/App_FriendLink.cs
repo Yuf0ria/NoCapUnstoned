@@ -1,6 +1,5 @@
 using DG.Tweening;
 using UnityEngine;
-//using static System.TimeZoneInfo; HEY WHAT THE FUCK IS THIS?!
 
 public class App_FriendLink : MonoBehaviour
 {
