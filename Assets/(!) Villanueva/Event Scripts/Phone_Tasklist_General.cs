@@ -36,6 +36,8 @@ public class Phone_Tasklist_General : MonoBehaviour
         {
             Debug.Log("Task #" + taskNum + " is Complete!");
             taskIsComplete[taskNum - 1] = true;
+
+            Event_Manager.Run_Event();
         }
 
         else return; //Debug.Log("This task is not unlocked yet.");
