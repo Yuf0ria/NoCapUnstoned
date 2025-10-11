@@ -1,6 +1,5 @@
 using UnityEngine;
 using DG.Tweening;
-using System.Collections.Generic;
 
 public class Phone_ExitBtn : MonoBehaviour
 {

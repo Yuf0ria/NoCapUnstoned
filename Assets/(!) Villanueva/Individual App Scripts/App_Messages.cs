@@ -1,5 +1,6 @@
 using UnityEngine;
 using DG.Tweening;
+using UnityEngine.UI;
 
 public class App_Messages : MonoBehaviour
 {
@@ -15,6 +16,8 @@ public class App_Messages : MonoBehaviour
     float TransitionTime = 0.5f;
 
     [SerializeField] GameObject ReplyBox;
+    //[SerializeField] Button ReplyOpenBox;
+    //[SerializeField] private bool disableReplyBox;
 
     /// <summary>
     /// Mail Thread Page
@@ -31,6 +34,14 @@ public class App_Messages : MonoBehaviour
 
         messageThreadPage.transform.DOMove(messageOpenedPosition.position, TransitionTime).SetEase(Ease.OutCubic);
         ReplyBox.transform.DOMove(ReplyBoxClosedPosition.position, TransitionTime).SetEase(Ease.OutCubic); //Fancy appearing of reply box - Nicaia
+
+        //if (disableReplyBox) 
+        //{
+        //    ReplyOpenBox.interactable = false;
+        //} else 
+        //{ 
+        //    ReplyOpenBox.interactable = true;
+        //}
     }
 
     //I replaced the DOLocalMove to DOMove. I spent 3 hours figuring out what was going wrong. :P
@@ -47,6 +58,8 @@ public class App_Messages : MonoBehaviour
         {
             this.gameObject.SetActive(false);
         });
+
+        //ReplyOpenBox.interactable = true;
     }
 
     /// <summary>

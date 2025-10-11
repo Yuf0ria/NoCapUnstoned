@@ -1,7 +1,5 @@
 using UnityEngine;
 using DG.Tweening;
-using TMPro;
-using Unity.VisualScripting;
 
 public class App_Pages : MonoBehaviour
 {
