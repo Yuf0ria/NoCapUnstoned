@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<notes_app>
+<note>
+  <title>New Class Schedule</title>
+  <description>Inside are the Eduva Links to Class</description>
+  
+  <body>PUT THE REAL EDUVA LINKS HERE</body>
+</note>
+<note>
+<title>Notes for Quiz in Graph Theory</title>
+  <description>REVIEW BEFORE EXAM!</description>
+  
+  <body>
+    Graphs contain, Edges and Vertices.
+    The number of edges connected to a vertice determines the degree of the vertex.
+  </body>
+</note>
+</notes_app>
+
+<gameover>
+</gameover>

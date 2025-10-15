@@ -4,8 +4,7 @@ using UnityEngine;
 
 public class Phone_Tasklist_General : MonoBehaviour
 {
-    //This would be more efficient as a List of Bool instead of individual Bool
-    //Fix later
+    [SerializeField] Event_Manager events;
 
     public static List<bool> taskIsComplete = new List<bool>();
     void CheckCompletion()
@@ -36,7 +35,7 @@ public class Phone_Tasklist_General : MonoBehaviour
             Debug.Log("Task #" + taskNum + " is Complete!");
             taskIsComplete[taskNum - 1] = true;
 
-            Event_Manager.Run_Event();
+            events.Run_Event();
         }
 
         else return; //Debug.Log("This task is not unlocked yet.");
