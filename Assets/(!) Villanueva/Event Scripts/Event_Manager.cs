@@ -1,10 +1,22 @@
+using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
+using DG.Tweening;
 
 public class Event_Manager : MonoBehaviour
 {
+    // Notification Objects
+    [SerializeField] RectTransform Notif_Rect;
+    [SerializeField] GameObject Notif_Icon;
+    [SerializeField] GameObject Notif_Name;
+    [SerializeField] GameObject Notif_Desc;
+    [SerializeField] Sprite[] Icons;
 
-    static int RandomVal1;
-    static int RandomVal2;
+    // =========================================================== Caia, I hard coded these two values. You might need to adjust this
+    Vector3 Notif_HideTransform;
+    Vector3 Notif_ShowTransform;
+    float TransitionTime = 1;
+    float ShowTime = 3;
 
 
     // Number of Events per category
@@ -12,18 +24,37 @@ public class Event_Manager : MonoBehaviour
     static int numOfRare;
     static int numOfRandom;
 
-    public static void Run_Event()
+    void Start()
     {
-        Debug.Log("Running Event Method");
+        Notif_HideTransform = new Vector3(0, 1100, 0);
+        Notif_ShowTransform = new Vector3(0, 845, 0);
 
-        RandomVal1 = Random.Range(0, 99);
+        Notif_Rect.localPosition = Notif_HideTransform;
+    }
+    
+    void New_Notification(int icon_num, string name, string desc)
+    {
+        Notif_Icon.GetComponent<Image>().sprite = Icons[icon_num];
+        Notif_Name.GetComponent<TextMeshProUGUI>().text = name;
+        Notif_Desc.GetComponent<TextMeshProUGUI>().text = desc;
 
-        //Common Events
-        if (RandomVal1 % 3 == 0) // Check if the remainder is 0, which is true about 1/3 of the time
+        Notif_Rect.transform.DOLocalMove(Notif_ShowTransform, TransitionTime)
+        .OnComplete(() =>
         {
-            RandomVal2 = Random.Range(0, numOfCommon - 1);
+            Notif_Rect.transform.DOLocalMove(Notif_ShowTransform, ShowTime)
+            .OnComplete(() =>
+            {
+                Notif_Rect.transform.DOLocalMove(Notif_HideTransform, TransitionTime);
+            });
+        });
+    }
 
-            switch (RandomVal2)
+    public void Run_Event()
+    {
+        //Common Events
+        if (Random.Range(0, 99) % 3 == 0) // Check if the remainder is 0, which is true about 1/3 of the time
+        {
+            switch (Random.Range(0, numOfCommon - 1))
             {
                 case 1:
                     Common_Phishing_Postmail();
@@ -49,38 +80,49 @@ public class Event_Manager : MonoBehaviour
         }
 
         //Rare Events
-        if (RandomVal1 % 10 == 0) // Check if the remainder is 0, which is true about 1/10 of the time
+        if (Random.Range(0, 99) % 10 == 0) // Check if the remainder is 0, which is true about 1/10 of the time
         {
 
         }
 
-        Debug.Log(RandomVal1 + " : " + RandomVal2);
-
     }
 
-    static void Common_Real_Postmail()
+    void Common_Real_Postmail()
     {
-        Debug.Log("You recieve a real email! :)");
+        //Debug.Log("You recieve a real email! :)");
+
+
+        New_Notification(0, "Postmail", "You have a new Postmail! :D"); // Need Varying versions of postmails
     }
 
-    static void Common_Phishing_Postmail()
+    void Common_Phishing_Postmail()
     {
-        Debug.Log("You recieve a phishing email! :(");
+        //Debug.Log("You recieve a phishing email! :(");
+
+
+        New_Notification(0, "Postmail", "You recieve a phishing email! :(");
     }
 
-    static void Common_Fake_Friendlink()
+    void Common_Fake_Friendlink()
     {
-        Debug.Log("A phished account posted on Friendlink.");
+        //Debug.Log("A phished account posted on Friendlink.");
+
+
+        New_Notification(0, "Postmail", "A phished account posted on Friendlink.");
     }
 
-    static void Common_Spam_Postmail()
+    void Common_Spam_Postmail()
     {
-        Debug.Log("You received SPAM."); //These are more SPAM than Phishing
+        //Debug.Log("You received SPAM."); //These are more SPAM than Phishing
+
+        New_Notification(0, "Postmail", "You received SPAM.");
     }
 
-    static void Common_Fake_Message()
+    void Common_Fake_Message()
     {
-        Debug.Log("A phished account sent a Message.");
+        //Debug.Log("A phished account sent a Message.");
+
+        New_Notification(0, "Postmail", "A phished account sent a Message.");
     }
 
 
