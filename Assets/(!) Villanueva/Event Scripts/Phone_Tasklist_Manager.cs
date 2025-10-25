@@ -1,8 +1,14 @@
+using TMPro;
 using UnityEngine;
+using System.Collections.Generic;
+
 
 public class Phone_Tasklist_Manager : MonoBehaviour
 {
     //PUT INTO GAMEOBJECT TASKLIST MANAGER
+    [SerializeField] TextMeshProUGUI Task1;
+    [SerializeField] TextMeshProUGUI Task2;
+    [SerializeField] TextMeshProUGUI Task3;
 
     public static int currLevel;
     //This value is modified specifically by the Level/Scene Manager
@@ -10,7 +16,8 @@ public class Phone_Tasklist_Manager : MonoBehaviour
     int currNumOfTasks = 0; // Number of tasks for the current tasklist
     public static int tasklist; // What tasklist we're on.
 
-
+    public static Dictionary<int, int> taskID_taskDisplay = new Dictionary<int, int>();
+     
     //This is to change which tasklist is currently active
     void Start()
     {
@@ -31,20 +38,28 @@ public class Phone_Tasklist_Manager : MonoBehaviour
         switch (tasklist)
         {
             case 1:
-                Debug.Log("Displaying Tasklist 1 of Level 1");
-                Debug.Log("(1) Please open the most recent email in Postmail");
-                Debug.Log("(2) Open Gallery");
-                Debug.Log("(3) Open Settings");
+
+                Task1.text = "Please open the most recent mail in Postmail";
+                Task2.text = "Open Gallery";
+                Task3.text = "Open Settings";
+
+                taskID_taskDisplay.Add(1, 1);
+                taskID_taskDisplay.Add(2, 2);
+                taskID_taskDisplay.Add(3, 3);
 
                 currNumOfTasks = 3;
                 break;
 
             case 2:
-                // << Insert Event or Cutscene Void/Method befor the Tasks are "Displayed"
 
-                Debug.Log("Displaying Tasklist 2 of Level 1");
-                Debug.Log("(4) Look at the Shrek Picture");
-                currNumOfTasks = 1;
+                Task1.text = "Place an Order in Order Corner";
+                Task2.text = "View your Eduva Quiz";
+                Task3.text = "";
+
+                taskID_taskDisplay.Add(4, 1);
+                taskID_taskDisplay.Add(5, 2);
+
+                currNumOfTasks = 2;
                 break;
 
             default:

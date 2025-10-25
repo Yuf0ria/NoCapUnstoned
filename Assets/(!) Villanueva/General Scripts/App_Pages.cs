@@ -4,9 +4,21 @@ using DG.Tweening;
 public class App_Pages : MonoBehaviour
 {
     public static Vector3 BackBtnPage_ClosedPosition;
-    [SerializeField] Vector3 Page_ClosedPosition = new Vector3(0, -2500, 0);
+
+    [SerializeField] bool isStartingPage;
+    [SerializeField] private Transform Page_ClosedPosition; //= new Vector3(1250, -175, 0);
+    [SerializeField] private Transform Page_OpenedPosition; //= new Vector3(0, -175, 0);
     [SerializeField] float TransitionTime = 0.5f;
 
+    void Start()
+    {
+        if (!isStartingPage)
+        {
+            this.gameObject.transform.position = Page_ClosedPosition.position;
+            this.gameObject.SetActive(false);
+        }
+
+    }
 
     public static GameObject Curr_Page;
     public static GameObject BackBtn_PrevPage;
@@ -16,14 +28,14 @@ public class App_Pages : MonoBehaviour
         Curr_Page = Next_Page.gameObject;
         BackBtn_PrevPage = this.gameObject;
 
-        BackBtnPage_ClosedPosition = Page_ClosedPosition;
+        BackBtnPage_ClosedPosition = Page_ClosedPosition.position;
 
-        Next_Page.transform.localPosition = Page_ClosedPosition;
+        Next_Page.transform.localPosition = Page_ClosedPosition.position;
         Next_Page.gameObject.SetActive(true);
 
         this.gameObject.SetActive(false);
 
-        Next_Page.transform.DOLocalMove(Vector3.zero, TransitionTime).SetEase(Ease.OutCubic);
+        Next_Page.transform.DOMove(Page_OpenedPosition.position, TransitionTime).SetEase(Ease.OutCubic);
     }
 
     public void PrevPage()
@@ -32,7 +44,7 @@ public class App_Pages : MonoBehaviour
         
         Prev_Page.gameObject.SetActive(true);
 
-        transform.DOLocalMove(Page_ClosedPosition, TransitionTime).SetEase(Ease.OutCubic)
+        transform.DOMove(Page_ClosedPosition.position, TransitionTime).SetEase(Ease.OutCubic)
         .OnComplete(() =>
         {
             this.gameObject.SetActive(false);
