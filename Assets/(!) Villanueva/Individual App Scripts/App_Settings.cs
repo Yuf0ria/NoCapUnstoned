@@ -5,21 +5,21 @@ using TMPro;
 public class App_Settings : MonoBehaviour
 {
 
- //   [SerializeField] private Transform ClosedPosition; //= new Vector3(1250, -175, 0);
-//    [SerializeField] private Transform OpenedPosition; //= new Vector3(0, -175, 0);
- //   float TransitionTime = 0.5f;
+    //[SerializeField] private Transform ClosedPosition; //= new Vector3(1250, -175, 0);
+    //[SerializeField] private Transform OpenedPosition; //= new Vector3(0, -175, 0);
+    //float TransitionTime = 0.5f;
 
     /*
     public void OpenSettingsCategory(GameObject SettingsCategoryPage)
     {
         Debug.Log("Opening Settings Category: " + SettingsCategoryPage.name);
 
-        SettingsCategoryPage.transform.position = orderCornerClosedPosition.position;
+        SettingsCategoryPage.transform.position = ClosedPosition.position;
         SettingsCategoryPage.gameObject.SetActive(true);
 
         //this.gameObject.SetActive(false);
 
-        SettingsCategoryPage.transform.DOMove(orderCornerOpenedPosition.position, TransitionTime).SetEase(Ease.OutCubic);
+        SettingsCategoryPage.transform.DOMove(OpenedPosition.position, TransitionTime).SetEase(Ease.OutCubic);
     }
 
     public void ReturnToSettingsMain(GameObject SettingsMainPage)
@@ -28,7 +28,7 @@ public class App_Settings : MonoBehaviour
 
         SettingsMainPage.gameObject.SetActive(true);
 
-        transform.DOMove(orderCornerClosedPosition.position, TransitionTime).SetEase(Ease.OutCubic)
+        transform.DOMove(ClosedPosition.position, TransitionTime).SetEase(Ease.OutCubic)
         .OnComplete(() =>
         {
             //this.gameObject.SetActive(false);

@@ -42,7 +42,7 @@ public class Phone_Tasklist_General : MonoBehaviour
     {
         if (taskNum <= taskIsComplete.Count)
         {
-            Debug.Log("Task #" + taskNum + " is Complete!");
+            //Debug.Log("Task #" + taskNum + " is Complete!");
             taskIsComplete[taskNum - 1] = true;
 
             int dispNum = Phone_Tasklist_Manager.taskID_taskDisplay[taskNum];

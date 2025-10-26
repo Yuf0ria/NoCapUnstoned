@@ -2,15 +2,14 @@ using UnityEngine;
 
 public class Phone_Statistics : MonoBehaviour
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
-        
-    }
+    public static bool isWifiConnected;
+    public static bool isSecurityUpDate;
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+
+
+    public static bool isVulnerable;
+    public static bool isCompromised;
+
+    public static int numLowSeverity;
+    public static int numHighSeverity;
 }
