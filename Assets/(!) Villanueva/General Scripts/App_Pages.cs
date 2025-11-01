@@ -1,6 +1,7 @@
 using UnityEngine;
 using DG.Tweening;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 
 
 public class App_Pages : MonoBehaviour
@@ -9,8 +10,12 @@ public class App_Pages : MonoBehaviour
     public static Vector3 BackBtnPage_OpenedPosition;
 
     [SerializeField] bool isStartingPage;
+    [SerializeField] bool inheritParentTransform;
+
+    [SerializeField] private float phoneTopOffset = -1251.3f;
+    [SerializeField] private float headerTopOffset = -430f;
+    [SerializeField] private float pivotOffset = 0.5f;
     [SerializeField] private Transform CurrPage_ClosedPosition; //= new Vector3(1250, -175, 0);
-    [SerializeField] private Transform CurrPage_OpenedPosition; //= new Vector3(0, -175, 0);
     [SerializeField] private Transform NextPage_ClosedPosition; //= new Vector3(0, -175, 0);
     [SerializeField] private Transform NextPage_OpenedPosition; //= new Vector3(0, -175, 0);
     [SerializeField] float TransitionTime = 0.5f;
@@ -23,6 +28,21 @@ public class App_Pages : MonoBehaviour
             this.gameObject.SetActive(false);
         }
 
+    }
+
+    void Update()
+    {
+        if(this.isActiveAndEnabled && inheritParentTransform) //This is to center certain "Page Children" onto their Parents
+        {
+            
+            RectTransform childRect = GetComponent<RectTransform>();
+
+            childRect.offsetMin = new Vector2(0, phoneTopOffset);
+            childRect.offsetMax = new Vector2(0, phoneTopOffset + headerTopOffset);
+            childRect.pivot = new Vector2(0.5f, pivotOffset);
+            childRect.anchoredPosition = Vector2.zero;
+            
+        }
     }
 
     public static GameObject Curr_Page;
@@ -38,7 +58,7 @@ public class App_Pages : MonoBehaviour
         Debug.Log("Added " + BackBtn_PrevPage.name + " to history.");
 
         BackBtnPage_ClosedPosition = NextPage_ClosedPosition.position;
-        BackBtnPage_OpenedPosition = CurrPage_OpenedPosition.position;
+        BackBtnPage_OpenedPosition = this.gameObject.transform.position;
 
         Next_Page.transform.position = NextPage_ClosedPosition.position;
         Next_Page.gameObject.SetActive(true);
