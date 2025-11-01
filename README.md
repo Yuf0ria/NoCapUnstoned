@@ -1,3 +1,5 @@
-- Validation is necessary before Committing to main
-- Name format for branches: Name_Ver_no._a
-- before committing to branch add details of what has been added. Thank you!
+# Documentation:
+##  VER 0.0 (Date)
+    Publishing Github - Dani
+    Branch Created - Aundee
+##  VER 1.0 
