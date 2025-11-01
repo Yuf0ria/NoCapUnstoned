@@ -1,10 +1,15 @@
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 
 public class Phone_Tasklist_General : MonoBehaviour
 {
     [SerializeField] Event_Manager events;
+
+    [SerializeField] TextMeshProUGUI Task1;
+    [SerializeField] TextMeshProUGUI Task2;
+    [SerializeField] TextMeshProUGUI Task3;
 
     public static List<bool> taskIsComplete = new List<bool>();
     void CheckCompletion()
@@ -21,6 +26,11 @@ public class Phone_Tasklist_General : MonoBehaviour
             //Debug.Log("ALL TASKS COMPLETE!!! Moving to next tasklist...");
             Phone_Tasklist_Manager.tasklist++;
 
+            Task1.fontStyle = FontStyles.Normal;
+            Task2.fontStyle = FontStyles.Normal;
+            Task3.fontStyle = FontStyles.Normal;
+
+
             this.GetComponent<Phone_Tasklist_Manager>().Level(); // << Error Occuring Here
         }
 
@@ -32,8 +42,25 @@ public class Phone_Tasklist_General : MonoBehaviour
     {
         if (taskNum <= taskIsComplete.Count)
         {
-            Debug.Log("Task #" + taskNum + " is Complete!");
+            //Debug.Log("Task #" + taskNum + " is Complete!");
             taskIsComplete[taskNum - 1] = true;
+
+            int dispNum = Phone_Tasklist_Manager.taskID_taskDisplay[taskNum];
+
+            switch(dispNum)
+            {
+                case 1:
+                    Task1.fontStyle = FontStyles.Strikethrough;
+                    break;
+
+                case 2:
+                    Task2.fontStyle = FontStyles.Strikethrough;
+                    break;
+
+                default: 
+                    Task3.fontStyle = FontStyles.Strikethrough;
+                    break;
+            }
 
             events.Run_Event();
         }

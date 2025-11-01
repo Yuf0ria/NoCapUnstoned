@@ -30,7 +30,7 @@ public class App_Basic : MonoBehaviour
 
     public void OpenApp()
     {
-        Debug.Log("Opening " + this.gameObject.name + "...");
+        //Debug.Log("Opening " + this.gameObject.name + "...");
 
         OpenedPoint = Position.transform.position; //Hey, update again, this works too. (Updates the position everytime the app is opened)
 
