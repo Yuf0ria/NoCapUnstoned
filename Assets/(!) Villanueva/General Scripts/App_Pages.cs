@@ -49,20 +49,7 @@ public class App_Pages : MonoBehaviour
     }
 
     public void PrevPage()
-    {/*
-        Curr_Page = Prev_Page;
-
-        
-        Prev_Page.gameObject.SetActive(true);
-        Prev_Page.transform.SetAsLastSibling();
-
-        transform.DOMove(CurrPage_ClosedPosition.position, TransitionTime).SetEase(Ease.OutCubic)
-        .OnComplete(() =>
-        {
-            this.gameObject.SetActive(false);
-        });
-        */
-
+    {
         if (Page_History.Count > 0)
         {
             GameObject PreviousPage = Page_History.Pop();

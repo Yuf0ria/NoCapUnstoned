@@ -27,6 +27,7 @@ public class App_FriendLink : MonoBehaviour
     /// FriendLink Pages
     /// </summary>
 
+    /*
     public void OpenFriendlinkPage(GameObject friendlinkPage)
     {
         Debug.Log("Opening Friendlink Page: " + friendlinkPage.name);
@@ -62,6 +63,7 @@ public class App_FriendLink : MonoBehaviour
 
         activepage = null;
     }
+    */
 
     public void OpenFriendlinkMessage(GameObject friendlinkMessage) //WHEN OPENING A MESSAGE BTW
     {
