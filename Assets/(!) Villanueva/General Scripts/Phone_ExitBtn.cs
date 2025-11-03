@@ -15,7 +15,8 @@ public class Phone_ExitBtn : MonoBehaviour
         CurrentApp.transform.DOScale(Vector3.zero, TransitionTime).SetEase(Ease.OutCubic)
         .OnComplete(() =>
         {
-                CurrentApp.gameObject.SetActive(false);
+                //CurrentApp.gameObject.SetActive(false);
+                //Had to disable this cause it won't active the notifs everytime a new task is made
         });
         
     }

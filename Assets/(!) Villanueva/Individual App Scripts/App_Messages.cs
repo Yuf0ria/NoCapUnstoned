@@ -56,7 +56,7 @@ public class App_Messages : MonoBehaviour
         transform.DOMove(messageClosedPosition.position, TransitionTime).SetEase(Ease.OutCubic)
         .OnComplete(() =>
         {
-            this.gameObject.SetActive(false);
+            //this.gameObject.SetActive(false);
         });
 
         //ReplyOpenBox.interactable = true;

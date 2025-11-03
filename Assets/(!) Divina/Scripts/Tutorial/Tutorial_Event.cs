@@ -6,6 +6,13 @@ using System;
 using System.Collections;
 //Weird way to format it like this, I know. - Nicaia
 
+/* 1.11.2025 update:
+ * HEY READ THE READFIRST.CS SCRIPT INSIDE THE SAME
+ * FOLDER AS THIS ONE BEFORE YOU DO ANYTHING THANKS <3
+ * 
+ * DO NOT DO ANYTHING DRASTIC HERE
+ */
+
 //How the hell do you do this thing???
 [Serializable]
 public struct tutorialProgression
@@ -13,13 +20,10 @@ public struct tutorialProgression
     [Header("GameObjects")]
     [SerializeField] private GameObject[] toSetTrue;
     [SerializeField] private GameObject[] toSetFalse;
-    [SerializeField] public Button[] activeProgression; //For other voids to access
-    //Task List[] and Messaging Inbox may be possible to do at to set true/false or some shit.
-    
+    [SerializeField] public Button[] activeProgression; //For other voids to access    
 
     [Header("Story/Dialogue")]
     [SerializeField] public string dialogue;
-
 
     public void change(tutorialProgression tp, TextMeshProUGUI text)
     {
@@ -28,11 +32,8 @@ public struct tutorialProgression
         foreach (var setFalse in toSetFalse)
         { setFalse.SetActive(false); }
         if (text != null)
-        {
-            text.text = string.Empty;            
-        }
+        { text.text = string.Empty; }
     }
-
 } //IVE BEEN LOOKING FOR TS FOR SO LONG BRUUHHHHH.
 
 public class Tutorial_Event : MonoBehaviour
@@ -42,7 +43,6 @@ public class Tutorial_Event : MonoBehaviour
 
     [Header("Progression")]
     [SerializeField] public int progression; //Current Progression
-    //[SerializeField] private int previousProgression = -1; //Previous Progression
     [SerializeField] private List<tutorialProgression> tp; //The list :3
 
     private bool isTyping = false;
@@ -125,10 +125,32 @@ public class Tutorial_Event : MonoBehaviour
     IEnumerator TypeLine() //Animation :3
     {
         isTyping = true;
-        foreach (char c in tp[progression].dialogue.ToCharArray())
+        string dialogue = tp[progression].dialogue;
+        int i = 0;
+        while (i < dialogue.Length)
         {
-            text.text += c;
-            yield return new WaitForSeconds(0.02f); //0.02f is just right
+            if (dialogue[i] == '<') //This is to hide the <color> thing
+            {
+                int closeIndex = dialogue.IndexOf('>', i); //End
+                if (closeIndex != -1)
+                {
+                    text.text += dialogue.Substring(i, closeIndex - i + 1);
+                    i = closeIndex + 1;
+                }
+                else
+                {
+                    //The animation part that actually shows
+                    text.text += dialogue[i];
+                    i++;
+                    yield return new WaitForSeconds(0.02f);
+                }
+            }
+            else
+            {
+                text.text += dialogue[i];
+                i++;
+                yield return new WaitForSeconds(0.02f);
+            }
         }
         isTyping = false;
     }
