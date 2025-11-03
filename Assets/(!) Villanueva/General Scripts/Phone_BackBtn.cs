@@ -1,5 +1,7 @@
 using UnityEngine;
 using DG.Tweening;
+using Unity.VisualScripting;
+using UnityEngine.UI;
 
 public class Phone_BackBtn : MonoBehaviour
 {
@@ -12,7 +14,7 @@ public class Phone_BackBtn : MonoBehaviour
             Vector3 ClosedPoint = App_Pages.BackBtnPage_ClosedPosition;
             Vector3 OpenedPoint = App_Pages.BackBtnPage_OpenedPosition;
             float TransitionTime = 0.5f;
-        
+
             Debug.Log(PreviousPage.name);
             PreviousPage.gameObject.SetActive(true);
             PreviousPage.transform.DOMove(OpenedPoint, TransitionTime).SetEase(Ease.OutCubic);
@@ -21,11 +23,16 @@ public class Phone_BackBtn : MonoBehaviour
             CurrentPage.transform.DOMove(ClosedPoint, TransitionTime).SetEase(Ease.OutCubic)
             .OnComplete(() =>
             {
-                CurrentPage.gameObject.SetActive(false); 
+                CurrentPage.gameObject.SetActive(false);
                 //PreviousPage.transform.SetAsFirstSibling();
                 App_Pages.Curr_Page = PreviousPage;
             });
         }
-        
+
+    }
+
+    public void PhoneBackButtonActivity()
+    {
+        this.gameObject.GetComponent<Button>().interactable = Phone_Statistics.disablePhoneBackButton;
     }
 }

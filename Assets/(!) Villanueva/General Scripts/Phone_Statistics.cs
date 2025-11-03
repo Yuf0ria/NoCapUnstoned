@@ -6,6 +6,7 @@ public class Phone_Statistics : MonoBehaviour
     public static bool isSecurityUpDate;
 
 
+    public static bool disablePhoneBackButton;
 
     public static bool isVulnerable;
     public static bool isCompromised;
