@@ -9,8 +9,10 @@ public class App_Pages : MonoBehaviour
     public static Vector3 BackBtnPage_ClosedPosition;
     public static Vector3 BackBtnPage_OpenedPosition;
 
-    [SerializeField] bool isStartingPage;
-    [SerializeField] bool inheritParentTransform;
+    [SerializeField] private bool isStartingPage;
+    [SerializeField] private bool inheritParentTransform;
+
+    [SerializeField] private bool disablePhoneBackButton;
 
     [SerializeField] private float phoneTopOffset = -1251.3f;
     [SerializeField] private float headerTopOffset = -430f;
@@ -66,6 +68,8 @@ public class App_Pages : MonoBehaviour
         this.gameObject.SetActive(false);
 
         Next_Page.transform.DOMove(NextPage_OpenedPosition.position, TransitionTime).SetEase(Ease.OutCubic);
+
+        Phone_Statistics.disablePhoneBackButton = disablePhoneBackButton;
     }
 
     public void PrevPage()
@@ -77,7 +81,7 @@ public class App_Pages : MonoBehaviour
             Vector3 ClosedPoint = BackBtnPage_ClosedPosition;
             Vector3 OpenedPoint = BackBtnPage_OpenedPosition;
             float TransitionTime = 0.5f;
-        
+
             Debug.Log(PreviousPage.name);
             PreviousPage.gameObject.SetActive(true);
             PreviousPage.transform.DOMove(OpenedPoint, TransitionTime).SetEase(Ease.OutCubic);
@@ -86,7 +90,7 @@ public class App_Pages : MonoBehaviour
             CurrentPage.transform.DOMove(ClosedPoint, TransitionTime).SetEase(Ease.OutCubic)
             .OnComplete(() =>
             {
-                CurrentPage.gameObject.SetActive(false); 
+                CurrentPage.gameObject.SetActive(false);
                 //PreviousPage.transform.SetAsFirstSibling();
                 Curr_Page = PreviousPage;
             });
