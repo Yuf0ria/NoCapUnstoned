@@ -2,46 +2,27 @@ using TMPro;
 using UnityEngine;
 using DG.Tweening;
 
+/*
+ * HEY READ THE READFIRST.CS SCRIPT INSIDE THE SAME
+ * FOLDER AS THIS ONE BEFORE YOU DO ANYTHING THANKS <3
+ */
+
 public class Tutorial_Messages : MonoBehaviour
 {
-
-
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
-    [Header("Second Message")]
-    [SerializeField] private GameObject secondMessage;
-
-    public void secondMessageProgression()
-    {
-        secondMessage.SetActive(true);
-        Tutorial_Event te;
-        te = secondMessage.GetComponent<Tutorial_Event>();
-        te.enabled = true;
-    }
-
-    [Header("Phishing Link")]
+    //WHEN YOU GET PHISHED
+    [Header("Phishing Link")] //Aundee, I ended up doing what you did. //Update 1.11.2025: i wanna do smthing else better than this lol
     [SerializeField] private GameObject notif;
     [SerializeField] private Transform notifHide;
     [SerializeField] private Transform notifShow;
 
-    public void showNotifPhishingLink(Software_Update_Function suf)
+    public void showNotifPhishingLink(Software_Update_Function suf) //When you click on the phishing link that seallie tells you to do. Oopsies.
     {
         suf.hasUpdate = true;
         notif.transform.DOMove(notifShow.position, 0.5f);
     }
 
-    public void hideNotifPhishingLink()
+    public void hideNotifPhishingLink() //The thing Software Update gets when the update is complete
     {
-        notif.transform.DOMove(notifHide.position, 0.5f);
+        notif.transform.DOMove(notifHide.position, 0.5f); //It hides it lol
     }
 }

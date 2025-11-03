@@ -2,6 +2,11 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
+/*
+ * HEY READ THE READFIRST.CS SCRIPT INSIDE THE SAME
+ * FOLDER AS THIS ONE BEFORE YOU DO ANYTHING THANKS <3
+ */
+
 public class Software_Update_Function : MonoBehaviour
 {
     [Header("Event Script")]
@@ -28,7 +33,6 @@ public class Software_Update_Function : MonoBehaviour
     [SerializeField] private bool isDone;
     private float inputProgress;
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         installUpdate.onClick.AddListener(updateSoftware);
@@ -38,7 +42,6 @@ public class Software_Update_Function : MonoBehaviour
         hasUpdate = false;
     }
 
-    // Update is called once per frame
     void Update()
     {
         if (hasUpdate)
@@ -75,38 +78,23 @@ public class Software_Update_Function : MonoBehaviour
             //Text
             softwareUpdateProgress.text = "Update Installed";
             me.hideNotifPhishingLink();
-            //te.progress
+
+            //Progression
             te.progression = 22;
             te.clickProgression();
 
-            //isDone = true;
             isUpdating = false;
         }
-
-        //if (isDone)
-        //{
-            
-        //    isDone = false;
-        //}
     }
 
     private void Updating()
     {
-        if (inputProgress >= 0)
-        {
-            inputProgress -= 0.5f * Time.deltaTime;
-        }        
+        if (inputProgress >= 0) inputProgress -= 0.5f * Time.deltaTime; //Decreases if you stop tapping        
     }
 
     public void updateSoftware()
     {
-        if (!isUpdating)
-        {
-            isUpdating = true;            
-        } 
-        else
-        {
-            inputProgress += 0.5f;
-        }
+        if (!isUpdating) isUpdating = true; //Starting the thing       
+        else inputProgress += 0.5f; //Keep tapping to increase the bar :100:
     }
 }
