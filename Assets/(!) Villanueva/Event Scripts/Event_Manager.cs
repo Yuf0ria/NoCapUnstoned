@@ -2,6 +2,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 using DG.Tweening;
+using System.Collections;
 
 public class Event_Manager : MonoBehaviour
 {
@@ -12,11 +13,11 @@ public class Event_Manager : MonoBehaviour
     [SerializeField] GameObject Notif_Desc;
     [SerializeField] Sprite[] Icons;
 
-    // =========================================================== Caia, I hard coded these two values. You might need to adjust this
     Vector3 Notif_HideTransform;
     Vector3 Notif_ShowTransform;
     float TransitionTime = 1;
     float ShowTime = 3;
+
 
 
     // Number of Events per category
@@ -32,7 +33,7 @@ public class Event_Manager : MonoBehaviour
         Notif_Rect.localPosition = Notif_HideTransform;
     }
     
-    void New_Notification(int icon_num, string name, string desc)
+    public void New_Notification(int icon_num, string name, string desc)
     {
         Notif_Icon.GetComponent<Image>().sprite = Icons[icon_num];
         Notif_Name.GetComponent<TextMeshProUGUI>().text = name;
@@ -57,23 +58,11 @@ public class Event_Manager : MonoBehaviour
             switch (Random.Range(0, numOfCommon - 1))
             {
                 case 1:
-                    Common_Phishing_Postmail();
-                    break;
-
-                case 2:
-                    Common_Fake_Friendlink();
-                    break;
-
-                case 3:
                     Common_Spam_Postmail();
                     break;
 
-                case 4:
-                    Common_Fake_Message();
-                    break;
-
                 default:
-                    Common_Real_Postmail();
+                    Common_DisconnectWiFi();
                     break;
             }
 
@@ -87,45 +76,85 @@ public class Event_Manager : MonoBehaviour
 
     }
 
-    void Common_Real_Postmail()
+    public void Run_SpecificEvent(int eventID)
     {
-        //Debug.Log("You recieve a real email! :)");
+        Debug.Log("Running Event " + eventID + "...");
+        switch (eventID)
+            {
+                case 1:
+                    Common_Spam_Postmail();
+                    break;
+                    
+                case 2:
+                    if (Phone_Statistics.isCompromised) StartCoroutine(Rare_ConstantSpam_Postmail());
+                    break;
+                    
+                case 3:
+                    if (Phone_Statistics.isCompromised) StartCoroutine(Rare_CrashApp());
+                    break;
+                    
 
-
-        New_Notification(0, "Postmail", "You have a new Postmail! :D"); // Need Varying versions of postmails
+                default:
+                    Common_DisconnectWiFi();
+                    break;
+            }
     }
 
-    void Common_Phishing_Postmail()
-    {
-        //Debug.Log("You recieve a phishing email! :(");
-
-
-        New_Notification(0, "Postmail", "You recieve a phishing email! :(");
-    }
-
-    void Common_Fake_Friendlink()
-    {
-        //Debug.Log("A phished account posted on Friendlink.");
-
-
-        New_Notification(0, "Postmail", "A phished account posted on Friendlink.");
-    }
-
+    #region Postmail Events
     void Common_Spam_Postmail()
     {
         //Debug.Log("You received SPAM."); //These are more SPAM than Phishing
 
-        New_Notification(0, "Postmail", "You received SPAM.");
+        New_Notification(0, "Postmail", "You received SPAM."); 
     }
 
-    void Common_Fake_Message()
+    int spamAmount = 10;
+
+    float spamInterval = 10;
+    IEnumerator Rare_ConstantSpam_Postmail()
     {
-        //Debug.Log("A phished account sent a Message.");
+        for (int i = 0; i < spamAmount; i++)
+        {
+            New_Notification(0, "Postmail", "You received SPAM.");
 
-        New_Notification(0, "Postmail", "A phished account sent a Message.");
+            yield return new WaitForSeconds(spamInterval);
+        }
+
     }
 
+    #endregion
 
+    #region 
+
+    float appCrashTime = 2.5f;
+    IEnumerator Rare_CrashApp()
+    {
+        Debug.Log("Crashing " + App_Basic.CurrentApp.gameObject.name + "...");
+
+        GameObject CurrentApp = App_Basic.CurrentApp.gameObject;
+        Vector3 App_ClosedPoint = App_Basic.App_ClosedPoint;
+        float TransitionTime = 0.5f;
+
+        CurrentApp.transform.DOMove(App_ClosedPoint, TransitionTime).SetEase(Ease.OutCubic);
+        CurrentApp.transform.DOScale(new Vector3(0.5f, 0.5f, 0.5f), TransitionTime).SetEase(Ease.OutCubic);
+
+        yield return new WaitForSeconds(appCrashTime);
+
+        CurrentApp.transform.DOScale(Vector3.zero, TransitionTime).SetEase(Ease.OutCubic)
+        .OnComplete(() =>
+        {
+            CurrentApp.gameObject.SetActive(false);
+                
+            New_Notification(0, "Oops!", "The app you were using crashed."); 
+        });
+    }
+
+    #endregion
+    void Common_DisconnectWiFi()
+    {
+        Phone_Statistics.isWifiConnected = false;
+        App_Settings.DisconnectToWifi();
+    }
 
     // Common Events, 33% Chance of occuring every time a task is completed OR when the story progresses
     // The Following are possible Events:
@@ -151,8 +180,6 @@ public class Event_Manager : MonoBehaviour
     // Random Events, 100% Chance of occuring every time a task is completed:
     // Phone Lag??
     // WiFi Disconnects
-    // New Eduva, Webb or Friendlink Post: Half are Normal, Half are about being Hacks or Phishing Warnings
-    // 
     
     // EVENTS CAN STACK, so multiple events can happen in a single trigger
 }
