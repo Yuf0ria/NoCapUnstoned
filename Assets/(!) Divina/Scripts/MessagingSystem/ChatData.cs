@@ -19,6 +19,7 @@ public class ChatData
     public bool isAutoProgressing;
     public float autoProgressTimer; // The timer thing
     public GameObject contactUI; // Reference to the UI GameObject for this contact
+    public bool isUnread; // Indicates if the chat has unread messages
 
     // Updating the chat preview based on the last message
     public void UpdateChatPreview(int currentIndex, List<MessageData> currentMessageList, List<StartMessageData> currentStartMessageList)
