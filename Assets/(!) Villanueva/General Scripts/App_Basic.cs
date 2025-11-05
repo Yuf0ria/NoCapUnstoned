@@ -15,7 +15,7 @@ public class App_Basic : MonoBehaviour
 
         transform.position = App_ClosedPoint;
         transform.localScale = ClosedScale;
-        OpenedPoint = Position.transform.position; //For the position of the app! (I MADE THIS SCRIPT - NICAIA)
+        OpenedPoint = Position.transform.position; //For the position of the app! (I MADE THIS SCRIPT - NICAIA *EDIT* LINE, NOT SCRIPT. AUNDEE MADE THE SCRIPT)
     }
 
 
