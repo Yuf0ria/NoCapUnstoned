@@ -39,6 +39,7 @@ public class ChatDataModifier : MonoBehaviour
                 isResponding = false, // Default
                 isAutoProgressing = false, // Default
                 autoProgressTimer = 0f, // Default
+                isUnread = true, // New chats should be unread
                 contactUI = null // Default
             };
             contactListManager.contacts.Add(newEntry);
@@ -77,6 +78,10 @@ public class ChatDataModifier : MonoBehaviour
 
             if (!AddMessage) { return; }
 
+            // Set unread indicator since new messages were added
+            existingChat.isUnread = true;
+            contactListManager.UpdateUnreadIndicator(targetChatIndex);
+
             // Update currentIndex with the additional messages
             int choiceIndex = -1;
             if (newChatData.messageList != null && newChatData.messageList.Count > 0)
@@ -93,7 +98,7 @@ public class ChatDataModifier : MonoBehaviour
             if (choiceIndex != -1) existingChat.currentIndex = choiceIndex;
             else existingChat.currentIndex = existingChat.messageList.Count - 1;
 
-            contactListManager.contacts[targetChatIndex] = existingChat; // Update the list 
+            contactListManager.contacts[targetChatIndex] = existingChat; // Update the list
 
             // Update the chat preview for the modified contact
             contactListManager.UpdateChatPreview(targetChatIndex);

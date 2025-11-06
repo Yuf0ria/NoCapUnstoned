@@ -10,6 +10,7 @@ public class ContactListManager : MonoBehaviour
 
     [Header("Data")]
     public List<ChatData> contacts; // The list of contacts
+    public TimeScript timeScript; // Reference to TimeScript
 
     [Header("Settings")]
 
@@ -17,6 +18,7 @@ public class ContactListManager : MonoBehaviour
     private float totalHeight = 0;
     private IMessageRenderer messageRenderer; // Reference to the message renderer
     public int currentChatIndex = -1; // Index of the currently open chat
+    private bool isInitialLoad = true; // Flag to track if it's the initial load
 
     private void Start()
     {
@@ -24,21 +26,29 @@ public class ContactListManager : MonoBehaviour
         GetMessageRendererReference();
         if (contacts != null && contacts.Count > 0)
         {
+            // Set all contacts as unread at start
+            for (int i = 0; i < contacts.Count; i++)
+            {
+                contacts[i].isUnread = true;
+            }
+
             // Instantiate a duplicate for the first contact to avoid using the original prefab
             Transform parent = contactPrefab.transform.parent;
             GameObject firstContactUI = Instantiate(contactPrefab, parent);
             DontDestroyOnLoad(firstContactUI); // Make it persistent across scene loads or parent destruction
+            // Set unread indicator to true for duplicated contact
+            Transform unreadTransform = firstContactUI.transform.Find("Unread");
+            if (unreadTransform != null) unreadTransform.gameObject.SetActive(true);
             contacts[0].contactUI = firstContactUI; // Assign the duplicated GameObject to the first contact
             ConfigureContact(firstContactUI, contacts[0], 0);
             currentContactIndex = 1;
-            OnContactSelected(0); // Load the first contact's chat automatically
-            UpdateChatPreview(0); // Set initial chat preview for the first contact
+            currentChatIndex = -1; // No chat is open at start, so first contact remains unread
         }
     }
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Space)) AddContact(); 
+        if (Input.GetKeyDown(KeyCode.Space)) AddContact();
 
         // Background progression for all contacts, but only for current when thread is not active
         for (int i = 0; i < contacts.Count; i++)
@@ -56,15 +66,22 @@ public class ContactListManager : MonoBehaviour
                         // Add to startMessageList
                         if (!contacts[i].startMessageList.Any(s => s.text == msg.text && s.isSender == msg.isSender))
                         {
-                            contacts[i].startMessageList.Add(new StartMessageData { text = msg.text, isSender = msg.isSender });
+                            contacts[i].startMessageList.Add(new StartMessageData { text = msg.text, name = msg.name, isSender = msg.isSender });
                         }
                         // Update chat preview
                         contacts[i].chat = ShortenText(msg.text, 40);
                         UpdateContactUI(i);
                         // Advance
                         contacts[i].currentIndex++;
-                        if (msg.Choices == null || msg.Choices.Length == 0) contacts[i].isAutoProgressing = true; 
-                        else contacts[i].isResponding = true;  
+                        if (msg.Choices == null || msg.Choices.Length == 0) contacts[i].isAutoProgressing = true;
+                        else contacts[i].isResponding = true;
+
+                        // Set unread if progressing without player opening the chat
+                        if (i != currentChatIndex || (messageThreadPanel != null && !messageThreadPanel.activeSelf))
+                        {
+                            contacts[i].isUnread = true;
+                            UpdateUnreadIndicator(i);
+                        }
                     }
                 }
             }
@@ -97,6 +114,10 @@ public class ContactListManager : MonoBehaviour
         GameObject duplicate = Instantiate(contactPrefab, parent);
         DontDestroyOnLoad(duplicate); // dude. idk if removing this would make or break the script at this point... </3
 
+        // Set unread indicator to true for duplicated contact
+        Transform unreadTransform = duplicate.transform.Find("Unread");
+        if (unreadTransform != null) unreadTransform.gameObject.SetActive(true);
+
         // Create a deep copy of the ChatData to ensure each contact has its own independent state
         ChatData originalData = contacts[currentContactIndex];
         ChatData newData = new ChatData
@@ -111,6 +132,7 @@ public class ContactListManager : MonoBehaviour
             isResponding = false, // Reset state
             isAutoProgressing = false, // Reset state
             autoProgressTimer = 0f, // Reset timer
+            isUnread = true, // New contacts should be unread
             contactUI = duplicate // Assign the duplicated GameObject to the new contact
         };
         contacts[currentContactIndex] = newData; // replace with the copy
@@ -133,8 +155,10 @@ public class ContactListManager : MonoBehaviour
             MessageData newMd = new MessageData
             {
                 text = md.text,
+                name = md.name,
                 isSender = md.isSender,
-                Choices = md.Choices != null ? (string[])md.Choices.Clone() : null
+                Choices = md.Choices != null ? (string[])md.Choices.Clone() : null,
+                linkBox = md.linkBox
             };
             newList.Add(newMd);
         }
@@ -150,6 +174,7 @@ public class ContactListManager : MonoBehaviour
             StartMessageData newSmd = new StartMessageData
             {
                 text = smd.text,
+                name = smd.name,
                 isSender = smd.isSender
             };
             newList.Add(newSmd);
@@ -164,7 +189,7 @@ public class ContactListManager : MonoBehaviour
 
         // Set profile image
         Image profileImg = contact.transform.Find("Profile").GetComponent<Image>();
-        if (profileImg != null) profileImg.sprite = data.profileImage; 
+        if (profileImg != null) profileImg.sprite = data.profileImage;
 
         // Set name
         TextMeshProUGUI nameTMP = contact.transform.Find("Name").GetComponent<TextMeshProUGUI>();
@@ -172,11 +197,18 @@ public class ContactListManager : MonoBehaviour
 
         // Set chat preview
         TextMeshProUGUI chatTMP = contact.transform.Find("Chat").GetComponent<TextMeshProUGUI>();
-        if (chatTMP != null) chatTMP.text = data.chat; 
+        if (chatTMP != null) chatTMP.text = data.chat;
+
+        // Set unread indicator
+        Transform unreadTransform = contact.transform.Find("Unread");
+        if (unreadTransform != null)
+        {
+            unreadTransform.gameObject.SetActive(data.isUnread);
+        }
 
         // Add click listener
         Button contactButton = contact.GetComponent<Button>();
-        if (contactButton != null) contactButton.onClick.AddListener(() => OnContactSelected(chatIndex)); 
+        if (contactButton != null) contactButton.onClick.AddListener(() => OnContactSelected(chatIndex));
     }
 
     private void PositionContact(GameObject contact)
@@ -214,8 +246,24 @@ public class ContactListManager : MonoBehaviour
                     chatTMP.text = contacts[chatIndex].chat;
                     chatTMP.ForceMeshUpdate();
                     LayoutRebuilder.ForceRebuildLayoutImmediate(chatTMP.rectTransform);
-                    Canvas.ForceUpdateCanvases(); 
+                    Canvas.ForceUpdateCanvases();
                 }
+            }
+
+            // Update unread indicator
+            UpdateUnreadIndicator(chatIndex);
+        }
+    }
+
+    public void UpdateUnreadIndicator(int chatIndex)
+    {
+        GameObject contactToUpdate = contacts[chatIndex].contactUI;
+        if (contactToUpdate != null)
+        {
+            Transform unreadTransform = contactToUpdate.transform.Find("Unread");
+            if (unreadTransform != null)
+            {
+                unreadTransform.gameObject.SetActive(contacts[chatIndex].isUnread);
             }
         }
     }
@@ -225,7 +273,18 @@ public class ContactListManager : MonoBehaviour
         if (messageRenderer == null || chatIndex < 0 || chatIndex >= contacts.Count) return;
 
         SaveCurrentChatState();
+
+        // Update the unread indicator for the previous current chat to show it if unread
+        if (currentChatIndex >= 0 && currentChatIndex != chatIndex)
+        {
+            UpdateUnreadIndicator(currentChatIndex);
+        }
+
         currentChatIndex = chatIndex;
+
+        // Mark as read when player opens the chat
+        contacts[chatIndex].isUnread = false;
+        UpdateUnreadIndicator(chatIndex);
 
         messageRenderer.ClearMessages();
         ShowMessageThread();
@@ -241,6 +300,9 @@ public class ContactListManager : MonoBehaviour
 
         // Update the latest message on the contact UI after switching back
         contacts[chatIndex].UpdateLatestMessageOnUI();
+
+        // After initial load, set flag to false
+        if (isInitialLoad) isInitialLoad = false;
     }
 
     public void SaveCurrentChatState()
@@ -308,7 +370,7 @@ public class ContactListManager : MonoBehaviour
         {
             foreach (var startMsg in renderer.startMessageList)
             {
-                MessageData data = new MessageData { text = startMsg.text, isSender = startMsg.isSender };
+                MessageData data = new MessageData { text = startMsg.text, name = startMsg.name, isSender = startMsg.isSender };
                 renderer.RenderMessage(data);
             }
         }

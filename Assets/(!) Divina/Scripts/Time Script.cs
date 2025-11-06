@@ -10,12 +10,12 @@ public class TimeScript : MonoBehaviour
     [SerializeField] private float min;
     [SerializeField] private int hour;
 
+    public string hourText;
+    public string minText;
+
     // Update is called once per frame
     void Update()
     {
-        string hourText;
-        string minText;
-
         sec += Time.deltaTime;
         if (sec >= 30) { sec = 0; min++; }
 
@@ -35,5 +35,10 @@ public class TimeScript : MonoBehaviour
         hourText = "" + Convert.ToInt32(hour);
 
         timeRecord.text = hourText + ":" + minText;
+    }
+
+    public string GetCurrentTimeString()
+    {
+        return hourText + ":" + minText;
     }
 }
