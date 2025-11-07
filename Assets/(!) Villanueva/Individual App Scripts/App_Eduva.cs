@@ -13,7 +13,7 @@ public class App_Eduva : MonoBehaviour
     /// Eduva Page
     /// </summary>
 
-    /*
+    
     public void OpenEduvaPage(GameObject EduvaPage)
     {
         Debug.Log("Opening Mail Thread: " + EduvaPage.name);
@@ -40,5 +40,5 @@ public class App_Eduva : MonoBehaviour
             this.gameObject.SetActive(false);
         });
     }
-    */
+    
 }

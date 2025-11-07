@@ -14,11 +14,11 @@ public class App_Settings : MonoBehaviour
 
     [SerializeField] Event_Manager events;
 
-    //[SerializeField] private Transform ClosedPosition; //= new Vector3(1250, -175, 0);
-    //[SerializeField] private Transform OpenedPosition; //= new Vector3(0, -175, 0);
-    //float TransitionTime = 0.5f;
+    [SerializeField] private Transform ClosedPosition; //= new Vector3(1250, -175, 0);
+    [SerializeField] private Transform OpenedPosition; //= new Vector3(0, -175, 0);
+    float TransitionTime = 0.5f;
 
-    /*
+    
     public void OpenSettingsCategory(GameObject SettingsCategoryPage)
     {
         Debug.Log("Opening Settings Category: " + SettingsCategoryPage.name);
@@ -43,7 +43,7 @@ public class App_Settings : MonoBehaviour
             //this.gameObject.SetActive(false);
         });
     }
-    */
+    
 
     void Start()
     {

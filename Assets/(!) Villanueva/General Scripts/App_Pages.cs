@@ -6,6 +6,7 @@ using Unity.VisualScripting;
 
 public class App_Pages : MonoBehaviour
 {
+    
     public static Vector3 BackBtnPage_ClosedPosition;
     public static Vector3 BackBtnPage_OpenedPosition;
 
@@ -22,6 +23,7 @@ public class App_Pages : MonoBehaviour
     [SerializeField] private Transform NextPage_OpenedPosition; //= new Vector3(0, -175, 0);
     [SerializeField] float TransitionTime = 0.5f;
 
+    /*
     void Start()
     {
         if (!isStartingPage)
@@ -46,12 +48,13 @@ public class App_Pages : MonoBehaviour
             
         }
     }
-
+    */
     public static GameObject Curr_Page;
     public static GameObject BackBtn_PrevPage;
     public GameObject Prev_Page;
     public static Stack<GameObject> Page_History = new Stack<GameObject>();
 
+    /*
     public void NextPage(GameObject Next_Page)
     {
         Curr_Page = Next_Page.gameObject;
@@ -96,4 +99,5 @@ public class App_Pages : MonoBehaviour
             });
         }
     }
+    */
 }

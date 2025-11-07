@@ -20,7 +20,7 @@ public class App_Postmail : MonoBehaviour
     /// Mail Thread Page
     /// </summary>
 
-/*
+
     public void OpenMailThread(GameObject MailThreadPage)
     {
         //Debug.Log("Opening Mail Thread: " + MailThreadPage.name);
@@ -49,7 +49,7 @@ public class App_Postmail : MonoBehaviour
             this.gameObject.SetActive(false);
         });
     }
-    */
+    
 
     //Future Features:
     // - Selecting a reply will update the reply box, besides just closing it.
