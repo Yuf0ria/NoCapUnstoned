@@ -30,7 +30,7 @@ Texture2D:
   m_TextureDimension: 2
   m_TextureSettings:
     serializedVersion: 2
-    m_FilterMode: 1
+    m_FilterMode: 0
     m_Aniso: 1
     m_MipBias: 0
     m_WrapU: 0
@@ -191,7 +191,7 @@ MonoBehaviour:
     m_StrikethroughThickness: 21.166992
     m_TabWidth: 529
   m_Material: {fileID: -881162855513795133}
-  m_SourceFontFileGUID: caaa8698d20755f4096c9bbb78244f6a
+  m_SourceFontFileGUID: 
   m_CreationSettings:
     sourceFontFileName: 
     sourceFontFileGUID: caaa8698d20755f4096c9bbb78244f6a
@@ -205,7 +205,7 @@ MonoBehaviour:
     atlasHeight: 512
     characterSetSelectionMode: 0
     characterSequence: 32 - 126, 160, 8203, 8230, 9633
-    referencedFontAssetGUID: 
+    referencedFontAssetGUID: eeec02850b5602a41aca0f4665dac074
     referencedTextAssetGUID: 
     fontStyle: 0
     fontStyleModifier: 0
@@ -487,7 +487,8 @@ MonoBehaviour:
     m_MarkToBaseAdjustmentRecords: []
     m_MarkToMarkAdjustmentRecords: []
   m_ShouldReimportFontFeatures: 0
-  m_FallbackFontAssetTable: []
+  m_FallbackFontAssetTable:
+  - {fileID: 11400000}
   m_FontWeightTable:
   - regularTypeface: {fileID: 0}
     italicTypeface: {fileID: 0}
