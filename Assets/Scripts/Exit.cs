@@ -5,6 +5,6 @@ public class Exit : MonoBehaviour
 {
     private void OnEnable()
     {
-        SceneManager.LoadScene("Main Menu", LoadSceneMode.Single);
+        SceneManager.LoadScene("Chapter 1", LoadSceneMode.Single);
     }
 }
