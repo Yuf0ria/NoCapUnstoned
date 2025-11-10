@@ -129,9 +129,9 @@ public class Event_Manager : MonoBehaviour
     float appCrashTime = 2.5f;
     IEnumerator Rare_CrashApp()
     {
-        Debug.Log("Crashing " + App_Basic.CurrentApp.gameObject.name + "...");
+        //Debug.Log("Crashing " + App_Basic.CurrentApp.gameObject.name + "...");
 
-        GameObject CurrentApp = App_Basic.CurrentApp.gameObject;
+        GameObject CurrentApp = App_Basic.CurrentApp.Pop();
         Vector3 App_ClosedPoint = App_Basic.App_ClosedPoint;
         float TransitionTime = 0.5f;
 

@@ -5,9 +5,9 @@ public class Phone_ExitBtn : MonoBehaviour
 {
     public void CloseApp()
     {
-        Debug.Log("Closing " + App_Basic.CurrentApp.gameObject.name + "...");
+        //Debug.Log("Closing " + App_Basic.CurrentApp.gameObject.name + "...");
 
-        GameObject CurrentApp = App_Basic.CurrentApp.gameObject;
+        GameObject CurrentApp = App_Basic.CurrentApp.Pop();
         Vector3 App_ClosedPoint = App_Basic.App_ClosedPoint;
         float TransitionTime = 0.5f;
 

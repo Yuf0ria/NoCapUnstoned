@@ -3531,8 +3531,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 279, y: 29.3854}
-  m_SizeDelta: {x: 486.4397, y: 108.7709}
+  m_AnchoredPosition: {x: 279, y: 45}
+  m_SizeDelta: {x: 486.4397, y: 142}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &343106300
 MonoBehaviour:
@@ -5343,7 +5343,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Click this link! <u>https://safelink.com</u>
+  m_text: Click this link! <u>https://safelinkclickdoesnothing.com</u>
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: a984e2a6d5fd4c04fb81e9246af0897e, type: 2}
   m_sharedMaterial: {fileID: -264273432980379323, guid: a984e2a6d5fd4c04fb81e9246af0897e, type: 2}
@@ -8387,7 +8387,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 59, y: -134}
+  m_AnchoredPosition: {x: 59, y: -150}
   m_SizeDelta: {x: 50, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &871112611
@@ -15876,7 +15876,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: SETTINGS
+  m_text: GAME SETTINGS
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: a984e2a6d5fd4c04fb81e9246af0897e, type: 2}
   m_sharedMaterial: {fileID: -264273432980379323, guid: a984e2a6d5fd4c04fb81e9246af0897e, type: 2}
