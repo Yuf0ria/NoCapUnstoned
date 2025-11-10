@@ -18,24 +18,23 @@ public class Level_Start : MonoBehaviour
 
     void Start()
     {
-        // Open on the Message App
-        messageApp.OpenApp();
-        if (startOnThread)
-        {
-            StartCoroutine(delayStartUp());
-        }
-
-
         // Enable all Masks
         for (int i = 0; i <= MaskList.Length - 1; i++)
         {
             MaskList[i].enabled = true;
         }
+
+        
+        // Open on the Message App
+        StartCoroutine(delayStartUp());
     }
     
     IEnumerator delayStartUp()
     {
+        messageApp.OpenApp();
+
         yield return new WaitForSeconds(delayStartUpTime);
-        contactList.OpenMessageThread(thread);
+
+        if(startOnThread) contactList.OpenMessageThread(thread);
     }
 }

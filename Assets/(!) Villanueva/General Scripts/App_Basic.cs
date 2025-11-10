@@ -1,5 +1,7 @@
 using UnityEngine;
 using DG.Tweening;
+using System.Collections.Generic;
+
 
 public class App_Basic : MonoBehaviour
 {
@@ -25,7 +27,7 @@ public class App_Basic : MonoBehaviour
     Vector3 OpenScale = new Vector3(1, 1, 1);
     float TransitionTime = 0.5f;
 
-    public static GameObject CurrentApp;
+    public static Stack<GameObject> CurrentApp = new Stack<GameObject>();
     public static Vector3 App_ClosedPoint;
 
     public void OpenApp()
@@ -38,7 +40,7 @@ public class App_Basic : MonoBehaviour
         transform.DOMove(OpenedPoint, TransitionTime).SetEase(Ease.OutCubic);
         transform.DOScale(OpenScale, TransitionTime).SetEase(Ease.OutCubic);
 
-        CurrentApp = this.gameObject;
+        CurrentApp.Push(this.gameObject);
         App_ClosedPoint = AppIcon.transform.position;
 
     }
