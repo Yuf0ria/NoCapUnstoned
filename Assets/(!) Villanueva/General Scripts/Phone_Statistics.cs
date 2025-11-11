@@ -4,6 +4,7 @@ public class Phone_Statistics : MonoBehaviour
 {
     public static bool isWifiConnected;
     public static bool isSecurityUpToDate;
+    public static bool isTwoFactorAuthentication;
 
 
     public static bool disablePhoneBackButton;
@@ -17,6 +18,7 @@ public class Phone_Statistics : MonoBehaviour
 
     [SerializeField] bool isWifiConnectedInsp;
     [SerializeField] bool isSecurityUpToDateInsp;
+    [SerializeField] bool isTwoFactorAuthenticationInsp;
 
 
     [SerializeField] bool disablePhoneBackButtonInsp;
@@ -31,6 +33,7 @@ public class Phone_Statistics : MonoBehaviour
     {
         isWifiConnected = isWifiConnectedInsp;
         isSecurityUpToDate = isSecurityUpToDateInsp;
+        isTwoFactorAuthentication = isTwoFactorAuthenticationInsp;
 
         disablePhoneBackButton = disablePhoneBackButtonInsp;
 
