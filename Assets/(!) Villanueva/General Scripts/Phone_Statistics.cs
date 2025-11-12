@@ -6,6 +6,8 @@ public class Phone_Statistics : MonoBehaviour
     public static bool isSecurityUpToDate;
     public static bool isTwoFactorAuthentication;
 
+    public static float transitionTimeMultiplier;
+
 
     public static bool disablePhoneBackButton;
 
@@ -16,13 +18,21 @@ public class Phone_Statistics : MonoBehaviour
     public static int numHighSeverity;
 
 
+    [Header("Starting Toggle Stats")]
     [SerializeField] bool isWifiConnectedInsp;
     [SerializeField] bool isSecurityUpToDateInsp;
     [SerializeField] bool isTwoFactorAuthenticationInsp;
 
 
-    [SerializeField] bool disablePhoneBackButtonInsp;
+    [Header("Starting Float Stats")]
+    [SerializeField] float transitionTimeMultiplierInsp = 1;
 
+
+
+    //[SerializeField] bool disablePhoneBackButtonInsp;
+
+
+    [Header("Starting Stats")]
     [SerializeField] bool isVulnerableInsp;
     [SerializeField] bool isCompromisedInsp;
 
@@ -35,7 +45,9 @@ public class Phone_Statistics : MonoBehaviour
         isSecurityUpToDate = isSecurityUpToDateInsp;
         isTwoFactorAuthentication = isTwoFactorAuthenticationInsp;
 
-        disablePhoneBackButton = disablePhoneBackButtonInsp;
+        transitionTimeMultiplier = transitionTimeMultiplierInsp;
+
+        //disablePhoneBackButton = disablePhoneBackButtonInsp;
 
         isVulnerable = isVulnerableInsp;
         isCompromised = isCompromisedInsp;
@@ -46,6 +58,6 @@ public class Phone_Statistics : MonoBehaviour
 
     void Update()
     {
-        if (isWifiConnected != isWifiConnectedInsp) isWifiConnectedInsp = isWifiConnected;
+        //if (isWifiConnected != isWifiConnectedInsp) isWifiConnectedInsp = isWifiConnected;
     }
 }
