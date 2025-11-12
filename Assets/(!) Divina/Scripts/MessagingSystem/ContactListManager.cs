@@ -10,7 +10,6 @@ public class ContactListManager : MonoBehaviour
 
     [Header("Data")]
     public List<ChatData> contacts; // The list of contacts
-    public TimeScript timeScript; // Reference to TimeScript
 
     [Header("Settings")]
 
@@ -19,6 +18,7 @@ public class ContactListManager : MonoBehaviour
     private IMessageRenderer messageRenderer; // Reference to the message renderer
     public int currentChatIndex = -1; // Index of the currently open chat
     private bool isInitialLoad = true; // Flag to track if it's the initial load
+
 
     private void Start()
     {
