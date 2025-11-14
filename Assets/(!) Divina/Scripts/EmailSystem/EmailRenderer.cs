@@ -1,4 +1,4 @@
- using UnityEngine;
+using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using System.Collections;
@@ -7,17 +7,15 @@ using System.Linq;
 using System.Text.RegularExpressions;
 
 /// <summary>
-/// THIS IS FUCKING HELL YALL OMFGGGGGG.....
-/// if you read this. im so sorry
+/// Email renderer for handling email display and interactions.
 /// </summary>
-
-/// YALL PLS DO NOT TOUCH THIS SHIT. EVER. DO NOT. SERIOUSLY.
-public class MessageRenderer : MonoBehaviour, IMessageRenderer
+public class EmailRenderer : MonoBehaviour, IEmailRenderer
 {
     [Header("Prefabs")]
-    public GameObject senderBox; //Original gameobject  for sender messages
-    public GameObject replierBox; //Original gameobject for replier messages
+    public GameObject senderBox; //Original gameobject for sender emails
+    public GameObject replierBox; //Original gameobject for replier emails
     public GameObject dialogueBox; //Original gameobject for dialogue choices
+    public GameObject timestampBox; //Original gameobject for timestamps
 
     [Header("UI Elements")]
     public RectTransform content; //ScrollView content
@@ -31,17 +29,16 @@ public class MessageRenderer : MonoBehaviour, IMessageRenderer
     private const float MaxMessageWidth = 555f; //Maximum width for messages
 
     [Header("Data")]
-    public List<MessageData> messageList; 
-    public List<StartMessageData> startMessageList;
-    public ContactListManager contactManager;
+    public List<EmailData> emailList;
+    public List<StartEmailData> startEmailList;
+    public InboxListManager inboxManager;
 
     [Header("Status or smthing")]
     public int currentIndex = 0;
     private float totalHeight = 0;
     private RectTransform lastMessageRectTransform;
     public bool isResponding = false; //Flag to control auto-progression
-    public bool isAutoProgressing = false; //Flag for auto-progression when respond is false
-    public float autoProgressTimer = 0f; //Timer for auto-progression
+    private bool isAutoProgressing = false; //Flag to control auto-progression
     private List<GameObject> activeChoices = new List<GameObject>(); //List to track active choice buttons
     public string lastRenderedText = ""; //Last rendered message text for chat preview
 
@@ -50,14 +47,13 @@ public class MessageRenderer : MonoBehaviour, IMessageRenderer
         InitializeButtons();
         DisableOriginalDialogueBox();
         InitializeContentSize();
-        RenderStartMessages();
-        currentIndex = startMessageList.Count;  // Set currentIndex to the number of start messages to avoid duplication
-        StartMessageProgression();
+        RenderStartEmails();
+        currentIndex = startEmailList.Count;  // Set currentIndex to the number of start emails to avoid duplication
+        StartEmailProgression();
     }
 
     private void Update()
     {
-        HandleAutoProgression();
         HandleManualProgression();
     }
 
@@ -71,12 +67,12 @@ public class MessageRenderer : MonoBehaviour, IMessageRenderer
             sendButton = replyBoxObj.transform.Find("Message Box/Send").gameObject;
             openChoicesButton = replyBoxObj.transform.Find("Message Box/OpenChoices").gameObject;
             SetButtonsInteractable(false);
-        } 
+        }
     }
 
     private void DisableOriginalDialogueBox()
     {
-        if (dialogueBox != null) dialogueBox.SetActive(false); 
+        if (dialogueBox != null) dialogueBox.SetActive(false);
     }
 
     private void InitializeContentSize()
@@ -86,37 +82,34 @@ public class MessageRenderer : MonoBehaviour, IMessageRenderer
         UpdateContentSize();
     }
 
-    private void RenderStartMessages()
+    private void RenderStartEmails()
     {
-        if (startMessageList != null && startMessageList.Count > 0)
+        if (startEmailList != null && startEmailList.Count > 0)
         {
-            // Render all start messages
-            for (int i = 0; i < startMessageList.Count; i++)
+            // Render all start emails
+            for (int i = 0; i < startEmailList.Count; i++)
             {
-                MessageData data = new MessageData { text = startMessageList[i].text, name = startMessageList[i].name, isSender = startMessageList[i].isSender };
-                RenderMessage(data);
+                EmailData data = new EmailData { emailText = startEmailList[i].text, emailTitle = startEmailList[i].title, name = startEmailList[i].name, profile = startEmailList[i].profile };
+                RenderEmail(data);
             }
         }
     }
 
 
 
-
-
-    public void StartMessageProgression()
+    public void StartEmailProgression()
     {
-        if (messageList != null && messageList.Count > 0 && currentIndex < messageList.Count)
+        if (emailList != null && emailList.Count > 0 && currentIndex < emailList.Count)
         {
-            bool alreadyRendered = startMessageList.Any(s => s.text == messageList[currentIndex].text && s.isSender == messageList[currentIndex].isSender);
+            bool alreadyRendered = startEmailList.Any(s => s.text == emailList[currentIndex].emailText && s.title == emailList[currentIndex].emailTitle);
             if (!alreadyRendered)
             {
-                RenderMessage(messageList[currentIndex]);
-                startMessageList.Add(new StartMessageData { text = messageList[currentIndex].text, name = messageList[currentIndex].name, isSender = messageList[currentIndex].isSender });
+                RenderEmail(emailList[currentIndex]);
+                startEmailList.Add(new StartEmailData { text = emailList[currentIndex].emailText, title = emailList[currentIndex].emailTitle, name = emailList[currentIndex].name, profile = emailList[currentIndex].profile });
             }
-            if (messageList[currentIndex].Choices == null || messageList[currentIndex].Choices.Length == 0)
+            if (emailList[currentIndex].Choices == null || emailList[currentIndex].Choices.Length == 0)
             {
                 currentIndex++;
-                isAutoProgressing = true;
             }
             else
             {
@@ -126,68 +119,29 @@ public class MessageRenderer : MonoBehaviour, IMessageRenderer
         }
     }
 
-    private void HandleAutoProgression()
-    {
-        if (isAutoProgressing)
-        {
-            autoProgressTimer += Time.deltaTime;
-            if (autoProgressTimer >= 1f)
-            {
-                autoProgressTimer = 0f;
-                isAutoProgressing = false;
-                if (currentIndex < messageList.Count)
-                {
-                    bool alreadyRendered = startMessageList.Any(s => s.text == messageList[currentIndex].text && s.isSender == messageList[currentIndex].isSender);
-                    if (!alreadyRendered)
-                    {
-                        RenderMessage(messageList[currentIndex]);
-                        startMessageList.Add(new StartMessageData { text = messageList[currentIndex].text, name = messageList[currentIndex].name, isSender = messageList[currentIndex].isSender });
-                    }
-                    if (messageList[currentIndex].Choices == null || messageList[currentIndex].Choices.Length == 0)
-                    {
-                        currentIndex++;
-                        if (contactManager != null) contactManager.contacts[contactManager.currentChatIndex].currentIndex = currentIndex;
-                        isAutoProgressing = true;
-                    }
-                    else
-                    {
-                        isResponding = true;
-                        SetButtonsInteractable(true);
-                    }
-                    // Update chat preview after rendering a message
-                    if (contactManager != null)
-                    {
-                        contactManager.UpdateChatPreview(contactManager.currentChatIndex);
-                        // Update the latest message on the contact UI
-                        contactManager.contacts[contactManager.currentChatIndex].UpdateLatestMessageOnUI();
-                    }
-                }
-            }
-        }
-    }
+
 
     private void HandleManualProgression()
     {
-        if (!isResponding && Input.GetKeyDown(KeyCode.Space) && currentIndex < messageList.Count)
+        if (!isResponding && Input.GetKeyDown(KeyCode.Space) && currentIndex < emailList.Count)
         {
-            bool alreadyRendered = startMessageList.Any(s => s.text == messageList[currentIndex].text && s.isSender == messageList[currentIndex].isSender);
+            bool alreadyRendered = startEmailList.Any(s => s.text == emailList[currentIndex].emailText && s.title == emailList[currentIndex].emailTitle);
             if (!alreadyRendered)
             {
-                RenderMessage(messageList[currentIndex]);
-                startMessageList.Add(new StartMessageData { text = messageList[currentIndex].text, name = messageList[currentIndex].name, isSender = messageList[currentIndex].isSender });
+                RenderEmail(emailList[currentIndex]);
+                startEmailList.Add(new StartEmailData { text = emailList[currentIndex].emailText, title = emailList[currentIndex].emailTitle, name = emailList[currentIndex].name, profile = emailList[currentIndex].profile });
             }
-            // Update chat preview after rendering a message
-            if (contactManager != null)
+            // Update email preview after rendering a message
+            if (inboxManager != null)
             {
-                contactManager.UpdateChatPreview(contactManager.currentChatIndex);
-                // Update the latest message on the contact UI
-                contactManager.contacts[contactManager.currentChatIndex].UpdateLatestMessageOnUI();
+                inboxManager.UpdateEmailPreview(inboxManager.currentEmailIndex);
+                // Update the latest email on the inbox UI
+                inboxManager.inbox[inboxManager.currentEmailIndex].UpdateLatestEmailOnUI();
             }
-            if (messageList[currentIndex].Choices == null || messageList[currentIndex].Choices.Length == 0)
+            if (emailList[currentIndex].Choices == null || emailList[currentIndex].Choices.Length == 0)
             {
                 currentIndex++;
-                if (contactManager != null) contactManager.contacts[contactManager.currentChatIndex].currentIndex = currentIndex;
-                isAutoProgressing = true;
+                if (inboxManager != null) inboxManager.inbox[inboxManager.currentEmailIndex].currentIndex = currentIndex;
             }
             else
             {
@@ -197,11 +151,9 @@ public class MessageRenderer : MonoBehaviour, IMessageRenderer
         }
     }
 
-    public void RenderMessage(MessageData data, bool showChoices = true)
+    public void RenderEmail(EmailData data, bool showChoices = true)
     {
-        GameObject prefabToUse = data.isSender ? senderBox : replierBox;
-        Transform parent = senderBox.transform.parent;
-        GameObject duplicate = Instantiate(prefabToUse, parent);
+        GameObject duplicate = Instantiate(senderBox, content);
 
         string cleanText = ParseAndRenderText(duplicate, data);
 
@@ -214,19 +166,19 @@ public class MessageRenderer : MonoBehaviour, IMessageRenderer
         // Update last rendered text for chat preview
         lastRenderedText = cleanText;
 
-        PositionMessage(duplicate, data);
+        PositionEmail(duplicate, data);
 
-        // If the message thread is not open, mark the chat as unread
-        if (contactManager != null && contactManager.messageThreadPanel != null && !contactManager.messageThreadPanel.activeSelf)
+        // If the email thread is not open, mark the email as unread
+        if (inboxManager != null && inboxManager.emailThreadPanel != null && !inboxManager.emailThreadPanel.activeSelf)
         {
-            contactManager.contacts[contactManager.currentChatIndex].isUnread = true;
-            contactManager.UpdateUnreadIndicator(contactManager.currentChatIndex);
+            inboxManager.inbox[inboxManager.currentEmailIndex].isUnread = true;
+            inboxManager.UpdateUnreadIndicator(inboxManager.currentEmailIndex);
         }
 
         if (data.Choices != null && data.Choices.Length > 0 && showChoices) RenderChoices(data);
     }
 
-    private string ParseAndRenderText(GameObject duplicate, MessageData data)
+    private string ParseAndRenderText(GameObject duplicate, EmailData data)
     {
         // Set the name if available
         Transform nameTransform = duplicate.transform.Find("Name");
@@ -246,7 +198,7 @@ public class MessageRenderer : MonoBehaviour, IMessageRenderer
         TextMeshProUGUI textTMP = textTransform.GetComponent<TextMeshProUGUI>();
         if (textTMP == null) return "";
 
-        string originalText = data.text;
+        string originalText = data.emailText;
         MatchCollection matches = Regex.Matches(originalText, @"\[([^\]]+)\]");
         string cleanText = Regex.Replace(originalText, @"\[([^\]]+)\]", "$1");
 
@@ -254,7 +206,7 @@ public class MessageRenderer : MonoBehaviour, IMessageRenderer
         LayoutRebuilder.ForceRebuildLayoutImmediate(textTMP.rectTransform);
         textTMP.ForceMeshUpdate();
 
-        if (matches.Count > 0) CreateHighlights(textTransform, textTMP, matches, originalText, data.linkBox);
+        if (matches.Count > 0 && data.linkBox != null) CreateHighlights(textTransform, textTMP, matches, originalText, data.linkBox);
 
         ResizeMessageBackground(duplicate, textTMP);
 
@@ -293,7 +245,7 @@ public class MessageRenderer : MonoBehaviour, IMessageRenderer
     private void HideHighlightText(GameObject highlight)
     {
         Transform highlightTextTransform = highlight.transform.Find("Text");
-        if (highlightTextTransform != null) highlightTextTransform.gameObject.SetActive(false); 
+        if (highlightTextTransform != null) highlightTextTransform.gameObject.SetActive(false);
     }
 
     private void ResizeMessageBackground(GameObject duplicate, TextMeshProUGUI textTMP)
@@ -313,18 +265,18 @@ public class MessageRenderer : MonoBehaviour, IMessageRenderer
         duplicateRT.sizeDelta = new Vector2(duplicateRT.sizeDelta.x, backgroundRT.sizeDelta.y);
     }
 
-    private void PositionMessage(GameObject duplicate, MessageData data)
+    private void PositionEmail(GameObject duplicate, EmailData data)
     {
         RectTransform duplicateRT = duplicate.GetComponent<RectTransform>();
         float elementHeight = duplicateRT.sizeDelta.y;
 
-        float yPos = CalculateYPosition(elementHeight, data.isSender);
-        float xPos = CalculateXPosition(data, duplicateRT);
+        float yPos = CalculateYPosition(elementHeight, false); // Emails are not sender/replier, so false
+        float xPos = 0; // Center for emails
 
         duplicateRT.anchoredPosition = new Vector2(xPos, yPos);
 
         lastMessageRectTransform = duplicateRT;
-        float extraSpacing = data.isSender ? 20f : 0f;
+        float extraSpacing = 0f; // No extra spacing for emails
         totalHeight += elementHeight + spacing + extraSpacing;
         UpdateContentSize();
     }
@@ -340,21 +292,7 @@ public class MessageRenderer : MonoBehaviour, IMessageRenderer
         else return lastMessageRectTransform.anchoredPosition.y - lastMessageRectTransform.sizeDelta.y / 2 - spacing - extraSpacing - elementHeight / 2;
     }
 
-    private float CalculateXPosition(MessageData data, RectTransform duplicateRT)
-    {
-        if (data.isSender)
-        {
-            RectTransform originalRT = senderBox.GetComponent<RectTransform>();
-            return originalRT.anchoredPosition.x + originalRT.sizeDelta.x - duplicateRT.sizeDelta.x;
-        }
-        else
-        {
-            RectTransform originalReplierRT = replierBox.GetComponent<RectTransform>();
-            return originalReplierRT.anchoredPosition.x;
-        }
-    }
-
-    public void RenderChoices(MessageData data)
+    public void RenderChoices(EmailData data)
     {
         Transform replyBoxParent = dialogueBox.transform.parent;
         RectTransform lastChoiceRT = null;
@@ -422,25 +360,25 @@ public class MessageRenderer : MonoBehaviour, IMessageRenderer
     {
         SetButtonsInteractable(false);
         HideActiveChoices();
-        MessageData messageWithChoices = messageList[currentIndex];
-        MessageData choiceData = new MessageData { text = choiceText, isSender = false, Choices = null };
+        EmailData emailWithChoices = emailList[currentIndex];
+        EmailData choiceData = new EmailData { emailText = choiceText, emailTitle = "", name = "", Choices = null };
         // Add to history only if not already present
-        if (!startMessageList.Any(s => s.text == messageWithChoices.text && s.isSender == messageWithChoices.isSender)) startMessageList.Add(new StartMessageData { text = messageWithChoices.text, name = messageWithChoices.name, isSender = messageList[currentIndex].isSender });
-        if (!startMessageList.Any(s => s.text == choiceText && s.isSender == false)) startMessageList.Add(new StartMessageData { text = choiceText, name = "", isSender = false });
+        if (!startEmailList.Any(s => s.text == emailWithChoices.emailText && s.title == emailWithChoices.emailTitle)) startEmailList.Add(new StartEmailData { text = emailWithChoices.emailText, title = emailWithChoices.emailTitle, name = emailWithChoices.name, profile = emailWithChoices.profile });
+        if (!startEmailList.Any(s => s.text == choiceText && s.title == "")) startEmailList.Add(new StartEmailData { text = choiceText, title = "", name = "", profile = null });
         // Advance to the next message
         currentIndex += 1;
-        RenderMessage(choiceData);
-        if (contactManager != null) contactManager.contacts[contactManager.currentChatIndex].currentIndex = currentIndex;
-        // Update the latest message on the contact UI
-        if (contactManager != null) contactManager.contacts[contactManager.currentChatIndex].UpdateLatestMessageOnUI();
-        // Update chat preview after choice selection
-        if (contactManager != null) contactManager.UpdateChatPreview(contactManager.currentChatIndex);
+        RenderEmail(choiceData);
+        if (inboxManager != null) inboxManager.inbox[inboxManager.currentEmailIndex].currentIndex = currentIndex;
+        // Update the latest email on the inbox UI
+        if (inboxManager != null) inboxManager.inbox[inboxManager.currentEmailIndex].UpdateLatestEmailOnUI();
+        // Update email preview after choice selection
+        if (inboxManager != null) inboxManager.UpdateEmailPreview(inboxManager.currentEmailIndex);
         StartCoroutine(ContinueAfterChoiceSelection());
     }
 
     private void HideActiveChoices()
     {
-        foreach (GameObject choice in activeChoices) if (choice != null) choice.SetActive(false); 
+        foreach (GameObject choice in activeChoices) if (choice != null) choice.SetActive(false);
         activeChoices.Clear();
     }
 
@@ -448,22 +386,22 @@ public class MessageRenderer : MonoBehaviour, IMessageRenderer
     {
         yield return new WaitForSeconds(1.5f);
 
-        if (currentIndex < messageList.Count)
+        if (currentIndex < emailList.Count)
         {
-            bool alreadyRendered = startMessageList.Any(s => s.text == messageList[currentIndex].text && s.isSender == messageList[currentIndex].isSender);
-            if (!alreadyRendered) startMessageList.Add(new StartMessageData { text = messageList[currentIndex].text, name = messageList[currentIndex].name, isSender = messageList[currentIndex].isSender });
-            RenderMessage(messageList[currentIndex]);
-            // Update chat preview after rendering a message
-            if (contactManager != null)
-            { 
-                contactManager.UpdateChatPreview(contactManager.currentChatIndex);
-                // Update the latest message on the contact UI
-                contactManager.contacts[contactManager.currentChatIndex].UpdateLatestMessageOnUI();
-            } 
-            if (messageList[currentIndex].Choices == null || messageList[currentIndex].Choices.Length == 0)
+            bool alreadyRendered = startEmailList.Any(s => s.text == emailList[currentIndex].emailText && s.title == emailList[currentIndex].emailTitle);
+            if (!alreadyRendered) startEmailList.Add(new StartEmailData { text = emailList[currentIndex].emailText, title = emailList[currentIndex].emailTitle, name = emailList[currentIndex].name, profile = emailList[currentIndex].profile });
+            RenderEmail(emailList[currentIndex]);
+            // Update email preview after rendering a message
+            if (inboxManager != null)
+            {
+                inboxManager.UpdateEmailPreview(inboxManager.currentEmailIndex);
+                // Update the latest email on the inbox UI
+                inboxManager.inbox[inboxManager.currentEmailIndex].UpdateLatestEmailOnUI();
+            }
+            if (emailList[currentIndex].Choices == null || emailList[currentIndex].Choices.Length == 0)
             {
                 currentIndex++;
-                if (contactManager != null) contactManager.contacts[contactManager.currentChatIndex].currentIndex = currentIndex;
+                if (inboxManager != null) inboxManager.inbox[inboxManager.currentEmailIndex].currentIndex = currentIndex;
                 isAutoProgressing = true;
             }
             else
@@ -475,7 +413,7 @@ public class MessageRenderer : MonoBehaviour, IMessageRenderer
     }
 
     public void SetButtonsInteractable(bool interactable)
-    { 
+    {
         if (sendButton != null) sendButton.GetComponent<Button>().interactable = interactable;
         if (openChoicesButton != null) openChoicesButton.GetComponent<Button>().interactable = interactable;
     }
@@ -485,7 +423,7 @@ public class MessageRenderer : MonoBehaviour, IMessageRenderer
         content.sizeDelta = new Vector2(content.sizeDelta.x, totalHeight);
     }
 
-    public void ClearMessages()
+    public void ClearEmail()
     {
         ClearMessageUI();
         ResetStateVariables();
@@ -495,7 +433,7 @@ public class MessageRenderer : MonoBehaviour, IMessageRenderer
     {
         foreach (Transform child in content)
         {
-            if (child.gameObject != senderBox && child.gameObject != replierBox && child.gameObject.tag != "ContactUI" && child.gameObject.tag != "Timestamp")
+            if (child.gameObject != senderBox && child.gameObject.tag != "ContactUI" && child.gameObject.tag != "Timestamp")
             { Destroy(child.gameObject); }
         }
 
@@ -510,31 +448,31 @@ public class MessageRenderer : MonoBehaviour, IMessageRenderer
         currentIndex = 0;
         isResponding = false;
         isAutoProgressing = false;
-        autoProgressTimer = 0f;
     }
 
-    public void ResetMessaging()
+    public void ResetEmail()
     {
         ResetStateVariables();
         totalHeight = senderBox.GetComponent<RectTransform>().sizeDelta.y;
         lastMessageRectTransform = null;
 
-
+        // Clear the UI to prevent duplication and ensure correct order
         ClearMessageUI();
-        RenderStartMessages();
+        RenderStartEmails();
+
         // Resume from the last interaction
-        if (contactManager != null)
+        if (inboxManager != null)
         {
-            currentIndex = contactManager.contacts[contactManager.currentChatIndex].currentIndex;
-            if (currentIndex < messageList.Count && currentIndex > 0)
+            currentIndex = inboxManager.inbox[inboxManager.currentEmailIndex].currentIndex;
+            if (currentIndex < emailList.Count && currentIndex > 0)
             {
-                if (messageList[currentIndex].Choices == null || messageList[currentIndex].Choices.Length == 0)
+                if (emailList[currentIndex].Choices == null || emailList[currentIndex].Choices.Length == 0)
                 {
-                    isAutoProgressing = true;
+                    // No auto-progression
                 }
                 else
                 {
-                    RenderMessage(messageList[currentIndex]);
+                    RenderEmail(emailList[currentIndex]);
                     isResponding = true;
                     SetButtonsInteractable(true);
                 }
