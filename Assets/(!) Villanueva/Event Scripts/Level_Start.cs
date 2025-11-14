@@ -8,6 +8,7 @@ public class Level_Start : MonoBehaviour
 
     [Header("Messages")]
     [SerializeField] bool startOnThread;
+    [SerializeField] bool startOnMessages;
     [SerializeField] float delayStartUpTime;
     [SerializeField] App_Basic messageApp;
     [SerializeField] App_Messages contactList;
@@ -31,7 +32,7 @@ public class Level_Start : MonoBehaviour
     
     IEnumerator delayStartUp()
     {
-        messageApp.OpenApp();
+        if(startOnMessages) messageApp.OpenApp();
 
         yield return new WaitForSeconds(delayStartUpTime);
 

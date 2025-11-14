@@ -50,7 +50,7 @@ public class Event_Manager : MonoBehaviour
         });
     }
 
-    public void Run_Event()
+    public void Run_RandomEvent()
     {
         //Common Events
         if (Random.Range(0, 99) % 3 == 0) // Check if the remainder is 0, which is true about 1/3 of the time
@@ -81,18 +81,33 @@ public class Event_Manager : MonoBehaviour
         Debug.Log("Running Event " + eventID + "...");
         switch (eventID)
             {
-                case 1:
+                case 1: // Postmail SPAM
                     Common_Spam_Postmail();
                     break;
                     
-                case 2:
+                case 2: // Multiple Postmail SPAM
                     if (Phone_Statistics.isCompromised) StartCoroutine(Rare_ConstantSpam_Postmail());
                     break;
                     
-                case 3:
+                case 3: // App Crashes (Exits App Slowly)
                     if (Phone_Statistics.isCompromised) StartCoroutine(Rare_CrashApp());
                     break;
-                    
+
+                case 4: // App Slows (Longer Transition Times)
+
+                    break;
+
+                case 5: // Shows a Random Ad
+
+                    break;
+
+                case 6: // App Slows (Longer Transition Times)
+
+                    break;
+
+                case 7: // App Slows (Longer Transition Times)
+
+                    break;
 
                 default:
                     Common_DisconnectWiFi();
