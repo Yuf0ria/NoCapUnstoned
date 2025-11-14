@@ -1,6 +1,7 @@
 using DG.Tweening;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 /*
  * HEY READ THE READFIRST.CS SCRIPT INSIDE THE SAME
@@ -13,6 +14,9 @@ using UnityEngine;
 
 public class Notes_New_Task_Announcement : MonoBehaviour
 {
+    [Header("Button")]
+    [SerializeField] private Button buttonTrigger;
+
     private void OnEnable()
     {
         TextMeshProUGUI titleTMP = transform.Find("Title").GetComponent<TextMeshProUGUI>();
@@ -42,5 +46,16 @@ public class Notes_New_Task_Announcement : MonoBehaviour
                 });
             }
         }
+
+        buttonTrigger.onClick.AddListener(goalTriggered);
+    }
+
+    public void goalTriggered()
+    {
+        TextMeshProUGUI noteTitle = transform.Find("Title").GetComponent<TextMeshProUGUI>();
+        TextMeshProUGUI noteDesc = transform.Find("Description").GetComponent<TextMeshProUGUI>();
+
+        noteTitle.fontStyle = FontStyles.Strikethrough;
+        noteDesc.fontStyle = FontStyles.Strikethrough;
     }
 }

@@ -7,4 +7,9 @@ public class Exit : MonoBehaviour
     {
         SceneManager.LoadScene("Main Menu", LoadSceneMode.Single);
     }
+
+    public void exitScene()
+    {
+        SceneManager.LoadScene("Main Menu", LoadSceneMode.Single);
+    }
 }

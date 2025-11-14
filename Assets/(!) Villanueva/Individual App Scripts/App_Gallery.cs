@@ -18,10 +18,10 @@ public class App_Gallery : MonoBehaviour
         Debug.Log("Viewing Image... " + Button.GetComponent<Image>().sprite);
 
         ImageView.sprite = Button.GetComponent<Image>().sprite;
-        ImageView_Page.transform.position = galleryOpenedPosition.position;
+        ImageView_Page.transform.position = gallleryClosedPosition.position;
         ImageView_Page.gameObject.SetActive(true);
 
-        this.gameObject.SetActive(false);
+        //this.gameObject.SetActive(false);
 
         ImageView_Page.transform.DOMove(galleryOpenedPosition.position, TransitionTime).SetEase(Ease.OutCubic);
     }
@@ -35,7 +35,7 @@ public class App_Gallery : MonoBehaviour
         transform.DOMove(gallleryClosedPosition.position, TransitionTime).SetEase(Ease.OutCubic)
         .OnComplete(() =>
         {
-            this.gameObject.SetActive(false);
+            //this.gameObject.SetActive(false);
         });
     }
 }
