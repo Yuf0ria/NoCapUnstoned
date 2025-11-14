@@ -8,6 +8,7 @@ public class App_OrderCorner : MonoBehaviour
     [SerializeField] private Transform orderCornerOpenedPosition; //= new Vector3(0, -175, 0);
 
     float TransitionTime = 0.5f; //Both has the same time transitions so...
+    public float TransitionMult = 1f; //This is for the slowing down of the App
 
     /// <summary>
     /// Order Corner Page
@@ -22,7 +23,7 @@ public class App_OrderCorner : MonoBehaviour
 
         //this.gameObject.SetActive(false); //Disabled this as it feels off setting the prev page inactive as the other goes in. - Nicaia
 
-        OrderCornerPage.transform.DOMove(orderCornerOpenedPosition.position, TransitionTime).SetEase(Ease.OutCubic);
+        OrderCornerPage.transform.DOMove(orderCornerOpenedPosition.position, TransitionTime * TransitionMult).SetEase(Ease.OutCubic);
     }
 
     //I replaced the DOLocalMove to DOMove. I spent 3 hours figuring out what was going wrong. :P
@@ -33,7 +34,7 @@ public class App_OrderCorner : MonoBehaviour
 
         OrderCornerPage.gameObject.SetActive(true);
 
-        transform.DOMove(orderCornerClosedPosition.position, TransitionTime).SetEase(Ease.OutCubic)
+        transform.DOMove(orderCornerClosedPosition.position, TransitionTime * TransitionMult).SetEase(Ease.OutCubic)
         .OnComplete(() =>
         {
             this.gameObject.SetActive(false);

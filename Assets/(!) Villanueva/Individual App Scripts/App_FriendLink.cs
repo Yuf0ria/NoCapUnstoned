@@ -19,6 +19,7 @@ public class App_FriendLink : MonoBehaviour
     [SerializeField] private Transform messageBoxOpenedPosition; // = new Vector3(0, -210, 0);
 
     float transitionTime = 0.5f;
+    public float TransitionMult = 1f; //This is for the slowing down of the App
 
     [SerializeField] GameObject messageBox;
     private GameObject activepage;
@@ -35,15 +36,15 @@ public class App_FriendLink : MonoBehaviour
         friendlinkPage.transform.position = friendlinkPageClosedPosition.position;
         friendlinkPage.gameObject.SetActive(true);
 
-        friendlinkPage.transform.DOMove(friendlinkPageOpenedPosition.position, transitionTime).SetEase(Ease.OutCubic);
-        messageBox.transform.DOMove(messageBoxHidePosition.position, transitionTime).SetEase(Ease.OutCubic);
+        friendlinkPage.transform.DOMove(friendlinkPageOpenedPosition.position, transitionTime * TransitionMult).SetEase(Ease.OutCubic);
+        messageBox.transform.DOMove(messageBoxHidePosition.position, transitionTime * TransitionMult).SetEase(Ease.OutCubic);
 
         // Hi Aundee, I know you can do better than whatever this is.
 
         if (activepage != null) // Checks if the app was just opened or not. If the activepage is true, then it would move the prev page as a new one opens.
         {
             Debug.Log("Now moving: " + activepage);
-            activepage.transform.DOMove(friendlinkPageClosedPosition.position, transitionTime).SetEase(Ease.OutCubic);
+            activepage.transform.DOMove(friendlinkPageClosedPosition.position, transitionTime * TransitionMult).SetEase(Ease.OutCubic);
             activepage = friendlinkPage;
             Debug.Log("New active page: " + activepage);
         } else //If the app was just opened for the first time, or atleast empty, then it just sets whatever page you opened as a new one
@@ -59,7 +60,7 @@ public class App_FriendLink : MonoBehaviour
 
         friendlinkPage.gameObject.SetActive(true);
 
-        transform.DOMove(friendlinkPageClosedPosition.position, transitionTime).SetEase(Ease.OutCubic);
+        transform.DOMove(friendlinkPageClosedPosition.position, transitionTime * TransitionMult).SetEase(Ease.OutCubic);
 
         activepage = null;
     }
@@ -72,11 +73,11 @@ public class App_FriendLink : MonoBehaviour
         friendlinkMessage.transform.position = friendlinkPageClosedPosition.position;
         friendlinkMessage.gameObject.SetActive(true);
 
-        friendlinkMessage.transform.DOMove(friendlinkPageOpenedPosition.position, transitionTime).SetEase(Ease.OutCubic);
+        friendlinkMessage.transform.DOMove(friendlinkPageOpenedPosition.position, transitionTime * TransitionMult).SetEase(Ease.OutCubic);
 
         //The Message Box when it's a message
         messageBox.transform.position = messageBoxHidePosition.position;
-        messageBox.transform.DOMove(messageBoxClosedPosition.position, transitionTime).SetEase(Ease.OutCubic);
+        messageBox.transform.DOMove(messageBoxClosedPosition.position, transitionTime * TransitionMult).SetEase(Ease.OutCubic);
     }
 
     /// <summary>
@@ -88,7 +89,7 @@ public class App_FriendLink : MonoBehaviour
         Debug.Log("Showing Reply Options...");
         messageBox = MessageBox;
         messageBox.transform.position = messageBoxClosedPosition.transform.position;
-        messageBox.transform.DOMove(messageBoxOpenedPosition.position, transitionTime).SetEase(Ease.OutCubic);
+        messageBox.transform.DOMove(messageBoxOpenedPosition.position, transitionTime * TransitionMult).SetEase(Ease.OutCubic);
     }
 
     public void SelectReply(GameObject MessageBox) //Hey, why the fuck does this one not work. bruh
@@ -96,14 +97,14 @@ public class App_FriendLink : MonoBehaviour
         Debug.Log("Hiding Reply Options...");
         messageBox = MessageBox;
         messageBox.transform.position = messageBoxOpenedPosition.transform.position; //EDIT: I FIXED IT
-        messageBox.transform.DOMove(messageBoxClosedPosition.position, transitionTime).SetEase(Ease.OutCubic);
+        messageBox.transform.DOMove(messageBoxClosedPosition.position, transitionTime * TransitionMult).SetEase(Ease.OutCubic);
     }
 
     public void HideReply(GameObject MessageBox) //Hey, why the fuck does this one not work. bruh
     {
         Debug.Log("Hiding Reply Options...");
         messageBox = MessageBox;
-        messageBox.transform.DOMove(messageBoxHidePosition.position, transitionTime).SetEase(Ease.OutCubic);
+        messageBox.transform.DOMove(messageBoxHidePosition.position, transitionTime * TransitionMult).SetEase(Ease.OutCubic);
     }
 
     public void SendReply(GameObject Reply)

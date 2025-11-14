@@ -3,15 +3,25 @@ using UnityEngine;
 using UnityEngine.UI;
 using DG.Tweening;
 using System.Collections;
+using Unity.Mathematics;
+using System.Globalization;
 
 public class Event_Manager : MonoBehaviour
 {
-    // Notification Objects
+    [Header("Notification")]
     [SerializeField] RectTransform Notif_Rect;
     [SerializeField] GameObject Notif_Icon;
     [SerializeField] GameObject Notif_Name;
     [SerializeField] GameObject Notif_Desc;
     [SerializeField] Sprite[] Icons;
+
+    [Header("GAME OVER")]
+    [SerializeField] RectTransform gameOverPanel;
+    [SerializeField] TextMeshProUGUI gameOverCause;
+    [SerializeField] TextMeshProUGUI gameOverAdvice;
+    [SerializeField] Transform revealPos;
+    [SerializeField] Transform hidePos;
+
 
     Vector3 Notif_HideTransform;
     Vector3 Notif_ShowTransform;
@@ -24,6 +34,7 @@ public class Event_Manager : MonoBehaviour
     static int numOfCommon = 5;
     static int numOfRare;
     static int numOfRandom;
+    public float TransitionMult = 1f; //This is for the slowing down of the App
 
     void Start()
     {
@@ -31,8 +42,14 @@ public class Event_Manager : MonoBehaviour
         Notif_ShowTransform = new Vector3(0, 845, 0);
 
         Notif_Rect.localPosition = Notif_HideTransform;
+
+        gameOverPanel.position = hidePos.position;
     }
     
+    void Update()
+    {
+        SecurityStats();
+    }
     public void New_Notification(int icon_num, string name, string desc)
     {
         Notif_Icon.GetComponent<Image>().sprite = Icons[icon_num];
@@ -53,9 +70,9 @@ public class Event_Manager : MonoBehaviour
     public void Run_RandomEvent()
     {
         //Common Events
-        if (Random.Range(0, 99) % 3 == 0) // Check if the remainder is 0, which is true about 1/3 of the time
+        if (UnityEngine.Random.Range(0, 99) % 3 == 0) // Check if the remainder is 0, which is true about 1/3 of the time
         {
-            switch (Random.Range(0, numOfCommon - 1))
+            switch (UnityEngine.Random.Range(0, numOfCommon - 1))
             {
                 case 1:
                     Common_Spam_Postmail();
@@ -69,7 +86,7 @@ public class Event_Manager : MonoBehaviour
         }
 
         //Rare Events
-        if (Random.Range(0, 99) % 10 == 0) // Check if the remainder is 0, which is true about 1/10 of the time
+        if (UnityEngine.Random.Range(0, 99) % 10 == 0) // Check if the remainder is 0, which is true about 1/10 of the time
         {
 
         }
@@ -93,20 +110,32 @@ public class Event_Manager : MonoBehaviour
                     if (Phone_Statistics.isCompromised) StartCoroutine(Rare_CrashApp());
                     break;
 
-                case 4: // App Slows (Longer Transition Times)
-
+                case 4: // SLOW THE APPS
+                    if (!Phone_Statistics.isAntiVirus) ChangeTransitionTime(2*Phone_Statistics.numLowSeverity);
                     break;
 
-                case 5: // Shows a Random Ad
-
+                case 5: // For Button that will add One Low Severity Attack, that checks for | Security Up to Date
+                    if (!Phone_Statistics.isSecurityUpToDate) Phone_Statistics.numLowSeverity++;
                     break;
 
-                case 6: // App Slows (Longer Transition Times)
-
+                case 6: // For Button that will add One Low Severity Attack, that checks for | AntiVirus
+                    if (!Phone_Statistics.isAdBlocker) Phone_Statistics.numLowSeverity++;
                     break;
 
-                case 7: // App Slows (Longer Transition Times)
+                case 7: // For Button that will add One High Severity Attack, that checks for | Security Up to Date
+                    if (!Phone_Statistics.isSecurityUpToDate) Phone_Statistics.numHighSeverity++;
+                    break;
 
+                case 8: // For Button that will add One High Severity Attack, that checks for | AntiVirus
+                    if (!Phone_Statistics.isAntiVirus) Phone_Statistics.numHighSeverity++;
+                    break;
+
+                case 9: // Removes one Low Severity Attack
+                    Phone_Statistics.numLowSeverity--;
+                    break;
+
+                case 10: // Removes one High Severity Attack
+                    Phone_Statistics.numHighSeverity--;
                     break;
 
                 default:
@@ -114,6 +143,68 @@ public class Event_Manager : MonoBehaviour
                     break;
             }
     }
+
+    #region Statistics Management
+    public void SecurityStats()
+    {
+        if (Phone_Statistics.numLowSeverity == 0 && Phone_Statistics.numHighSeverity == 0)
+        {
+            Phone_Statistics.isCompromised = false;
+
+            if(!Phone_Statistics.isAdBlocker && !Phone_Statistics.isTwoFactorAuthentication && !Phone_Statistics.isAntiVirus && !Phone_Statistics.isSecurityUpToDate)
+                Phone_Statistics.isVulnerable = true;
+
+            else Phone_Statistics.isVulnerable = false;
+        }
+
+        else Phone_Statistics.isCompromised = true;
+
+
+        if (!Phone_Statistics.isCompromised && TransitionMult != 1)
+        {
+            ChangeTransitionTime(1);
+        }
+
+        if(!Phone_Statistics.isGameOverRunning)
+        {
+        //  ITS THE FINAL COUNTDOWN
+            if(Phone_Statistics.numLowSeverity > 0) 
+            {
+                Debug.Log("Start the 5 minute Countdown");
+                StartCoroutine(Run_GameOver(5 * 60));
+                Phone_Statistics.isGameOverRunning = true;
+            }
+        }
+
+        if(Phone_Statistics.numHighSeverity > 0) Debug.Log("Start the 20 second Countdown");
+        {
+            StartCoroutine(Run_GameOver(20));
+            Phone_Statistics.isGameOverRunning = true;
+        }
+
+        if(Phone_Statistics.numLowSeverity > 5) Debug.Log("INSTANT GAME OVER");
+        {
+            StartCoroutine(Run_GameOver(5));
+            Phone_Statistics.isGameOverRunning = true;
+        }
+    }
+
+    IEnumerator Run_GameOver(float TimeToGameOver)
+    {
+        yield return new WaitForSeconds(TimeToGameOver);
+        if(Phone_Statistics.isCompromised)
+        {
+            // <== Add Statistics Overview
+
+            gameOverPanel.transform.DOMove(revealPos.position, TransitionTime).SetEase(Ease.OutCubic);
+        }
+
+        else Debug.Log("Game Over Cancelled");
+    }
+
+    #endregion
+
+
 
     #region Postmail Events
     void Common_Spam_Postmail()
@@ -139,23 +230,84 @@ public class Event_Manager : MonoBehaviour
 
     #endregion
 
-    #region 
+    #region Slows or Crashes
+
+    public void ChangeTransitionTime(float newTransitionMult)
+    {
+
+        App_Eduva[] Eduva = FindObjectsByType<App_Eduva>(FindObjectsSortMode.None);
+        for(int i = 0; i < Eduva.Length; i++)
+        {
+            Eduva[i].TransitionMult = newTransitionMult;
+        }
+
+
+        App_FriendLink[] FriendLink = FindObjectsByType<App_FriendLink>(FindObjectsSortMode.None); 
+        for(int i = 0; i < FriendLink.Length; i++)
+        {
+            FriendLink[i].TransitionMult = newTransitionMult;
+        }
+
+
+        App_Gallery[] Gallery = FindObjectsByType<App_Gallery>(FindObjectsSortMode.None); 
+        for(int i = 0; i < Gallery.Length; i++)
+        {
+            Gallery[i].TransitionMult = newTransitionMult;
+        }
+
+
+        App_Messages[] Messages = FindObjectsByType<App_Messages>(FindObjectsSortMode.None); 
+        for(int i = 0; i < Messages.Length; i++)
+        {
+            Messages[i].TransitionMult = newTransitionMult;
+        }
+
+
+        App_Notes[] Notes = FindObjectsByType<App_Notes>(FindObjectsSortMode.None); 
+        for(int i = 0; i < Notes.Length; i++)
+        {
+            Notes[i].TransitionMult = newTransitionMult;
+        }
+
+
+        App_OrderCorner[] OrderCorner = FindObjectsByType<App_OrderCorner>(FindObjectsSortMode.None); 
+        for(int i = 0; i < OrderCorner.Length; i++)
+        {
+            OrderCorner[i].TransitionMult = newTransitionMult;
+        }
+
+
+        App_Settings[] Settings = FindObjectsByType<App_Settings>(FindObjectsSortMode.None); 
+        for(int i = 0; i < Settings.Length; i++)
+        {
+            Settings[i].TransitionMult = newTransitionMult;
+        }
+
+
+        App_Webb[] Webb = FindObjectsByType<App_Webb>(FindObjectsSortMode.None); 
+        for(int i = 0; i < Webb.Length; i++)
+        {
+            Webb[i].TransitionMult = newTransitionMult;
+        }
+
+        TransitionMult = newTransitionMult;
+
+
+    }
 
     float appCrashTime = 2.5f;
     IEnumerator Rare_CrashApp()
     {
-        //Debug.Log("Crashing " + App_Basic.CurrentApp.gameObject.name + "...");
-
         GameObject CurrentApp = App_Basic.CurrentApp.Pop();
         Vector3 App_ClosedPoint = App_Basic.App_ClosedPoint;
         float TransitionTime = 0.5f;
 
-        CurrentApp.transform.DOMove(App_ClosedPoint, TransitionTime).SetEase(Ease.OutCubic);
-        CurrentApp.transform.DOScale(new Vector3(0.5f, 0.5f, 0.5f), TransitionTime).SetEase(Ease.OutCubic);
+        CurrentApp.transform.DOMove(App_ClosedPoint, TransitionTime * TransitionMult).SetEase(Ease.OutCubic);
+        CurrentApp.transform.DOScale(new Vector3(0.5f, 0.5f, 0.5f), TransitionTime * TransitionMult).SetEase(Ease.OutCubic);
 
         yield return new WaitForSeconds(appCrashTime);
 
-        CurrentApp.transform.DOScale(Vector3.zero, TransitionTime).SetEase(Ease.OutCubic)
+        CurrentApp.transform.DOScale(Vector3.zero, TransitionTime * TransitionMult).SetEase(Ease.OutCubic)
         .OnComplete(() =>
         {
             CurrentApp.gameObject.SetActive(false);
@@ -170,6 +322,10 @@ public class Event_Manager : MonoBehaviour
         Phone_Statistics.isWifiConnected = false;
         App_Settings.DisconnectToWifi();
     }
+
+
+
+
 
     // Common Events, 33% Chance of occuring every time a task is completed OR when the story progresses
     // The Following are possible Events:
