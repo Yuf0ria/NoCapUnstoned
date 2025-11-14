@@ -9,6 +9,7 @@ TagManager:
   - Reply Box
   - ContactUI
   - Timestamp
+  - InboxUI
   layers:
   - Default
   - TransparentFX

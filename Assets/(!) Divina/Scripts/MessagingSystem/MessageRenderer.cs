@@ -1,4 +1,4 @@
-using UnityEngine;
+ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using System.Collections;
@@ -18,7 +18,6 @@ public class MessageRenderer : MonoBehaviour, IMessageRenderer
     public GameObject senderBox; //Original gameobject  for sender messages
     public GameObject replierBox; //Original gameobject for replier messages
     public GameObject dialogueBox; //Original gameobject for dialogue choices
-    public GameObject timestampBox; //Original gameobject for timestamps
 
     [Header("UI Elements")]
     public RectTransform content; //ScrollView content
@@ -50,7 +49,6 @@ public class MessageRenderer : MonoBehaviour, IMessageRenderer
     {
         InitializeButtons();
         DisableOriginalDialogueBox();
-        RenderTimestamp();
         InitializeContentSize();
         RenderStartMessages();
         currentIndex = startMessageList.Count;  // Set currentIndex to the number of start messages to avoid duplication
@@ -61,36 +59,9 @@ public class MessageRenderer : MonoBehaviour, IMessageRenderer
     {
         HandleAutoProgression();
         HandleManualProgression();
-        UpdateTimestampText();
     }
 
-    private void UpdateTimestampText()
-    {
-        GameObject timestamp = GameObject.FindGameObjectWithTag("Timestamp");
-        if (timestamp != null)
-        {
-            Transform timestampTextTransform = timestamp.transform.Find("Time");
-            if (timestampTextTransform == null)
-            {
-                timestampTextTransform = timestamp.transform.Find("Text");
-            }
-            if (timestampTextTransform != null)
-            {
-                TextMeshProUGUI timestampTMP = timestampTextTransform.GetComponent<TextMeshProUGUI>();
-                if (timestampTMP != null)
-                {
-                    timestampTMP.enableCulling = false; // Disable culling to prevent disabling when off-screen
-                    timestampTMP.enabled = true; // Ensure the component is enabled
-                    timestampTextTransform.gameObject.SetActive(true); // Ensure the gameObject is active
-                    if (contactManager != null && contactManager.timeScript != null)
-                    {
-                        timestampTMP.text = contactManager.timeScript.GetCurrentTimeString();
-                        LayoutRebuilder.ForceRebuildLayoutImmediate(timestampTMP.rectTransform);
-                    }
-                }
-            }
-        }
-    }
+
 
     private void InitializeButtons()
     {
@@ -119,7 +90,7 @@ public class MessageRenderer : MonoBehaviour, IMessageRenderer
     {
         if (startMessageList != null && startMessageList.Count > 0)
         {
-            // Render all start messages below the timestamp
+            // Render all start messages
             for (int i = 0; i < startMessageList.Count; i++)
             {
                 MessageData data = new MessageData { text = startMessageList[i].text, name = startMessageList[i].name, isSender = startMessageList[i].isSender };
@@ -128,118 +99,7 @@ public class MessageRenderer : MonoBehaviour, IMessageRenderer
         }
     }
 
-    private void RenderTimestamp()
-    {
-        if (timestampBox == null) return;
 
-        // Destroy any existing timestamp to ensure we use a fresh duplicate
-        GameObject existingTimestamp = GameObject.FindGameObjectWithTag("Timestamp");
-        if (existingTimestamp != null)
-        {
-            Destroy(existingTimestamp);
-        }
-
-        // Get the original size of the timestampBox prefab
-        Vector2 originalSize = timestampBox.GetComponent<RectTransform>().sizeDelta;
-
-        Transform parent = content; // Place inside the content
-        GameObject timestampDuplicate = Instantiate(timestampBox, parent);
-        timestampDuplicate.tag = "Timestamp";
-
-        // Set anchors to top of the content
-        RectTransform timestampRT = timestampDuplicate.GetComponent<RectTransform>();
-        timestampRT.anchorMin = new Vector2(0, 1);
-        timestampRT.anchorMax = new Vector2(1, 1);
-        timestampRT.pivot = new Vector2(0.5f, 1);
-        timestampRT.anchoredPosition = new Vector2(0, 0);
-        // Use the original size of the timestampBox
-        timestampRT.sizeDelta = originalSize;
-
-        // Update timestamp text using TimeScript
-        Transform timestampTextTransform = timestampDuplicate.transform.Find("Time");
-        if (timestampTextTransform == null)
-        {
-            if (timestampDuplicate.GetComponent<TextMeshProUGUI>() != null)
-            {
-                timestampTextTransform = timestampDuplicate.transform;
-            }
-            else
-            {
-                timestampTextTransform = timestampDuplicate.transform.Find("Text");
-                if (timestampTextTransform == null)
-                {
-                    // Try alternative names
-                    timestampTextTransform = timestampDuplicate.transform.Find("Text (TMP)");
-                    if (timestampTextTransform == null)
-                    {
-                        timestampTextTransform = timestampDuplicate.transform.Find("Text (UI)");
-                        if (timestampTextTransform == null)
-                        {
-                            timestampTextTransform = timestampDuplicate.transform.Find("TextMeshPro");
-                            if (timestampTextTransform == null)
-                            {
-                                // Find any child with TextMeshProUGUI component
-                                foreach (Transform child in timestampDuplicate.transform)
-                                {
-                                    if (child.GetComponent<TextMeshProUGUI>() != null)
-                                    {
-                                        timestampTextTransform = child;
-                                        break;
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        }
-
-        // Find all TMP components in the timestamp duplicate and its children
-        List<TextMeshProUGUI> tmpComponents = new List<TextMeshProUGUI>();
-        // Check the duplicate itself
-        TextMeshProUGUI tmp = timestampDuplicate.GetComponent<TextMeshProUGUI>();
-        if (tmp != null)
-        {
-            tmpComponents.Add(tmp);
-            tmp.enableCulling = false; // Disable culling to prevent disabling when off-screen
-            tmp.enabled = true; // Enable the TextMeshProUGUI component
-            timestampDuplicate.SetActive(true); // Activate the gameObject
-        }
-        // Check children
-        foreach (Transform child in timestampDuplicate.transform)
-        {
-            tmp = child.GetComponent<TextMeshProUGUI>();
-            if (tmp != null)
-            {
-                tmpComponents.Add(tmp);
-                tmp.enableCulling = false; // Disable culling to prevent disabling when off-screen
-                tmp.enabled = true; // Enable the TextMeshProUGUI component
-                child.gameObject.SetActive(true); // Activate the gameObject
-            }
-        }
-
-        if (tmpComponents.Count > 0 && contactManager != null && contactManager.timeScript != null)
-        {
-            if (tmpComponents.Count >= 2)
-            {
-                // Set first TMP to hourText, second to minText
-                tmpComponents[0].text = contactManager.timeScript.hourText;
-                tmpComponents[1].text = contactManager.timeScript.minText;
-                // Set all margins to 0 for both
-                tmpComponents[0].margin = Vector4.zero;
-                tmpComponents[1].margin = Vector4.zero;
-                LayoutRebuilder.ForceRebuildLayoutImmediate(tmpComponents[0].rectTransform);
-                LayoutRebuilder.ForceRebuildLayoutImmediate(tmpComponents[1].rectTransform);
-            }
-            else
-            {
-                // Fallback to full time string if only one TMP
-                tmpComponents[0].text = contactManager.timeScript.GetCurrentTimeString();
-                tmpComponents[0].margin = Vector4.zero;
-                LayoutRebuilder.ForceRebuildLayoutImmediate(tmpComponents[0].rectTransform);
-            }
-        }
-    }
 
 
 
@@ -475,18 +335,7 @@ public class MessageRenderer : MonoBehaviour, IMessageRenderer
         if (lastMessageRectTransform == null)
         {
             RectTransform originalRT = senderBox.GetComponent<RectTransform>();
-            // Account for timestamp height to position first message below it
-            GameObject timestamp = GameObject.FindGameObjectWithTag("Timestamp");
-            float timestampHeight = 0f;
-            if (timestamp != null)
-            {
-                RectTransform timestampRT = timestamp.GetComponent<RectTransform>();
-                if (timestampRT != null)
-                {
-                    timestampHeight = timestampRT.sizeDelta.y;
-                }
-            }
-            return originalRT.anchoredPosition.y - originalRT.sizeDelta.y / 2 - spacing - extraSpacing - elementHeight / 2 - timestampHeight;
+            return originalRT.anchoredPosition.y - originalRT.sizeDelta.y / 2 - spacing - extraSpacing - elementHeight / 2;
         }
         else return lastMessageRectTransform.anchoredPosition.y - lastMessageRectTransform.sizeDelta.y / 2 - spacing - extraSpacing - elementHeight / 2;
     }
@@ -670,11 +519,9 @@ public class MessageRenderer : MonoBehaviour, IMessageRenderer
         totalHeight = senderBox.GetComponent<RectTransform>().sizeDelta.y;
         lastMessageRectTransform = null;
 
-        // Clear the UI to prevent duplication and ensure correct order
-        ClearMessageUI();
-        RenderTimestamp();
-        RenderStartMessages();
 
+        ClearMessageUI();
+        RenderStartMessages();
         // Resume from the last interaction
         if (contactManager != null)
         {
