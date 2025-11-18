@@ -8,7 +8,6 @@ public class App_Notes : MonoBehaviour
     [SerializeField] private Transform notesOpenedPosition; //= new Vector3(0, -175, 0);
 
     float TransitionTime = 0.5f; //Both has the same time transitions so...
-    public float TransitionMult = 1f; //This is for the slowing down of the App
 
     /// <summary>
     /// Order Corner Page
@@ -23,7 +22,7 @@ public class App_Notes : MonoBehaviour
 
         //this.gameObject.SetActive(false); //Disabled this as it feels off setting the prev page inactive as the other goes in. - Nicaia
 
-        notesPage.transform.DOMove(notesOpenedPosition.position, TransitionTime * TransitionMult).SetEase(Ease.OutCubic);
+        notesPage.transform.DOMove(notesOpenedPosition.position, TransitionTime).SetEase(Ease.OutCubic);
     }
 
     // Future Optimisation, Make it so that ViewNotes Page is just a single page 
@@ -38,7 +37,7 @@ public class App_Notes : MonoBehaviour
 
         notesPage.gameObject.SetActive(true);
 
-        transform.DOMove(notesClosedPosition.position, TransitionTime * TransitionMult).SetEase(Ease.OutCubic)
+        transform.DOMove(notesClosedPosition.position, TransitionTime).SetEase(Ease.OutCubic)
         .OnComplete(() =>
         {
             this.gameObject.SetActive(false);

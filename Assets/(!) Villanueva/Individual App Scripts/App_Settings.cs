@@ -17,7 +17,6 @@ public class App_Settings : MonoBehaviour
     [SerializeField] private Transform ClosedPosition; //= new Vector3(1250, -175, 0);
     [SerializeField] private Transform OpenedPosition; //= new Vector3(0, -175, 0);
     float TransitionTime = 0.5f;
-    public float TransitionMult = 1f; //This is for the slowing down of the App
 
     
     public void OpenSettingsCategory(GameObject SettingsCategoryPage)
@@ -29,7 +28,7 @@ public class App_Settings : MonoBehaviour
 
         //this.gameObject.SetActive(false);
 
-        SettingsCategoryPage.transform.DOMove(OpenedPosition.position, TransitionTime * TransitionMult).SetEase(Ease.OutCubic);
+        SettingsCategoryPage.transform.DOMove(OpenedPosition.position, TransitionTime).SetEase(Ease.OutCubic);
     }
 
     public void ReturnToSettingsMain(GameObject SettingsMainPage)
@@ -38,7 +37,7 @@ public class App_Settings : MonoBehaviour
 
         SettingsMainPage.gameObject.SetActive(true);
 
-        transform.DOMove(ClosedPosition.position, TransitionTime * TransitionMult).SetEase(Ease.OutCubic)
+        transform.DOMove(ClosedPosition.position, TransitionTime).SetEase(Ease.OutCubic)
         .OnComplete(() =>
         {
             //this.gameObject.SetActive(false);
