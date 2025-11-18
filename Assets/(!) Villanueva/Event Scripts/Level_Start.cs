@@ -5,6 +5,7 @@ using UnityEngine.UI;
 
 public class Level_Start : MonoBehaviour
 {
+    // MODIFY THIS, IF YOU WANT TO CHANGE THE START OF THE CHAPTER
 
     [Header("Messages")]
     [SerializeField] bool startOnThread;

@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class Story_Manager : MonoBehaviour
+public class Phishing_Ads : MonoBehaviour
 {
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()

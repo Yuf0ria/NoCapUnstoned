@@ -6,6 +6,10 @@ using DG.Tweening;
 
 public class Phone_Login : MonoBehaviour
 {
+    [Header("Fake Login Page")]
+    [SerializeField] private bool isPhishingPage = false;
+    [SerializeField] private float phishingLevel = 1;
+
     [Header("Prefab, GameObjects and Position")]
     [SerializeField] private TMP_InputField usernameInput;
     [SerializeField] private TMP_InputField passwordInput;
@@ -88,10 +92,22 @@ public class Phone_Login : MonoBehaviour
         {
             if (OTP == otpInput.text && otpInput.text != "")
             {
-                // MOVE TO NEXT PAGE
-                loginButton.interactable = true;
-                events.New_Notification(0, "App_Name", "OTP confirmed. Logging in...");
+                if(!isPhishingPage)
+                {
+                    events.New_Notification(0, "App_Name", "OTP confirmed. Logging in...");
+                }
 
+                else
+                {
+                    if(phishingLevel > 1) 
+                    {
+                        Phone_Statistics.isStolenAccount = true; 
+                        Debug.Log("Account Stolen!");
+                        Phone_Statistics.numLowSeverity++;
+                    }
+                }
+
+                loginButton.interactable = true;
                 Login_Leave();
             }
 
@@ -105,7 +121,18 @@ public class Phone_Login : MonoBehaviour
 
         else
         {
-            events.New_Notification(0, "App_Name", "Logging in...");
+            if(!isPhishingPage)
+            {
+                events.New_Notification(0, "App_Name", "Logging in...");
+            }
+        
+            else
+            {
+                Phone_Statistics.isStolenAccount = true; 
+                Debug.Log("Account Stolen!");
+                Phone_Statistics.numLowSeverity++;
+                Debug.Log(Phone_Statistics.numLowSeverity);
+            }
 
             Login_Leave();
         }
@@ -169,13 +196,10 @@ public class Phone_Login : MonoBehaviour
         Login_Leave();
 
         Page_Change.transform.DOMove(openedPos.position, transitionTime).SetEase(Ease.OutCubic);
-
-
     }
 
     void New_PasswordInput()
     {
-        
         var placeholder = newPasswordInput.gameObject.GetComponentInChildren<TextMeshProUGUI>();
 
         if (newPasswordInput.text != "")
@@ -194,6 +218,12 @@ public class Phone_Login : MonoBehaviour
     public void Confirm_NewPassword()
     {
         Password = newPasswordInput.text;
+
+        if(Phone_Statistics.numLowSeverity > 0 && Phone_Statistics.isStolenAccount) // Check if the Account was actually Stolen
+        {
+            Phone_Statistics.numLowSeverity--;
+            Phone_Statistics.isStolenAccount = false;
+        }
         
         ChangePasword_Leave();
     }
