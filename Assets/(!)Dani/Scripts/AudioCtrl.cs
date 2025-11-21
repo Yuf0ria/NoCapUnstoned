@@ -1,19 +1,19 @@
+using Unity.VisualScripting;
+using UnityEditor;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class AudioCtrl : MonoBehaviour
 {
     //Scripts to call
-
-    private static AudioCtrl controller;
-
-    public Event_Manager event_Manager;
+    private static AudioCtrl instance;
     //GameObject
-
-        private void Awake()
+    
+    private void Awake()
     {
-        if(controller == null)
+        if(instance == null)
         {
-            controller = this;
+            instance = this;
             DontDestroyOnLoad(gameObject);
         }
         else
@@ -22,11 +22,34 @@ public class AudioCtrl : MonoBehaviour
         }
     }
 
+    void Start()
+    {
+        MainMusic();
+    }
+
     void Update()
     {
-        if(event_Manager.enabled == true)
+        //SFX
+        SFX();
+    }
+
+
+    void MainMusic()
+    {
+        //Play when open
+        var Menu  = SceneManager.GetSceneByName("Copy_MainMenu").isLoaded;
+        if(Menu)
         {
-            SoundEffectManager.Play("Start");
+            MusicManager.Play("Menu");
+        }
+        //stop if scene change
+    }
+
+    void SFX()
+    {
+        if (Input.GetKeyDown(KeyCode.Mouse0))
+        {
+            SoundEffectManager.Play("Click");
         }
     }
 }

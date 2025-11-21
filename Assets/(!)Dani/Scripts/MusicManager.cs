@@ -3,17 +3,16 @@ using UnityEngine.UI;
 
 public class MusicManager : MonoBehaviour
 {
-    private static  MusicManager instance;
+    private static  MusicManager MusicInstance;
     private static AudioSource audioSource;
     private static MusicLibrary library;
     [SerializeField] private Slider musicSlider;
-    //Input Variables
-    public float step = 0.1f;
 
     private void Awake()
     {
-        if (instance == null)
+        if (MusicInstance == null)
         {
+            MusicInstance = this;
             audioSource = GetComponent<AudioSource>();
             library = GetComponent<MusicLibrary>();
             DontDestroyOnLoad(gameObject);
@@ -35,23 +34,10 @@ public class MusicManager : MonoBehaviour
 
     void Start()
     {
-        musicSlider.onValueChanged.AddListener(delegate { setVolume(musicSlider.value); });
-    }
-    void Update()
-    {
-        
-        if (Input.GetKeyDown(KeyCode.D) || Input.GetKeyDown(KeyCode.RightArrow))
-        {
-            musicSlider.value += step;
-        }
-        if (Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.LeftArrow))
-        {
-            musicSlider.value -= step;
-        }
-        
+        musicSlider.onValueChanged.AddListener(delegate { SetVolume(musicSlider.value); });
     }
 
-    public static void setVolume(float volume)
+    public static void SetVolume(float volume)
     {
         audioSource.volume = volume;
     }

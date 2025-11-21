@@ -5,7 +5,6 @@ using UnityEngine.UI;
 public class SoundEffectManager : MonoBehaviour
 {
     private static SoundEffectManager instance;
-
     private static AudioSource AudioSource;
     private static SoundEffectLibrary library;
     [SerializeField] private Slider sfxSlider;

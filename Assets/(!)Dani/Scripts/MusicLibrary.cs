@@ -15,9 +15,9 @@ public class MusicLibrary : MonoBehaviour
     private void InitializeDictionary()
     {
         MusicDictionary = new Dictionary<string, List<AudioClip>>();
-        foreach (MusicGroup soundEffectGroup in MusicGroups)
+        foreach (MusicGroup musicGroup in MusicGroups)
         {
-            MusicDictionary[soundEffectGroup.name] = soundEffectGroup.clip;
+            MusicDictionary[musicGroup.name] = musicGroup.clip;
         }
     }
 
