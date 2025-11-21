@@ -32,6 +32,15 @@ public class MusicManager : MonoBehaviour
         }
     }
 
+     public static void Stop(string soundName)
+    {
+        AudioClip audioClip = library.GetRandomClip(soundName);
+        if (audioClip == null)
+        {
+            audioSource.Stop();
+        }
+    }
+
     void Start()
     {
         musicSlider.onValueChanged.AddListener(delegate { SetVolume(musicSlider.value); });

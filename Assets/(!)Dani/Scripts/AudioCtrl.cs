@@ -37,12 +37,21 @@ public class AudioCtrl : MonoBehaviour
     void MainMusic()
     {
         //Play when open
+        //Change this menu later
         var Menu  = SceneManager.GetSceneByName("Copy_MainMenu").isLoaded;
         if(Menu)
         {
             MusicManager.Play("Menu");
         }
         //stop if scene change
+        // var Tutorial = SceneManager.GetSceneByName("Tutorial").isLoaded;
+        // if(Tutorial)
+        // {
+        //     MusicManager.Stop("Menu");
+        //     MusicManager.Play("tutorial");
+        // }
+        //problem: tutorial music doesn't play because of oneShot, will fix this later
+
     }
 
     void SFX()
