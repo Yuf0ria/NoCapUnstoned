@@ -3,24 +3,14 @@ using UnityEngine.UI;
 
 public class MusicManager : MonoBehaviour
 {
-    private static  MusicManager MusicInstance;
     private static AudioSource audioSource;
     private static MusicLibrary library;
     [SerializeField] private Slider musicSlider;
 
     private void Awake()
     {
-        if (MusicInstance == null)
-        {
-            MusicInstance = this;
-            audioSource = GetComponent<AudioSource>();
-            library = GetComponent<MusicLibrary>();
-            DontDestroyOnLoad(gameObject);
-        }
-        else
-        {
-            Destroy(gameObject);
-        }
+        audioSource = GetComponent<AudioSource>();
+        library = GetComponent<MusicLibrary>();
     }
 
     public static void Play(string soundName)

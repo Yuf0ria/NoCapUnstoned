@@ -36,21 +36,22 @@ public class AudioCtrl : MonoBehaviour
 
     void MainMusic()
     {
+        //& a bit of sfx. why? becuase it loops if you put on update and it doesn't have a key
         //Play when open
         //Change this menu later
         var Menu  = SceneManager.GetSceneByName("Copy_MainMenu").isLoaded;
         if(Menu)
         {
             MusicManager.Play("Menu");
+            SoundEffectManager.Play("Start");
         }
         //stop if scene change
-        // var Tutorial = SceneManager.GetSceneByName("Tutorial").isLoaded;
-        // if(Tutorial)
-        // {
-        //     MusicManager.Stop("Menu");
-        //     MusicManager.Play("tutorial");
-        // }
-        //problem: tutorial music doesn't play because of oneShot, will fix this later
+        var Tutorial = SceneManager.GetSceneByName("Tutorial").isLoaded;
+        if(Tutorial)
+        {
+            MusicManager.Stop("Menu");
+            MusicManager.Play("tutorial");
+        }
 
     }
 

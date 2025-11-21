@@ -11,17 +11,8 @@ public class SoundEffectManager : MonoBehaviour
 
     private void Awake()
     {
-        if(instance == null)
-        {
-            instance = this;
-            AudioSource = GetComponent<AudioSource>();
-            library = GetComponent<SoundEffectLibrary>();
-            DontDestroyOnLoad(gameObject);
-        }
-        else
-        {
-            Destroy(gameObject);
-        }
+        AudioSource = GetComponent<AudioSource>();
+        library = GetComponent<SoundEffectLibrary>();
     }
 
     public static void Play(string soundName)
