@@ -11,22 +11,23 @@ public class Stories : MonoBehaviour
 
     [Header("Chapter 1")]
     [SerializeField] private Button startChapterOne;
-    [SerializeField] private Button contChapterOne;
 
     [Header("Chapter 2")]
     [SerializeField] private Button startChapterTwo;
-    [SerializeField] private Button contChapterTwo;
 
     [Header("Chapter 3")]
     [SerializeField] private Button startChapterThree;
-    [SerializeField] private Button contChapterThree;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         startTutorial.onClick.AddListener(() => 
         {
-            SceneManager.LoadScene("Tutorial", LoadSceneMode.Additive);
+            SceneManager.LoadScene("Tutorial", LoadSceneMode.Single);
+        });
+        startChapterOne.onClick.AddListener(() =>
+        {
+            SceneManager.LoadScene("Chapter 1", LoadSceneMode.Single);
         });
     }
 

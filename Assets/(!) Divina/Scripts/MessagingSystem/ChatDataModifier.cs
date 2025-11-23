@@ -1,4 +1,7 @@
 using UnityEngine;
+using TMPro;
+using UnityEngine.UI;
+using DG.Tweening;
 using System.Collections.Generic;
 
 public class ChatDataModifier : MonoBehaviour
@@ -9,6 +12,10 @@ public class ChatDataModifier : MonoBehaviour
     [Header("Modification Settings")]
     [SerializeField] private int targetChatIndex = -1; // -1 to add new ChatData, >=0 to append to existing
     [SerializeField] private ChatData newChatData; // The ChatData to add or append from
+
+    [Header("Notification Settings")]
+    [SerializeField] private Sprite messagingIcon;
+    [SerializeField] private Sprite defaultIcon;
 
     private bool hasApplied = false; // Flag to ensure it only applies once per activation
 
@@ -26,7 +33,7 @@ public class ChatDataModifier : MonoBehaviour
             // Check if key fields are empty to prevent invalid new additions
             if (string.IsNullOrEmpty(newChatData.name) || string.IsNullOrEmpty(newChatData.phoneNumber) || newChatData.profileImage == null) return;
 
-            // Add new ChatData, but initialize state fields to defaults to avoid overwriting runtime data
+            // Add new ChatData using AddContact to handle UI instantiation
             ChatData newEntry = new ChatData
             {
                 profileImage = newChatData.profileImage,
@@ -42,7 +49,7 @@ public class ChatDataModifier : MonoBehaviour
                 isUnread = true, // New chats should be unread
                 contactUI = null // Default
             };
-            contactListManager.contacts.Add(newEntry);
+            contactListManager.AddContact(newEntry);
         }
         else if (targetChatIndex >= 0 && targetChatIndex < contactListManager.contacts.Count)
         { 
@@ -107,6 +114,74 @@ public class ChatDataModifier : MonoBehaviour
             contactListManager.ReloadMessageThread(targetChatIndex);
         } 
 
+        
+
+        // Trigger notification after modification
+        TriggerNotification();
+
         hasApplied = true;
+    }
+
+    private void TriggerNotification()
+    {
+        // Notification gameobject
+        GameObject notif = GameObject.FindWithTag("Notification");
+
+        if (notif != null)
+        {
+            TextMeshProUGUI titleNotifTMP = notif.transform.Find("Name").GetComponent<TextMeshProUGUI>();
+            TextMeshProUGUI descNotifTMP = notif.transform.Find("Desc").GetComponent<TextMeshProUGUI>();
+            Image iconNotif = notif.transform.Find("Icon").GetComponent<Image>();
+
+            Button notifButton = notif.GetComponent<Button>();
+            notifButton.interactable = true;
+            notifButton.onClick.AddListener(quickHide);
+
+            // CHANGING TEXT BASED ON THE TASK
+            if (titleNotifTMP != null && descNotifTMP != null && iconNotif != null)
+            {
+                titleNotifTMP.text = "New message incoming!";
+                descNotifTMP.text = "You have a new message from " + newChatData.name;
+                iconNotif.sprite = messagingIcon;
+            }
+
+            // NOTIF POP UP THANGGG
+            Transform showPos = GameObject.Find("NOTIF SHOW POSITION").transform;
+            Transform hidePos = GameObject.Find("NOTIF HIDE POSITION").transform;
+
+            if (showPos != null && hidePos != null && iconNotif != null && notifButton != null)
+            {
+                notif.transform.DOLocalMove(showPos.localPosition, 0.5f).OnComplete(() =>
+                {
+                    // Just waiting for a while
+                    DOVirtual.DelayedCall(3f, () => notif.transform.DOLocalMove(hidePos.localPosition, 0.5f).OnComplete(() =>
+                    {
+                        iconNotif.sprite = defaultIcon;
+                        notifButton.interactable = false;
+                        notifButton.onClick.RemoveListener(quickHide);
+                    }));
+                });
+            }
+        }
+    }
+
+    public void quickHide()
+    {
+        GameObject notif = GameObject.FindWithTag("Notification");
+        Button notifButton = notif.GetComponent<Button>();
+
+        Transform showPos = GameObject.Find("NOTIF SHOW POSITION").transform;
+        Transform hidePos = GameObject.Find("NOTIF HIDE POSITION").transform;
+
+        Image iconNotif = notif.transform.Find("Icon").GetComponent<Image>();
+        iconNotif.sprite = messagingIcon;
+
+        // Hides automatically I think
+        notif.transform.DOMove(hidePos.position, 0.5f).OnComplete(() =>
+        {
+            iconNotif.sprite = defaultIcon;
+            notifButton.interactable = false;
+            notifButton.onClick.RemoveListener(quickHide);
+        });
     }
 }

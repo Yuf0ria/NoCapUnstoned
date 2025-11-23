@@ -44,6 +44,10 @@ public class OrderingScript : MonoBehaviour
     [Header("Food Preparation")]
     [SerializeField] private FoodPreparationSlider foodPreparationSlider;
 
+    [SerializeField] private GameObject dialogueBox;
+
+    [SerializeField] private bool alreadyOrdered;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -65,11 +69,38 @@ public class OrderingScript : MonoBehaviour
         purschaseButton.onClick.AddListener(PurchaseFood);
     }
 
+    void CloseDialogue()
+    {
+        dialogueBox.SetActive(false);
+        Button btn = dialogueBox.GetComponent<Button>();
+        if (btn != null)
+        {
+            btn.onClick.RemoveListener(CloseDialogue);
+        }
+    }
+
     void AddQuantity(int index)
     {
         if (totalQuantity >= 4)
         {
-            Debug.Log("I add too much for myself now...");
+            if (dialogueBox != null)
+            {
+                dialogueBox.SetActive(true);
+                Transform child = dialogueBox.transform.GetChild(0);
+                if (child != null)
+                {
+                    TextMeshProUGUI tmp = child.GetComponent<TextMeshProUGUI>();
+                    if (tmp != null)
+                    {
+                        tmp.text = "Okay, that's too much for myself now...";
+                    }
+                }
+                Button btn = dialogueBox.GetComponentInChildren<Button>();
+                if (btn != null)
+                {
+                    btn.onClick.AddListener(CloseDialogue);
+                }
+            }
             return;
         }
         menuItems[index].quantity += 1;
@@ -299,16 +330,17 @@ public class OrderingScript : MonoBehaviour
         // Clear order data
         orderItems.Clear();
         totalQuantity = 0;
+        alreadyOrdered = true;
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (totalQuantity != 0)
+        if (totalQuantity != 0 && !alreadyOrdered)
         {
             cartButton.interactable = true;
         }
-        if (totalQuantity == 0)
+        if (totalQuantity == 0 && alreadyOrdered)
         {
             cartButton.interactable = false;
         }

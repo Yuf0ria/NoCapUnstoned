@@ -43,13 +43,17 @@ public class ContactListManager : MonoBehaviour
             ConfigureContact(firstContactUI, contacts[0], 0);
             currentContactIndex = 1;
             currentChatIndex = -1; // No chat is open at start, so first contact remains unread
+
+            // Add all remaining contacts at startup
+            while (currentContactIndex < contacts.Count)
+            {
+                AddContact();
+            }
         }
     }
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Space)) AddContact();
-
         // Background progression for all contacts, but only for current when thread is not active
         for (int i = 0; i < contacts.Count; i++)
         {
@@ -106,44 +110,82 @@ public class ContactListManager : MonoBehaviour
         }
     } 
 
-    private void AddContact()
+    public void AddContact(ChatData newChatData = null)
     {
-        if (currentContactIndex >= contacts.Count) return;
-
-        Transform parent = content.transform;
-        GameObject duplicate = Instantiate(contactPrefab, parent);
-        DontDestroyOnLoad(duplicate); // dude. idk if removing this would make or break the script at this point... </3
-
-        // Set unread indicator to true for duplicated contact
-        Transform unreadTransform = duplicate.transform.Find("Unread");
-        if (unreadTransform != null) unreadTransform.gameObject.SetActive(true);
-
-        // Create a deep copy of the ChatData to ensure each contact has its own independent state
-        ChatData originalData = contacts[currentContactIndex];
-        ChatData newData = new ChatData
+        if (newChatData == null)
         {
-            profileImage = originalData.profileImage,
-            name = originalData.name,
-            phoneNumber = originalData.phoneNumber,
-            chat = originalData.chat,
-            messageList = DeepCopyMessageList(originalData.messageList),
-            startMessageList = DeepCopyStartMessageList(originalData.startMessageList),
-            currentIndex = 0, // Reset to 0 for fresh start
-            isResponding = false, // Reset state
-            isAutoProgressing = false, // Reset state
-            autoProgressTimer = 0f, // Reset timer
-            isUnread = true, // New contacts should be unread
-            contactUI = duplicate // Assign the duplicated GameObject to the new contact
-        };
-        contacts[currentContactIndex] = newData; // replace with the copy
+            if (currentContactIndex >= contacts.Count) return;
 
-        // Update the chat preview for the newly duplicated contact
-        UpdateChatPreview(currentContactIndex);
+            Transform parent = content.transform;
+            GameObject duplicate = Instantiate(contactPrefab, parent);
+            DontDestroyOnLoad(duplicate); // dude. idk if removing this would make or break the script at this point... </3
 
-        ConfigureContact(duplicate, newData, currentContactIndex);
-        PositionContact(duplicate);
+            // Set unread indicator to true for duplicated contact
+            Transform unreadTransform = duplicate.transform.Find("Unread");
+            if (unreadTransform != null) unreadTransform.gameObject.SetActive(true);
 
-        currentContactIndex++;
+            // Create a deep copy of the ChatData to ensure each contact has its own independent state
+            ChatData originalData = contacts[currentContactIndex];
+            ChatData newData = new ChatData
+            {
+                profileImage = originalData.profileImage,
+                name = originalData.name,
+                phoneNumber = originalData.phoneNumber,
+                chat = originalData.chat,
+                messageList = DeepCopyMessageList(originalData.messageList),
+                startMessageList = DeepCopyStartMessageList(originalData.startMessageList),
+                currentIndex = 0, // Reset to 0 for fresh start
+                isResponding = false, // Reset state
+                isAutoProgressing = false, // Reset state
+                autoProgressTimer = 0f, // Reset timer
+                isUnread = true, // New contacts should be unread
+                contactUI = duplicate // Assign the duplicated GameObject to the new contact
+            };
+            contacts[currentContactIndex] = newData; // replace with the copy
+
+            // Update the chat preview for the newly duplicated contact
+            UpdateChatPreview(currentContactIndex);
+
+            ConfigureContact(duplicate, newData, currentContactIndex);
+            PositionContact(duplicate);
+
+            currentContactIndex++;
+        }
+        else
+        {
+            // Add new contact from provided data
+            Transform parent = content.transform;
+            GameObject duplicate = Instantiate(contactPrefab, parent);
+            DontDestroyOnLoad(duplicate);
+
+            // Set unread indicator to true for duplicated contact
+            Transform unreadTransform = duplicate.transform.Find("Unread");
+            if (unreadTransform != null) unreadTransform.gameObject.SetActive(true);
+
+            // Use provided data, deep copy lists
+            ChatData newData = new ChatData
+            {
+                profileImage = newChatData.profileImage,
+                name = newChatData.name,
+                phoneNumber = newChatData.phoneNumber,
+                chat = newChatData.chat,
+                messageList = DeepCopyMessageList(newChatData.messageList),
+                startMessageList = DeepCopyStartMessageList(newChatData.startMessageList),
+                currentIndex = 0, // Reset to 0 for fresh start
+                isResponding = false, // Reset state
+                isAutoProgressing = false, // Reset state
+                autoProgressTimer = 0f, // Reset timer
+                isUnread = true, // New contacts should be unread
+                contactUI = duplicate // Assign the duplicated GameObject to the new contact
+            };
+            contacts.Add(newData);
+
+            // Update the chat preview for the newly added contact
+            UpdateChatPreview(contacts.Count - 1);
+
+            ConfigureContact(duplicate, newData, contacts.Count - 1);
+            PositionContact(duplicate);
+        }
     }
 
     //this mf gave me a headAche. THis is just to make sure that it's there SOBS
