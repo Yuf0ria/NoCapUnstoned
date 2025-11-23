@@ -171,19 +171,22 @@ public class Event_Manager : MonoBehaviour
             if(Phone_Statistics.numLowSeverity > 0) 
             {
                 Debug.Log("Start the 5 minute Countdown");
-                StartCoroutine(Run_GameOver(5 * 60));
+                StartCoroutine(Run_GameOver(300));
                 Phone_Statistics.isGameOverRunning = true;
             }
         }
 
-        if(Phone_Statistics.numHighSeverity > 0) Debug.Log("Start the 20 second Countdown");
+
+        if(Phone_Statistics.numHighSeverity > 0) 
         {
+            Debug.Log("Start the 20 second Countdown");
             StartCoroutine(Run_GameOver(20));
             Phone_Statistics.isGameOverRunning = true;
         }
 
-        if(Phone_Statistics.numLowSeverity > 5) Debug.Log("INSTANT GAME OVER");
+        if(Phone_Statistics.numLowSeverity >= 5)
         {
+            Debug.Log("INSTANT GAME OVER");
             StartCoroutine(Run_GameOver(5));
             Phone_Statistics.isGameOverRunning = true;
         }
@@ -194,7 +197,12 @@ public class Event_Manager : MonoBehaviour
         yield return new WaitForSeconds(TimeToGameOver);
         if(Phone_Statistics.isCompromised)
         {
-            // <== Add Statistics Overview
+            // ADD GAME OVER STATISTICS HERE!!!
+            // You will likely need different if statements here or lets just
+            // use a general one
+            gameOverCause.text = "You clicked on a Phishing Link, Silly!";
+
+            gameOverAdvice.text = "Double Check the links you're clicking! Sometimes they could be deceptive.";
 
             gameOverPanel.transform.DOMove(revealPos.position, TransitionTime).SetEase(Ease.OutCubic);
         }
