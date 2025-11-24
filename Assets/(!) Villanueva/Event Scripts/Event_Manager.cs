@@ -138,6 +138,14 @@ public class Event_Manager : MonoBehaviour
                     Phone_Statistics.numHighSeverity--;
                     break;
 
+                case 11: // Adds one Low Severity Attack
+                    Phone_Statistics.numLowSeverity++;
+                    break;
+
+                case 12: // Adds one High Severity Attack
+                    Phone_Statistics.numHighSeverity++;
+                    break;
+
                 default:
                     Common_DisconnectWiFi();
                     break;
