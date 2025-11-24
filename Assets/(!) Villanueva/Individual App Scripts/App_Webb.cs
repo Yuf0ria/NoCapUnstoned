@@ -7,13 +7,17 @@ public class App_Webb : MonoBehaviour
 
     private GameObject activepage;
 
-    [Header("Web Page")]
+    [Header("Web Pages")]
     [SerializeField] private Transform webPageClosedPosition; // = new Vector3(0, 2500, 0);
     [SerializeField] private Transform webPageOpenedPosition; // = new Vector3(0, 0, 0);
+    [SerializeField] private RectTransform FishSearches; // = new Vector3(0, 0, 0);
+    [SerializeField] private RectTransform FoodSearches; // = new Vector3(0, 0, 0);
+    [SerializeField] private RectTransform SecuritySearches; // = new Vector3(0, 0, 0);
 
     [Header("Seach Box")]
     [SerializeField] private Transform searchBoxClosedPosition; // = new Vector3(0, 250, 0);
     [SerializeField] private Transform searchBoxOpenedPosition; // = new Vector3(0, -210, 0);
+    [SerializeField] private bool searchBoxClosed;
 
     float transitionTime = 0.5f;
     public float TransitionMult = 1f; //This is for the slowing down of the App
@@ -39,7 +43,7 @@ public class App_Webb : MonoBehaviour
 
     private void Start()
     {
-        
+        if(searchBoxClosed) SearchResultBox.transform.position = searchBoxClosedPosition.position;
     }
 
     public void OpenWebPage(GameObject WebPage)
@@ -83,9 +87,20 @@ public class App_Webb : MonoBehaviour
         Debug.Log("Showing Search Suggestions...");
         SearchResultBox = searchBox;
         //searchBoxClosedPosition = SearchResultBox.transform;
-        SearchResultBox.SetActive(true);
-        
-        SearchResultBox.transform.DOMove(searchBoxOpenedPosition.position, transitionTime * TransitionMult).SetEase(Ease.OutCubic);
+        //SearchResultBox.SetActive(true);
+
+        if (!searchBoxClosed)
+        {
+            SearchResultBox.transform.DOMove(searchBoxClosedPosition.position, transitionTime * TransitionMult).SetEase(Ease.OutCubic);
+            searchBoxClosed = true;
+        }
+
+        else         
+        {
+            SearchResultBox.transform.DOMove(searchBoxOpenedPosition.position, transitionTime * TransitionMult).SetEase(Ease.OutCubic);
+            searchBoxClosed = false;
+        }
+            
     }
 
     public void SelectSearchResult(GameObject searchResult)
@@ -103,5 +118,23 @@ public class App_Webb : MonoBehaviour
         searchResult.transform.DOMove(webPageOpenedPosition.position, transitionTime * TransitionMult).SetEase(Ease.OutCubic);
     }
 
+    public void OpenSearchCategory(float i)
+    {
+        if(i == 1)
+        {
+            FishSearches.transform.DOMove(webPageOpenedPosition.transform.position, transitionTime).SetEase(Ease.OutCubic);
+        }
 
+        if (i == 2)
+        {
+            FoodSearches.transform.DOMove(webPageOpenedPosition.transform.position, transitionTime).SetEase(Ease.OutCubic);
+        }
+
+        if (i == 3)
+        {
+            SecuritySearches.transform.DOMove(webPageOpenedPosition.transform.position, transitionTime).SetEase(Ease.OutCubic);
+        }
+
+
+    }
 }
