@@ -29,6 +29,7 @@ public class MessageRenderer : MonoBehaviour, IMessageRenderer
     [SerializeField] private float padding = 20f; //Padding on right and bottom sides for text resizing
     [SerializeField] private float dialoguePadding = 20f; //Padding from the left side of the screen for dialogue boxes
     private const float MaxMessageWidth = 555f; //Maximum width for messages
+    private const float MaxDialogueWidth = 750f; //Maximum width for messages
 
     [Header("Data")]
     public List<MessageData> messageList; 
@@ -386,8 +387,15 @@ public class MessageRenderer : MonoBehaviour, IMessageRenderer
         RectTransform dialogueRT = dialogueDuplicate.GetComponent<RectTransform>();
         float dialoguePreferredWidth = dialogueTMP.preferredWidth;
         float dialoguePreferredHeight = dialogueTMP.preferredHeight;
-        float dialogueClampedWidth = Mathf.Min(dialoguePreferredWidth + padding, MaxMessageWidth);
-        dialogueRT.sizeDelta = new Vector2(dialogueClampedWidth + padding, dialoguePreferredHeight + padding);
+        float dialogueClampedWidth = Mathf.Min(dialoguePreferredWidth + padding, MaxDialogueWidth);
+
+        // Set the TMP rect width to the clamped width to allow proper wrapping
+        dialogueTMP.rectTransform.sizeDelta = new Vector2(dialogueClampedWidth, dialogueTMP.rectTransform.sizeDelta.y);
+        LayoutRebuilder.ForceRebuildLayoutImmediate(dialogueTMP.rectTransform);
+
+        // Get the new preferred height after wrapping
+        float newPreferredHeight = dialogueTMP.preferredHeight;
+        dialogueRT.sizeDelta = new Vector2(dialogueClampedWidth + padding, newPreferredHeight + padding);
     }
 
     private void PositionChoice(GameObject dialogueDuplicate, ref RectTransform lastChoiceRT)

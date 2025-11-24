@@ -12,7 +12,7 @@ public class Eduva_TestScript : MonoBehaviour
         public Toggle Answer4;
     }
 
-    [SerializeField] public GameObject Test;
+    //[SerializeField] public GameObject Test;
     [SerializeField] private Toggle testDone;
     [SerializeField] private Button submitButton;
     [SerializeField] private AnswerGroup[] answers; 
@@ -124,15 +124,5 @@ public class Eduva_TestScript : MonoBehaviour
                 t.isOn = false;
             }
         }
-    }
-
-    // Note: listeners are not removed individually here. If you need to preserve
-    // other listeners on the toggles, consider storing delegates or using
-    // ToggleGroup components instead.
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 }

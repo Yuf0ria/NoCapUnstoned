@@ -8,9 +8,15 @@ public class Eduva_DisableButton : MonoBehaviour
     [SerializeField] private TextMeshProUGUI quizStatus;
     [SerializeField] private Toggle quizToggle;
 
+    private void Start()
+    {
+        quizToggle.isOn = false;
+    }
+
     public void disableButton(Button OpenQuiz)
     {
         OpenQuiz.interactable = false;
+        quizToggle.isOn = true;
         quizStatus.text = "Quiz Status: Finished";
     }
 }
