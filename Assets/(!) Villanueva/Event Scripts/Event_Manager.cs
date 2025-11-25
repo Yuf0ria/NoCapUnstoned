@@ -119,7 +119,7 @@ public class Event_Manager : MonoBehaviour
                     break;
 
                 case 6: // For Button that will add One Low Severity Attack, that checks for | AntiVirus
-                    if (!Phone_Statistics.isAdBlocker) Phone_Statistics.numLowSeverity++;
+                    if (!Phone_Statistics.isAntiVirus) Phone_Statistics.numLowSeverity++;
                     break;
 
                 case 7: // For Button that will add One High Severity Attack, that checks for | Security Up to Date
@@ -159,13 +159,17 @@ public class Event_Manager : MonoBehaviour
         {
             Phone_Statistics.isCompromised = false;
 
-            if(!Phone_Statistics.isAdBlocker && !Phone_Statistics.isTwoFactorAuthentication && !Phone_Statistics.isAntiVirus && !Phone_Statistics.isSecurityUpToDate)
+            if (!Phone_Statistics.isAdBlocker && !Phone_Statistics.isTwoFactorAuthentication && !Phone_Statistics.isAntiVirus && !Phone_Statistics.isSecurityUpToDate)
                 Phone_Statistics.isVulnerable = true;
 
             else Phone_Statistics.isVulnerable = false;
         }
 
-        else Phone_Statistics.isCompromised = true;
+        else
+        {
+            Phone_Statistics.isCompromised = true; 
+            ChangeTransitionTime(2 * Phone_Statistics.numLowSeverity);
+        }
 
 
         if (!Phone_Statistics.isCompromised && TransitionMult != 1)
