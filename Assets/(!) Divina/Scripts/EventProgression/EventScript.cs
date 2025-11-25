@@ -32,6 +32,7 @@ public class EventScript : MonoBehaviour
 {
     [Header("Objects n Stuff!")]
     [SerializeField] private TextMeshProUGUI text;
+    [SerializeField] private Event_Manager events;
 
     [Header("Progression")]
     [SerializeField] public int progression; //Current Progression
@@ -98,6 +99,8 @@ public class EventScript : MonoBehaviour
 
         int previousProgression = progression;
         progression++;
+
+        //events.Run_RandomEvent();                        //   <---               AUNDEE ADDED A THING
 
         //Unset buttons for prev progression
         unsetButtons(previousProgression);

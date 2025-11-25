@@ -31,9 +31,7 @@ public class Event_Manager : MonoBehaviour
 
 
     // Number of Events per category
-    static int numOfCommon = 5;
-    static int numOfRare;
-    static int numOfRandom;
+    [SerializeField] private int numOfRandom = 3;
     public float TransitionMult = 1f; //This is for the slowing down of the App
 
     void Start()
@@ -69,28 +67,28 @@ public class Event_Manager : MonoBehaviour
 
     public void Run_RandomEvent()
     {
-        //Common Events
-        if (UnityEngine.Random.Range(0, 99) % 3 == 0) // Check if the remainder is 0, which is true about 1/3 of the time
-        {
-            switch (UnityEngine.Random.Range(0, numOfCommon - 1))
+        switch (UnityEngine.Random.Range(0, numOfRandom - 1))
             {
-                case 1:
+                case 1: // Postmail SPAM
                     Common_Spam_Postmail();
+                    break;
+
+                case 3:
+                    if (Phone_Statistics.isCompromised) StartCoroutine(Rare_ConstantSpam_Postmail());
+                    break;
+
+                case 4: // App Crashes (Exits App Slowly)
+                    if (Phone_Statistics.isCompromised) StartCoroutine(Rare_CrashApp());
+                    break;
+
+                case 5: // SLOW THE APPS
+                    if (Phone_Statistics.isCompromised) ChangeTransitionTime(2*Phone_Statistics.numLowSeverity);
                     break;
 
                 default:
                     Common_DisconnectWiFi();
                     break;
             }
-
-        }
-
-        //Rare Events
-        if (UnityEngine.Random.Range(0, 99) % 10 == 0) // Check if the remainder is 0, which is true about 1/10 of the time
-        {
-
-        }
-
     }
 
     public void Run_SpecificEvent(int eventID)
@@ -168,7 +166,6 @@ public class Event_Manager : MonoBehaviour
         else
         {
             Phone_Statistics.isCompromised = true; 
-            ChangeTransitionTime(2 * Phone_Statistics.numLowSeverity);
         }
 
 
