@@ -3,25 +3,14 @@ using UnityEngine.UI;
 
 public class MusicManager : MonoBehaviour
 {
-    private static  MusicManager instance;
     private static AudioSource audioSource;
     private static MusicLibrary library;
     [SerializeField] private Slider musicSlider;
-    //Input Variables
-    public float step = 0.1f;
 
     private void Awake()
     {
-        if (instance == null)
-        {
-            audioSource = GetComponent<AudioSource>();
-            library = GetComponent<MusicLibrary>();
-            DontDestroyOnLoad(gameObject);
-        }
-        else
-        {
-            Destroy(gameObject);
-        }
+        audioSource = GetComponent<AudioSource>();
+        library = GetComponent<MusicLibrary>();
     }
 
     public static void Play(string soundName)
@@ -33,25 +22,21 @@ public class MusicManager : MonoBehaviour
         }
     }
 
-    void Start()
+     public static void Stop(string soundName)
     {
-        musicSlider.onValueChanged.AddListener(delegate { setVolume(musicSlider.value); });
-    }
-    void Update()
-    {
-        
-        if (Input.GetKeyDown(KeyCode.D) || Input.GetKeyDown(KeyCode.RightArrow))
+        AudioClip audioClip = library.GetRandomClip(soundName);
+        if (audioClip == null)
         {
-            musicSlider.value += step;
+            audioSource.Stop();
         }
-        if (Input.GetKeyDown(KeyCode.A) || Input.GetKeyDown(KeyCode.LeftArrow))
-        {
-            musicSlider.value -= step;
-        }
-        
     }
 
-    public static void setVolume(float volume)
+    void Start()
+    {
+        musicSlider.onValueChanged.AddListener(delegate { SetVolume(musicSlider.value); });
+    }
+
+    public static void SetVolume(float volume)
     {
         audioSource.volume = volume;
     }
