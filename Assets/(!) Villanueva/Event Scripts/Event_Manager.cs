@@ -13,6 +13,15 @@ public class Event_Manager : MonoBehaviour
     [SerializeField] GameObject Notif_Desc;
     [SerializeField] Sprite[] Icons;
 
+    [Header("GAME OVER")]
+    [SerializeField] RectTransform gameOverPanel;
+    [SerializeField] TextMeshProUGUI gameOverCause;
+    [SerializeField] TextMeshProUGUI gameOverAdvice;
+    [SerializeField] TextMeshProUGUI gameOverStats;
+    [SerializeField] Transform revealPos;
+    [SerializeField] Transform hidePos;
+
+
     Vector3 Notif_HideTransform;
     Vector3 Notif_ShowTransform;
     float TransitionTime = 1;
@@ -154,8 +163,8 @@ public class Event_Manager : MonoBehaviour
         //  ITS THE FINAL COUNTDOWN
             if(Phone_Statistics.numLowSeverity > 0) 
             {
-                Debug.Log("Start the 5 minute Countdown");
-                StartCoroutine(Run_GameOver(300));
+                Debug.Log("Start the 45 second Countdown");
+                StartCoroutine(Run_GameOver(45));
                 Phone_Statistics.isGameOverRunning = true;
             }
         }
@@ -184,9 +193,13 @@ public class Event_Manager : MonoBehaviour
             // ADD GAME OVER STATISTICS HERE!!!
             // You will likely need different if statements here or lets just
             // use a general one
-            gameOverCause.text = "You clicked on a Phishing Link, Silly!";
+            int sum = Phone_Statistics.numLowSeverity + Phone_Statistics.numLowSeverity;
 
-            gameOverAdvice.text = "Double Check the links you're clicking! Sometimes they could be deceptive.";
+            gameOverCause.text = cause;
+
+            gameOverAdvice.text = advice;
+
+            gameOverStats.text = "You were hit with " + sum + " Phishing Attacks Before Game Over";
 
             gameOverPanel.transform.DOMove(revealPos.position, TransitionTime).SetEase(Ease.OutCubic);
         }
@@ -196,6 +209,18 @@ public class Event_Manager : MonoBehaviour
 
     #endregion
 
+    string cause;
+    string advice;
+
+    public void SetGameOverCause(string c)
+    {
+        cause = c;
+    }
+
+    public void SetGameOverAdvice(string a)
+    {
+        advice = a;
+    }
 
 
     #region Postmail Events
