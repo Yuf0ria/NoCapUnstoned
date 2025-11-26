@@ -3,12 +3,10 @@ using UnityEngine;
 using UnityEngine.UI;
 using DG.Tweening;
 using System.Collections;
-using Unity.Mathematics;
-using System.Globalization;
 
 public class Event_Manager : MonoBehaviour
 {
-    [Header("Notification")]
+    // Notification Objects
     [SerializeField] RectTransform Notif_Rect;
     [SerializeField] GameObject Notif_Icon;
     [SerializeField] GameObject Notif_Name;
@@ -32,6 +30,9 @@ public class Event_Manager : MonoBehaviour
 
 
     // Number of Events per category
+    static int numOfCommon = 5;
+    static int numOfRare;
+    static int numOfRandom;
     [SerializeField] private int numOfRandom = 3;
     public float TransitionMult = 1f; //This is for the slowing down of the App
 
@@ -41,14 +42,8 @@ public class Event_Manager : MonoBehaviour
         Notif_ShowTransform = new Vector3(0, 845, 0);
 
         Notif_Rect.localPosition = Notif_HideTransform;
-
-        gameOverPanel.position = hidePos.position;
     }
     
-    void Update()
-    {
-        SecurityStats();
-    }
     public void New_Notification(int icon_num, string name, string desc)
     {
         Notif_Icon.GetComponent<Image>().sprite = Icons[icon_num];
@@ -109,32 +104,20 @@ public class Event_Manager : MonoBehaviour
                     if (Phone_Statistics.isCompromised) StartCoroutine(Rare_CrashApp());
                     break;
 
-                case 4: // SLOW THE APPS
-                    if (!Phone_Statistics.isAntiVirus) ChangeTransitionTime(2*Phone_Statistics.numLowSeverity);
+                case 4: // App Slows (Longer Transition Times)
+
                     break;
 
-                case 5: // For Button that will add One Low Severity Attack, that checks for | Security Up to Date
-                    if (!Phone_Statistics.isSecurityUpToDate) Phone_Statistics.numLowSeverity++;
+                case 5: // Shows a Random Ad
+
                     break;
 
                 case 6: // For Button that will add One Low Severity Attack, that checks for | AntiVirus
                     if (!Phone_Statistics.isAntiVirus) Phone_Statistics.numLowSeverity++;
                     break;
 
-                case 7: // For Button that will add One High Severity Attack, that checks for | Security Up to Date
-                    if (!Phone_Statistics.isSecurityUpToDate) Phone_Statistics.numHighSeverity++;
-                    break;
+                case 7: // App Slows (Longer Transition Times)
 
-                case 8: // For Button that will add One High Severity Attack, that checks for | AntiVirus
-                    if (!Phone_Statistics.isAntiVirus) Phone_Statistics.numHighSeverity++;
-                    break;
-
-                case 9: // Removes one Low Severity Attack
-                    Phone_Statistics.numLowSeverity--;
-                    break;
-
-                case 10: // Removes one High Severity Attack
-                    Phone_Statistics.numHighSeverity--;
                     break;
 
                 case 11: // Adds one Low Severity Attack
@@ -264,84 +247,23 @@ public class Event_Manager : MonoBehaviour
 
     #endregion
 
-    #region Slows or Crashes
-
-    public void ChangeTransitionTime(float newTransitionMult)
-    {
-
-        App_Eduva[] Eduva = FindObjectsByType<App_Eduva>(FindObjectsSortMode.None);
-        for(int i = 0; i < Eduva.Length; i++)
-        {
-            Eduva[i].TransitionMult = newTransitionMult;
-        }
-
-
-        App_FriendLink[] FriendLink = FindObjectsByType<App_FriendLink>(FindObjectsSortMode.None); 
-        for(int i = 0; i < FriendLink.Length; i++)
-        {
-            FriendLink[i].TransitionMult = newTransitionMult;
-        }
-
-
-        App_Gallery[] Gallery = FindObjectsByType<App_Gallery>(FindObjectsSortMode.None); 
-        for(int i = 0; i < Gallery.Length; i++)
-        {
-            Gallery[i].TransitionMult = newTransitionMult;
-        }
-
-
-        App_Messages[] Messages = FindObjectsByType<App_Messages>(FindObjectsSortMode.None); 
-        for(int i = 0; i < Messages.Length; i++)
-        {
-            Messages[i].TransitionMult = newTransitionMult;
-        }
-
-
-        App_Notes[] Notes = FindObjectsByType<App_Notes>(FindObjectsSortMode.None); 
-        for(int i = 0; i < Notes.Length; i++)
-        {
-            Notes[i].TransitionMult = newTransitionMult;
-        }
-
-
-        App_OrderCorner[] OrderCorner = FindObjectsByType<App_OrderCorner>(FindObjectsSortMode.None); 
-        for(int i = 0; i < OrderCorner.Length; i++)
-        {
-            OrderCorner[i].TransitionMult = newTransitionMult;
-        }
-
-
-        App_Settings[] Settings = FindObjectsByType<App_Settings>(FindObjectsSortMode.None); 
-        for(int i = 0; i < Settings.Length; i++)
-        {
-            Settings[i].TransitionMult = newTransitionMult;
-        }
-
-
-        App_Webb[] Webb = FindObjectsByType<App_Webb>(FindObjectsSortMode.None); 
-        for(int i = 0; i < Webb.Length; i++)
-        {
-            Webb[i].TransitionMult = newTransitionMult;
-        }
-
-        TransitionMult = newTransitionMult;
-
-
-    }
+    #region 
 
     float appCrashTime = 2.5f;
     IEnumerator Rare_CrashApp()
     {
+        //Debug.Log("Crashing " + App_Basic.CurrentApp.gameObject.name + "...");
+
         GameObject CurrentApp = App_Basic.CurrentApp.Pop();
         Vector3 App_ClosedPoint = App_Basic.App_ClosedPoint;
         float TransitionTime = 0.5f;
 
-        CurrentApp.transform.DOMove(App_ClosedPoint, TransitionTime * TransitionMult).SetEase(Ease.OutCubic);
-        CurrentApp.transform.DOScale(new Vector3(0.5f, 0.5f, 0.5f), TransitionTime * TransitionMult).SetEase(Ease.OutCubic);
+        CurrentApp.transform.DOMove(App_ClosedPoint, TransitionTime).SetEase(Ease.OutCubic);
+        CurrentApp.transform.DOScale(new Vector3(0.5f, 0.5f, 0.5f), TransitionTime).SetEase(Ease.OutCubic);
 
         yield return new WaitForSeconds(appCrashTime);
 
-        CurrentApp.transform.DOScale(Vector3.zero, TransitionTime * TransitionMult).SetEase(Ease.OutCubic)
+        CurrentApp.transform.DOScale(Vector3.zero, TransitionTime).SetEase(Ease.OutCubic)
         .OnComplete(() =>
         {
             CurrentApp.gameObject.SetActive(false);
@@ -356,10 +278,6 @@ public class Event_Manager : MonoBehaviour
         Phone_Statistics.isWifiConnected = false;
         App_Settings.DisconnectToWifi();
     }
-
-
-
-
 
     // Common Events, 33% Chance of occuring every time a task is completed OR when the story progresses
     // The Following are possible Events:
