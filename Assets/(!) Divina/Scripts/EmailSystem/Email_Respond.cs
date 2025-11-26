@@ -9,6 +9,21 @@ public class Email_Respond : MonoBehaviour
     [SerializeField] private Button lit_consentForm;
     [SerializeField] private Button imageFile;
 
+    [Header("Text")]
+    [SerializeField] private TextMeshProUGUI dalisay_consentForm_text;
+    [SerializeField] private TextMeshProUGUI lit_consentForm_text;
+    [SerializeField] private TextMeshProUGUI imageFile_text;
+
+    [Header("String")]
+    [SerializeField] private string dalisay_consentForm_string;
+    [SerializeField] private string lit_consentForm_string;
+    [SerializeField] private string imageFile_string;
+
+    [Header("String_Response")]
+    [SerializeField] private string dalisay_consentForm_response;
+    [SerializeField] private string lit_consentForm_response;
+    [SerializeField] private string imageFile_response;
+
     [Header("UI")]
     [SerializeField] private GameObject replyEmail;
     [SerializeField] private TextMeshProUGUI filename;
@@ -36,17 +51,17 @@ public class Email_Respond : MonoBehaviour
 
         dalisay_consentForm.onClick.AddListener(() =>
         {
-            filename.text = "> Dalisay_consentform.PDF"; 
+            filename.text = dalisay_consentForm_response; 
             sendMessage();
         });
         lit_consentForm.onClick.AddListener(() =>
         { 
-            filename.text = "> LIT_ConsentForm.PDF";
+            filename.text = lit_consentForm_response;
             sendMessage();
         });
         imageFile.onClick.AddListener(() =>
         { 
-            filename.text = "> 20251120_054050.jpg";
+            filename.text = imageFile_response;
             sendMessage();
         });
     }
@@ -68,13 +83,17 @@ public class Email_Respond : MonoBehaviour
         {
             sendReplyButton.interactable = true;
         }
+
+        dalisay_consentForm_text.text = dalisay_consentForm_string;
+        lit_consentForm_text.text = lit_consentForm_string;
+        imageFile_text.text = imageFile_string;
     }
 
     void TaskDone()
     {
         //Changes the font style of the Notes preview to strikethrough to show that it's done
         TextMeshProUGUI noteTitle = Task.transform.Find("Title").GetComponent<TextMeshProUGUI>();
-        TextMeshProUGUI noteDesc = Task.transform.Find("Description").GetComponent<TextMeshProUGUI>();
+        TextMeshProUGUI noteDesc = Task.transform.Find("Description").GetComponent<TextMeshProUGUI>();        
 
         noteTitle.fontStyle = FontStyles.Strikethrough;
         noteDesc.fontStyle = FontStyles.Strikethrough;

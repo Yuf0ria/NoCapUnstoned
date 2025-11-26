@@ -25,7 +25,9 @@ public class MessageRenderer : MonoBehaviour, IMessageRenderer
     public GameObject openChoicesButton; //Reference to OpenChoices button
 
     [Header("Paddings n shi")]
-    [SerializeField] private float spacing = 20f; //Space between duplicates and choices                                 //ALSO BRUH I COULD HAVE PUT ALL OF THESE INTO ONE </3
+    [SerializeField] private float spacing = 30f; //Space between duplicates and choices (increased by +10)
+    [SerializeField] private float senderTopPadding = 10f; // Top padding for sender messages (default 30 + extra 30)
+    [SerializeField] private float bottomPadding = 10f; // Fixed padding under the last message
     [SerializeField] private float padding = 20f; //Padding on right and bottom sides for text resizing
     [SerializeField] private float dialoguePadding = 20f; //Padding from the left side of the screen for dialogue boxes
     private const float MaxMessageWidth = 555f; //Maximum width for messages
@@ -83,6 +85,7 @@ public class MessageRenderer : MonoBehaviour, IMessageRenderer
     private void InitializeContentSize()
     {
         RectTransform originalRT = senderBox.GetComponent<RectTransform>();
+        // Keep totalHeight as the total of message area (excludes bottom padding).
         totalHeight = originalRT.sizeDelta.y + spacing;
         UpdateContentSize();
     }
@@ -212,6 +215,24 @@ public class MessageRenderer : MonoBehaviour, IMessageRenderer
             return;
         }
 
+        if (data.Notes != null)
+        {
+            Transform noteTitle = data.Notes.transform.Find("Title");
+            Transform noteDesc = data.Notes.transform.Find("Description");
+
+            if (noteTitle != null)
+            {
+                TextMeshProUGUI noteTitleTMP = noteTitle.GetComponent<TextMeshProUGUI>();
+                if (noteTitleTMP != null) noteTitleTMP.fontStyle = FontStyles.Strikethrough;
+            }
+
+            if (noteDesc != null)
+            {
+                TextMeshProUGUI noteDescTMP = noteDesc.GetComponent<TextMeshProUGUI>();
+                if (noteDescTMP != null) noteDescTMP.fontStyle = FontStyles.Strikethrough;
+            }
+        }
+
         // Update last rendered text for chat preview
         lastRenderedText = cleanText;
 
@@ -265,6 +286,11 @@ public class MessageRenderer : MonoBehaviour, IMessageRenderer
     private void CreateHighlights(Transform textTransform, TextMeshProUGUI textTMP, MatchCollection matches, string originalText, GameObject messageLinkBox)
     {
         if (messageLinkBox == null) return; // Skip if no linkBox provided for this message
+        // Force mesh data to be up to date (ParseAndRenderText should already call ForceMeshUpdate())
+        textTMP.ForceMeshUpdate();
+
+        var charInfos = textTMP.textInfo.characterInfo;
+        if (charInfos == null || charInfos.Length == 0) return;
 
         foreach (Match match in matches)
         {
@@ -272,22 +298,48 @@ public class MessageRenderer : MonoBehaviour, IMessageRenderer
             int startIndex = match.Groups[1].Index - bracketCountBefore - 1;
             int length = match.Groups[1].Length;
 
-            if (startIndex + length > textTMP.textInfo.characterCount) continue;
+            if (startIndex < 0) continue;
+            int endIndex = startIndex + length - 1;
+            if (endIndex >= charInfos.Length) endIndex = charInfos.Length - 1;
 
-            TMP_CharacterInfo charInfoStart = textTMP.textInfo.characterInfo[startIndex];
-            TMP_CharacterInfo charInfoEnd = textTMP.textInfo.characterInfo[startIndex + length - 1];
+            // Create one single bounding highlight that covers the whole match range
+            // (even when the text wraps to multiple lines). This makes the link box
+            // appear as a single unified rectangle over the whole bracketed text.
+            float minLeft = float.MaxValue;
+            float maxRight = float.MinValue;
+            float maxAsc = float.MinValue;
+            float minDesc = float.MaxValue;
 
-            float startX = charInfoStart.bottomLeft.x;
-            float endX = charInfoEnd.bottomRight.x;
-            float width = endX - startX;
-            float height = charInfoStart.ascender - charInfoStart.descender;
+            for (int idx = startIndex; idx <= endIndex; idx++)
+            {
+                var ci = charInfos[idx];
+                // skip invisible / whitespace characters if TMP marks them as such
+                minLeft = Mathf.Min(minLeft, ci.bottomLeft.x);
+                maxRight = Mathf.Max(maxRight, ci.bottomRight.x);
+                maxAsc = Mathf.Max(maxAsc, ci.ascender);
+                minDesc = Mathf.Min(minDesc, ci.descender);
+            }
 
-            GameObject highlightDuplicate = Instantiate(messageLinkBox, textTransform);
-            HideHighlightText(highlightDuplicate);
+            // sanity check
+            if (minLeft <= maxRight && maxAsc > minDesc)
+            {
+                // Optional visual padding around the highlight so it doesn't sit flush
+                // exactly on glyph edges; tweak if you want a tighter or looser box.
+                const float visualPaddingX = 4f;
+                const float visualPaddingY = 4f;
 
-            RectTransform highlightRT = highlightDuplicate.GetComponent<RectTransform>();
-            highlightRT.sizeDelta = new Vector2(width, height);
-            highlightRT.localPosition = new Vector3(startX + width / 2, charInfoStart.descender + height / 2, 0);
+                float width = (maxRight - minLeft) + visualPaddingX * 2f;
+                float height = (maxAsc - minDesc) + visualPaddingY * 2f;
+
+                GameObject highlightDuplicate = Instantiate(messageLinkBox, textTransform);
+                HideHighlightText(highlightDuplicate);
+                RectTransform highlightRT = highlightDuplicate.GetComponent<RectTransform>();
+                if (highlightRT != null)
+                {
+                    highlightRT.sizeDelta = new Vector2(width, height);
+                    highlightRT.localPosition = new Vector3(minLeft + (width - visualPaddingX * 2f) / 2f, minDesc + (height - visualPaddingY * 2f) / 2f, 0f);
+                }
+            }
         }
     }
 
@@ -325,17 +377,25 @@ public class MessageRenderer : MonoBehaviour, IMessageRenderer
         duplicateRT.anchoredPosition = new Vector2(xPos, yPos);
 
         lastMessageRectTransform = duplicateRT;
-        float extraSpacing = data.isSender ? 20f : 0f;
+        // Keep an extra per-message spacing (top padding) for sender boxes.
+        // Use senderTopPadding (default 60) so sender messages have the requested top gap.
+        float extraSpacing = data.isSender ? senderTopPadding : 0f;
         totalHeight += elementHeight + spacing + extraSpacing;
         UpdateContentSize();
     }
 
     private float CalculateYPosition(float elementHeight, bool isSender)
     {
-        float extraSpacing = 30f;
+        // Top padding for sender messages
+        float extraSpacing = isSender ? senderTopPadding : 0f;
         if (lastMessageRectTransform == null)
         {
             RectTransform originalRT = senderBox.GetComponent<RectTransform>();
+            // For the very first message placement, do NOT subtract the bottom padding here.
+            // bottomPadding is applied once to the content height (UpdateContentSize) so
+            // the visual gap under the last message remains constant. Subtracting it
+            // here caused the first message to shift and produced an unexpectedly large
+            // gap below the last rendered message.
             return originalRT.anchoredPosition.y - originalRT.sizeDelta.y / 2 - spacing - extraSpacing - elementHeight / 2;
         }
         else return lastMessageRectTransform.anchoredPosition.y - lastMessageRectTransform.sizeDelta.y / 2 - spacing - extraSpacing - elementHeight / 2;
@@ -490,7 +550,32 @@ public class MessageRenderer : MonoBehaviour, IMessageRenderer
 
     private void UpdateContentSize()
     {
-        content.sizeDelta = new Vector2(content.sizeDelta.x, totalHeight);
+        // Compute content height from the top of the senderBox down to the bottom
+        // of the last rendered message, and add a fixed bottom padding.
+        // This prevents the content from accumulating extra empty space as more
+        // messages render.
+        if (content == null || senderBox == null)
+        {
+            // fallback to previous behavior
+            content.sizeDelta = new Vector2(content.sizeDelta.x, totalHeight + bottomPadding);
+            return;
+        }
+
+        // If no message has been rendered yet, keep the default small content height
+        if (lastMessageRectTransform == null)
+        {
+            float defaultTop = senderBox.GetComponent<RectTransform>().anchoredPosition.y + senderBox.GetComponent<RectTransform>().sizeDelta.y / 2f;
+            float defaultBottom = senderBox.GetComponent<RectTransform>().anchoredPosition.y - senderBox.GetComponent<RectTransform>().sizeDelta.y / 2f;
+            content.sizeDelta = new Vector2(content.sizeDelta.x, Mathf.Abs(defaultTop - defaultBottom) + bottomPadding);
+            return;
+        }
+
+        RectTransform topRT = senderBox.GetComponent<RectTransform>();
+        float topEdge = topRT.anchoredPosition.y + topRT.sizeDelta.y / 2f;
+        float bottomEdge = lastMessageRectTransform.anchoredPosition.y - lastMessageRectTransform.sizeDelta.y / 2f;
+
+        float requiredHeight = Mathf.Abs(topEdge - bottomEdge) + bottomPadding;
+        content.sizeDelta = new Vector2(content.sizeDelta.x, requiredHeight);
     }
 
     public void ClearMessages()
