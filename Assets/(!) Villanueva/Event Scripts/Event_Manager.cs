@@ -23,6 +23,13 @@ public class Event_Manager : MonoBehaviour
     [SerializeField] Transform revealPos;
     [SerializeField] Transform hidePos;
 
+    [Header("GAME WIN")]
+    [SerializeField] RectTransform gameWinPanel;
+    [SerializeField] Slider gameTimer;
+    [SerializeField] EventScript progress;
+    [SerializeField] int maxTasks = 10;
+    
+
 
     Vector3 Notif_HideTransform;
     Vector3 Notif_ShowTransform;
@@ -43,6 +50,7 @@ public class Event_Manager : MonoBehaviour
         Notif_Rect.localPosition = Notif_HideTransform;
 
         gameOverPanel.position = hidePos.position;
+        gameWinPanel.position = hidePos.position;
     }
     
     void Update()
@@ -205,12 +213,12 @@ public class Event_Manager : MonoBehaviour
     IEnumerator Run_GameOver(float TimeToGameOver)
     {
         yield return new WaitForSeconds(TimeToGameOver);
-        if(Phone_Statistics.isCompromised)
+        if(Phone_Statistics.isCompromised || gameTimer.value >= 0.9990f)
         {
             // ADD GAME OVER STATISTICS HERE!!!
             // You will likely need different if statements here or lets just
             // use a general one
-            int sum = Phone_Statistics.numLowSeverity + Phone_Statistics.numLowSeverity;
+            int sum = Phone_Statistics.numLowSeverity + Phone_Statistics.numHighSeverity;
 
             gameOverCause.text = cause;
 
@@ -218,10 +226,32 @@ public class Event_Manager : MonoBehaviour
 
             gameOverStats.text = "You were hit with " + sum + " Phishing Attacks Before Game Over";
 
+            //Debug.Log(Phone_Statistics.numLowSeverity + ", " + Phone_Statistics.numLowSeverity);
+
             gameOverPanel.transform.DOMove(revealPos.position, TransitionTime).SetEase(Ease.OutCubic);
         }
 
         else Debug.Log("Game Over Cancelled");
+    }
+
+    
+    public void Run_GameWin()
+    {
+        if (gameTimer.value >= 0.9990f && progress.progression >= maxTasks)
+        {
+            gameWinPanel.transform.DOMove(revealPos.position, TransitionTime).SetEase(Ease.OutCubic);
+        }
+
+        else if (gameTimer.value >= 0.9990f)
+        {
+            Debug.Log("INSTANT GAME OVER");
+            StartCoroutine(Run_GameOver(1));
+            Phone_Statistics.isGameOverRunning = true;
+
+            cause = "You ran out of time!";
+
+            advice = "You have ten minutes to complete all tasks and not get phished. <br><br>Keep an eye on the timer to see how much time you have left.";
+        }
     }
 
     #endregion
