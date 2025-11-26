@@ -21,12 +21,4 @@ public class Email_ReadOnly : MonoBehaviour
             sendReplyButton.interactable = true;
         });
     }
-
-    // Update is called once per frame
-    void phishing()
-    {
-        
-    }
-
-
 }
