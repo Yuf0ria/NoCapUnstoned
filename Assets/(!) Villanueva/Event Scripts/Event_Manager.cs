@@ -32,7 +32,6 @@ public class Event_Manager : MonoBehaviour
     // Number of Events per category
     static int numOfCommon = 5;
     static int numOfRare;
-    static int numOfRandom;
     [SerializeField] private int numOfRandom = 3;
     public float TransitionMult = 1f; //This is for the slowing down of the App
 
