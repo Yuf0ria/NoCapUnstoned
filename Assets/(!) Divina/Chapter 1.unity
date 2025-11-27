@@ -33356,7 +33356,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 1739362226}
   m_Direction: 2
   m_Value: 0.00000002901479
-  m_Size: 0.00000008911827
+  m_Size: 0.23213069
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -64467,7 +64467,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 1563408086}
   m_Direction: 2
   m_Value: 0.024390243
-  m_Size: 0.024389768
+  m_Size: 0.99998045
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -78305,7 +78305,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 2116419812}
   m_Direction: 2
   m_Value: 0.00000007060244
-  m_Size: 0.00000016271531
+  m_Size: 0.4238325
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -83279,7 +83279,6 @@ GameObject:
   m_Component:
   - component: {fileID: 945654516}
   - component: {fileID: 945654519}
-  - component: {fileID: 945654518}
   - component: {fileID: 945654517}
   m_Layer: 0
   m_Name: Music Manager
@@ -83315,23 +83314,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2eb5e4acb6cd47b4398593149b2a7ecf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  backgroundMusic: {fileID: 8300000, guid: 24537728f4332fa44bb39288c91ecb3f, type: 3}
   musicSlider: {fileID: 2023538137142910605}
---- !u!114 &945654518
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 945654515}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f911920fcae354c469b46fd35bd31cc6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  MusicGroups:
-  - name: Chap1
-    clip:
-    - {fileID: 8300000, guid: 24537728f4332fa44bb39288c91ecb3f, type: 3}
 --- !u!82 &945654519
 AudioSource:
   m_ObjectHideFlags: 0
@@ -83344,7 +83328,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
   m_Resource: {fileID: 0}
-  m_PlayOnAwake: 1
+  m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
   Loop: 1

@@ -3,62 +3,58 @@ using UnityEngine.UI;
 
 public class MusicManager : MonoBehaviour
 {
-    private static AudioSource audioSource;
-    private static MusicLibrary library;
+    private static  MusicManager instance;
+    private AudioSource audioSource;
+    public AudioClip backgroundMusic;
     [SerializeField] private Slider musicSlider;
 
     private void Awake()
     {
-        audioSource = GetComponent<AudioSource>();
-        library = GetComponent<MusicLibrary>();
-    }
-
-    public static void Play(string soundName)
-    {
-        AudioClip audioClip = library.GetRandomClip(soundName);
-        if (audioClip != null)
+        if (instance == null)
         {
-            audioSource.PlayOneShot(audioClip);
+            instance = this;
+            audioSource = GetComponent<AudioSource>();
+            DontDestroyOnLoad(gameObject);
+        }
+        else
+        {
+            Destroy(gameObject);
         }
     }
 
-     public static void Stop(string soundName)
-    {
-        AudioClip audioClip = library.GetRandomClip(soundName);
-        if (audioClip == null)
-        {
-            audioSource.Stop();
-        }
-    }
 
     void Start()
     {
+        if(backgroundMusic != null)
+        {
+            PlayBackgroundMusic(false, backgroundMusic);
+        }
         musicSlider.onValueChanged.AddListener(delegate { SetVolume(musicSlider.value); });
     }
 
     public static void SetVolume(float volume)
     {
-        audioSource.volume = volume;
+        instance.audioSource.volume = volume;
     }
 
     public static void PlayBackgroundMusic(bool resetSong, AudioClip audioClip = null)
     {
         if(audioClip !=  null)
         {
-            audioSource.clip = audioClip;
+            instance.audioSource.clip = audioClip;
         }
-        if(audioSource.clip != null)
+        if(instance.audioSource.clip != null)
         {
             if (resetSong)
             {
-                audioSource.Stop();
+                instance.audioSource.Stop();
             }
-            audioSource.Play();
+            instance.audioSource.Play();
         }
     }
 
     public static void PauseBackgroundMusic()
     {
-        audioSource.Pause();
+        instance.audioSource.Pause();
     }
 }

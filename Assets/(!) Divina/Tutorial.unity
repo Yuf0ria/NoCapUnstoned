@@ -1074,7 +1074,6 @@ GameObject:
   m_Component:
   - component: {fileID: 86983772}
   - component: {fileID: 86983775}
-  - component: {fileID: 86983774}
   - component: {fileID: 86983773}
   m_Layer: 0
   m_Name: Music Manager
@@ -1110,23 +1109,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2eb5e4acb6cd47b4398593149b2a7ecf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  backgroundMusic: {fileID: 8300000, guid: f25198278c5868949bfa2c3367a5fc71, type: 3}
   musicSlider: {fileID: 2023538137142910605}
---- !u!114 &86983774
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 86983771}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f911920fcae354c469b46fd35bd31cc6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  MusicGroups:
-  - name: tutorial
-    clip:
-    - {fileID: 8300000, guid: f25198278c5868949bfa2c3367a5fc71, type: 3}
 --- !u!82 &86983775
 AudioSource:
   m_ObjectHideFlags: 0
@@ -1382,7 +1366,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 1878349682}
   m_Direction: 2
   m_Value: 0
-  m_Size: 0.000031939686
+  m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -3152,7 +3136,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 351264359}
   m_Direction: 2
   m_Value: 0
-  m_Size: 0.000031939686
+  m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -11854,7 +11838,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 119718745}
   m_Direction: 2
   m_Value: 0
-  m_Size: 0.000031939686
+  m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
