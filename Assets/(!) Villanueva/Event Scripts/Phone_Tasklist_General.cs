@@ -62,7 +62,7 @@ public class Phone_Tasklist_General : MonoBehaviour
                     break;
             }
 
-            events.Run_Event();
+            events.Run_RandomEvent();
         }
 
         else return; //Debug.Log("This task is not unlocked yet.");

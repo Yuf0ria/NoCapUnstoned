@@ -66,5 +66,5 @@
     "explorer.fileNesting.patterns": {
         "*.sln": "*.csproj"
     },
-    "dotnet.defaultSolution": "NoCapunstoned.sln"
+    "dotnet.defaultSolution": "NoCapUnstoned.sln"
 }

@@ -1,28 +1,17 @@
-using JetBrains.Annotations;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class SoundEffectManager : MonoBehaviour
 {
     private static SoundEffectManager instance;
-
     private static AudioSource AudioSource;
     private static SoundEffectLibrary library;
     [SerializeField] private Slider sfxSlider;
 
     private void Awake()
     {
-        if(instance == null)
-        {
-            instance = this;
-            AudioSource = GetComponent<AudioSource>();
-            library = GetComponent<SoundEffectLibrary>();
-            DontDestroyOnLoad(gameObject);
-        }
-        else
-        {
-            Destroy(gameObject);
-        }
+        AudioSource = GetComponent<AudioSource>();
+        library = GetComponent<SoundEffectLibrary>();
     }
 
     public static void Play(string soundName)

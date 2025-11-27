@@ -1,4 +1,4 @@
-using UnityEngine;
+ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using System.Collections;
@@ -18,7 +18,6 @@ public class MessageRenderer : MonoBehaviour, IMessageRenderer
     public GameObject senderBox; //Original gameobject  for sender messages
     public GameObject replierBox; //Original gameobject for replier messages
     public GameObject dialogueBox; //Original gameobject for dialogue choices
-    public GameObject timestampBox; //Original gameobject for timestamps
 
     [Header("UI Elements")]
     public RectTransform content; //ScrollView content
@@ -26,10 +25,13 @@ public class MessageRenderer : MonoBehaviour, IMessageRenderer
     public GameObject openChoicesButton; //Reference to OpenChoices button
 
     [Header("Paddings n shi")]
-    [SerializeField] private float spacing = 20f; //Space between duplicates and choices                                 //ALSO BRUH I COULD HAVE PUT ALL OF THESE INTO ONE </3
+    [SerializeField] private float spacing = 30f; //Space between duplicates and choices (increased by +10)
+    [SerializeField] private float senderTopPadding = 10f; // Top padding for sender messages (default 30 + extra 30)
+    [SerializeField] private float bottomPadding = 10f; // Fixed padding under the last message
     [SerializeField] private float padding = 20f; //Padding on right and bottom sides for text resizing
     [SerializeField] private float dialoguePadding = 20f; //Padding from the left side of the screen for dialogue boxes
     private const float MaxMessageWidth = 555f; //Maximum width for messages
+    private const float MaxDialogueWidth = 750f; //Maximum width for messages
 
     [Header("Data")]
     public List<MessageData> messageList; 
@@ -50,7 +52,6 @@ public class MessageRenderer : MonoBehaviour, IMessageRenderer
     {
         InitializeButtons();
         DisableOriginalDialogueBox();
-        RenderTimestamp();
         InitializeContentSize();
         RenderStartMessages();
         currentIndex = startMessageList.Count;  // Set currentIndex to the number of start messages to avoid duplication
@@ -61,36 +62,9 @@ public class MessageRenderer : MonoBehaviour, IMessageRenderer
     {
         HandleAutoProgression();
         HandleManualProgression();
-        UpdateTimestampText();
     }
 
-    private void UpdateTimestampText()
-    {
-        GameObject timestamp = GameObject.FindGameObjectWithTag("Timestamp");
-        if (timestamp != null)
-        {
-            Transform timestampTextTransform = timestamp.transform.Find("Time");
-            if (timestampTextTransform == null)
-            {
-                timestampTextTransform = timestamp.transform.Find("Text");
-            }
-            if (timestampTextTransform != null)
-            {
-                TextMeshProUGUI timestampTMP = timestampTextTransform.GetComponent<TextMeshProUGUI>();
-                if (timestampTMP != null)
-                {
-                    timestampTMP.enableCulling = false; // Disable culling to prevent disabling when off-screen
-                    timestampTMP.enabled = true; // Ensure the component is enabled
-                    timestampTextTransform.gameObject.SetActive(true); // Ensure the gameObject is active
-                    if (contactManager != null && contactManager.timeScript != null)
-                    {
-                        timestampTMP.text = contactManager.timeScript.GetCurrentTimeString();
-                        LayoutRebuilder.ForceRebuildLayoutImmediate(timestampTMP.rectTransform);
-                    }
-                }
-            }
-        }
-    }
+
 
     private void InitializeButtons()
     {
@@ -111,6 +85,7 @@ public class MessageRenderer : MonoBehaviour, IMessageRenderer
     private void InitializeContentSize()
     {
         RectTransform originalRT = senderBox.GetComponent<RectTransform>();
+        // Keep totalHeight as the total of message area (excludes bottom padding).
         totalHeight = originalRT.sizeDelta.y + spacing;
         UpdateContentSize();
     }
@@ -119,7 +94,7 @@ public class MessageRenderer : MonoBehaviour, IMessageRenderer
     {
         if (startMessageList != null && startMessageList.Count > 0)
         {
-            // Render all start messages below the timestamp
+            // Render all start messages
             for (int i = 0; i < startMessageList.Count; i++)
             {
                 MessageData data = new MessageData { text = startMessageList[i].text, name = startMessageList[i].name, isSender = startMessageList[i].isSender };
@@ -128,118 +103,7 @@ public class MessageRenderer : MonoBehaviour, IMessageRenderer
         }
     }
 
-    private void RenderTimestamp()
-    {
-        if (timestampBox == null) return;
 
-        // Destroy any existing timestamp to ensure we use a fresh duplicate
-        GameObject existingTimestamp = GameObject.FindGameObjectWithTag("Timestamp");
-        if (existingTimestamp != null)
-        {
-            Destroy(existingTimestamp);
-        }
-
-        // Get the original size of the timestampBox prefab
-        Vector2 originalSize = timestampBox.GetComponent<RectTransform>().sizeDelta;
-
-        Transform parent = content; // Place inside the content
-        GameObject timestampDuplicate = Instantiate(timestampBox, parent);
-        timestampDuplicate.tag = "Timestamp";
-
-        // Set anchors to top of the content
-        RectTransform timestampRT = timestampDuplicate.GetComponent<RectTransform>();
-        timestampRT.anchorMin = new Vector2(0, 1);
-        timestampRT.anchorMax = new Vector2(1, 1);
-        timestampRT.pivot = new Vector2(0.5f, 1);
-        timestampRT.anchoredPosition = new Vector2(0, 0);
-        // Use the original size of the timestampBox
-        timestampRT.sizeDelta = originalSize;
-
-        // Update timestamp text using TimeScript
-        Transform timestampTextTransform = timestampDuplicate.transform.Find("Time");
-        if (timestampTextTransform == null)
-        {
-            if (timestampDuplicate.GetComponent<TextMeshProUGUI>() != null)
-            {
-                timestampTextTransform = timestampDuplicate.transform;
-            }
-            else
-            {
-                timestampTextTransform = timestampDuplicate.transform.Find("Text");
-                if (timestampTextTransform == null)
-                {
-                    // Try alternative names
-                    timestampTextTransform = timestampDuplicate.transform.Find("Text (TMP)");
-                    if (timestampTextTransform == null)
-                    {
-                        timestampTextTransform = timestampDuplicate.transform.Find("Text (UI)");
-                        if (timestampTextTransform == null)
-                        {
-                            timestampTextTransform = timestampDuplicate.transform.Find("TextMeshPro");
-                            if (timestampTextTransform == null)
-                            {
-                                // Find any child with TextMeshProUGUI component
-                                foreach (Transform child in timestampDuplicate.transform)
-                                {
-                                    if (child.GetComponent<TextMeshProUGUI>() != null)
-                                    {
-                                        timestampTextTransform = child;
-                                        break;
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        }
-
-        // Find all TMP components in the timestamp duplicate and its children
-        List<TextMeshProUGUI> tmpComponents = new List<TextMeshProUGUI>();
-        // Check the duplicate itself
-        TextMeshProUGUI tmp = timestampDuplicate.GetComponent<TextMeshProUGUI>();
-        if (tmp != null)
-        {
-            tmpComponents.Add(tmp);
-            tmp.enableCulling = false; // Disable culling to prevent disabling when off-screen
-            tmp.enabled = true; // Enable the TextMeshProUGUI component
-            timestampDuplicate.SetActive(true); // Activate the gameObject
-        }
-        // Check children
-        foreach (Transform child in timestampDuplicate.transform)
-        {
-            tmp = child.GetComponent<TextMeshProUGUI>();
-            if (tmp != null)
-            {
-                tmpComponents.Add(tmp);
-                tmp.enableCulling = false; // Disable culling to prevent disabling when off-screen
-                tmp.enabled = true; // Enable the TextMeshProUGUI component
-                child.gameObject.SetActive(true); // Activate the gameObject
-            }
-        }
-
-        if (tmpComponents.Count > 0 && contactManager != null && contactManager.timeScript != null)
-        {
-            if (tmpComponents.Count >= 2)
-            {
-                // Set first TMP to hourText, second to minText
-                tmpComponents[0].text = contactManager.timeScript.hourText;
-                tmpComponents[1].text = contactManager.timeScript.minText;
-                // Set all margins to 0 for both
-                tmpComponents[0].margin = Vector4.zero;
-                tmpComponents[1].margin = Vector4.zero;
-                LayoutRebuilder.ForceRebuildLayoutImmediate(tmpComponents[0].rectTransform);
-                LayoutRebuilder.ForceRebuildLayoutImmediate(tmpComponents[1].rectTransform);
-            }
-            else
-            {
-                // Fallback to full time string if only one TMP
-                tmpComponents[0].text = contactManager.timeScript.GetCurrentTimeString();
-                tmpComponents[0].margin = Vector4.zero;
-                LayoutRebuilder.ForceRebuildLayoutImmediate(tmpComponents[0].rectTransform);
-            }
-        }
-    }
 
 
 
@@ -250,6 +114,11 @@ public class MessageRenderer : MonoBehaviour, IMessageRenderer
             bool alreadyRendered = startMessageList.Any(s => s.text == messageList[currentIndex].text && s.isSender == messageList[currentIndex].isSender);
             if (!alreadyRendered)
             {
+                Debug.Log("StartMessageProgression: Processing message at index " + currentIndex + ", Notes: " + (messageList[currentIndex].Notes != null ? messageList[currentIndex].Notes.name : "null"));
+                if (messageList[currentIndex].Notes != null)
+                {
+                    goalTriggered(messageList[currentIndex].Notes);
+                }
                 RenderMessage(messageList[currentIndex]);
                 startMessageList.Add(new StartMessageData { text = messageList[currentIndex].text, name = messageList[currentIndex].name, isSender = messageList[currentIndex].isSender });
             }
@@ -277,9 +146,14 @@ public class MessageRenderer : MonoBehaviour, IMessageRenderer
                 isAutoProgressing = false;
                 if (currentIndex < messageList.Count)
                 {
+                    Debug.Log("HandleAutoProgression: Processing message at index " + currentIndex + ", Notes: " + (messageList[currentIndex].Notes != null ? messageList[currentIndex].Notes.name : "null"));
                     bool alreadyRendered = startMessageList.Any(s => s.text == messageList[currentIndex].text && s.isSender == messageList[currentIndex].isSender);
                     if (!alreadyRendered)
                     {
+                        if (messageList[currentIndex].Notes != null)
+                        {
+                            goalTriggered(messageList[currentIndex].Notes);
+                        }
                         RenderMessage(messageList[currentIndex]);
                         startMessageList.Add(new StartMessageData { text = messageList[currentIndex].text, name = messageList[currentIndex].name, isSender = messageList[currentIndex].isSender });
                     }
@@ -313,6 +187,10 @@ public class MessageRenderer : MonoBehaviour, IMessageRenderer
             bool alreadyRendered = startMessageList.Any(s => s.text == messageList[currentIndex].text && s.isSender == messageList[currentIndex].isSender);
             if (!alreadyRendered)
             {
+                if (messageList[currentIndex].Notes != null)
+                {
+                    goalTriggered(messageList[currentIndex].Notes);
+                }
                 RenderMessage(messageList[currentIndex]);
                 startMessageList.Add(new StartMessageData { text = messageList[currentIndex].text, name = messageList[currentIndex].name, isSender = messageList[currentIndex].isSender });
             }
@@ -350,6 +228,8 @@ public class MessageRenderer : MonoBehaviour, IMessageRenderer
             Destroy(duplicate);
             return;
         }
+
+
 
         // Update last rendered text for chat preview
         lastRenderedText = cleanText;
@@ -404,6 +284,11 @@ public class MessageRenderer : MonoBehaviour, IMessageRenderer
     private void CreateHighlights(Transform textTransform, TextMeshProUGUI textTMP, MatchCollection matches, string originalText, GameObject messageLinkBox)
     {
         if (messageLinkBox == null) return; // Skip if no linkBox provided for this message
+        // Force mesh data to be up to date (ParseAndRenderText should already call ForceMeshUpdate())
+        textTMP.ForceMeshUpdate();
+
+        var charInfos = textTMP.textInfo.characterInfo;
+        if (charInfos == null || charInfos.Length == 0) return;
 
         foreach (Match match in matches)
         {
@@ -411,22 +296,48 @@ public class MessageRenderer : MonoBehaviour, IMessageRenderer
             int startIndex = match.Groups[1].Index - bracketCountBefore - 1;
             int length = match.Groups[1].Length;
 
-            if (startIndex + length > textTMP.textInfo.characterCount) continue;
+            if (startIndex < 0) continue;
+            int endIndex = startIndex + length - 1;
+            if (endIndex >= charInfos.Length) endIndex = charInfos.Length - 1;
 
-            TMP_CharacterInfo charInfoStart = textTMP.textInfo.characterInfo[startIndex];
-            TMP_CharacterInfo charInfoEnd = textTMP.textInfo.characterInfo[startIndex + length - 1];
+            // Create one single bounding highlight that covers the whole match range
+            // (even when the text wraps to multiple lines). This makes the link box
+            // appear as a single unified rectangle over the whole bracketed text.
+            float minLeft = float.MaxValue;
+            float maxRight = float.MinValue;
+            float maxAsc = float.MinValue;
+            float minDesc = float.MaxValue;
 
-            float startX = charInfoStart.bottomLeft.x;
-            float endX = charInfoEnd.bottomRight.x;
-            float width = endX - startX;
-            float height = charInfoStart.ascender - charInfoStart.descender;
+            for (int idx = startIndex; idx <= endIndex; idx++)
+            {
+                var ci = charInfos[idx];
+                // skip invisible / whitespace characters if TMP marks them as such
+                minLeft = Mathf.Min(minLeft, ci.bottomLeft.x);
+                maxRight = Mathf.Max(maxRight, ci.bottomRight.x);
+                maxAsc = Mathf.Max(maxAsc, ci.ascender);
+                minDesc = Mathf.Min(minDesc, ci.descender);
+            }
 
-            GameObject highlightDuplicate = Instantiate(messageLinkBox, textTransform);
-            HideHighlightText(highlightDuplicate);
+            // sanity check
+            if (minLeft <= maxRight && maxAsc > minDesc)
+            {
+                // Optional visual padding around the highlight so it doesn't sit flush
+                // exactly on glyph edges; tweak if you want a tighter or looser box.
+                const float visualPaddingX = 4f;
+                const float visualPaddingY = 4f;
 
-            RectTransform highlightRT = highlightDuplicate.GetComponent<RectTransform>();
-            highlightRT.sizeDelta = new Vector2(width, height);
-            highlightRT.localPosition = new Vector3(startX + width / 2, charInfoStart.descender + height / 2, 0);
+                float width = (maxRight - minLeft) + visualPaddingX * 2f;
+                float height = (maxAsc - minDesc) + visualPaddingY * 2f;
+
+                GameObject highlightDuplicate = Instantiate(messageLinkBox, textTransform);
+                HideHighlightText(highlightDuplicate);
+                RectTransform highlightRT = highlightDuplicate.GetComponent<RectTransform>();
+                if (highlightRT != null)
+                {
+                    highlightRT.sizeDelta = new Vector2(width, height);
+                    highlightRT.localPosition = new Vector3(minLeft + (width - visualPaddingX * 2f) / 2f, minDesc + (height - visualPaddingY * 2f) / 2f, 0f);
+                }
+            }
         }
     }
 
@@ -464,29 +375,26 @@ public class MessageRenderer : MonoBehaviour, IMessageRenderer
         duplicateRT.anchoredPosition = new Vector2(xPos, yPos);
 
         lastMessageRectTransform = duplicateRT;
-        float extraSpacing = data.isSender ? 20f : 0f;
+        // Keep an extra per-message spacing (top padding) for sender boxes.
+        // Use senderTopPadding (default 60) so sender messages have the requested top gap.
+        float extraSpacing = data.isSender ? senderTopPadding : 0f;
         totalHeight += elementHeight + spacing + extraSpacing;
         UpdateContentSize();
     }
 
     private float CalculateYPosition(float elementHeight, bool isSender)
     {
-        float extraSpacing = 30f;
+        // Top padding for sender messages
+        float extraSpacing = isSender ? senderTopPadding : 0f;
         if (lastMessageRectTransform == null)
         {
             RectTransform originalRT = senderBox.GetComponent<RectTransform>();
-            // Account for timestamp height to position first message below it
-            GameObject timestamp = GameObject.FindGameObjectWithTag("Timestamp");
-            float timestampHeight = 0f;
-            if (timestamp != null)
-            {
-                RectTransform timestampRT = timestamp.GetComponent<RectTransform>();
-                if (timestampRT != null)
-                {
-                    timestampHeight = timestampRT.sizeDelta.y;
-                }
-            }
-            return originalRT.anchoredPosition.y - originalRT.sizeDelta.y / 2 - spacing - extraSpacing - elementHeight / 2 - timestampHeight;
+            // For the very first message placement, do NOT subtract the bottom padding here.
+            // bottomPadding is applied once to the content height (UpdateContentSize) so
+            // the visual gap under the last message remains constant. Subtracting it
+            // here caused the first message to shift and produced an unexpectedly large
+            // gap below the last rendered message.
+            return originalRT.anchoredPosition.y - originalRT.sizeDelta.y / 2 - spacing - extraSpacing - elementHeight / 2;
         }
         else return lastMessageRectTransform.anchoredPosition.y - lastMessageRectTransform.sizeDelta.y / 2 - spacing - extraSpacing - elementHeight / 2;
     }
@@ -537,8 +445,15 @@ public class MessageRenderer : MonoBehaviour, IMessageRenderer
         RectTransform dialogueRT = dialogueDuplicate.GetComponent<RectTransform>();
         float dialoguePreferredWidth = dialogueTMP.preferredWidth;
         float dialoguePreferredHeight = dialogueTMP.preferredHeight;
-        float dialogueClampedWidth = Mathf.Min(dialoguePreferredWidth + padding, MaxMessageWidth);
-        dialogueRT.sizeDelta = new Vector2(dialogueClampedWidth + padding, dialoguePreferredHeight + padding);
+        float dialogueClampedWidth = Mathf.Min(dialoguePreferredWidth + padding, MaxDialogueWidth);
+
+        // Set the TMP rect width to the clamped width to allow proper wrapping
+        dialogueTMP.rectTransform.sizeDelta = new Vector2(dialogueClampedWidth, dialogueTMP.rectTransform.sizeDelta.y);
+        LayoutRebuilder.ForceRebuildLayoutImmediate(dialogueTMP.rectTransform);
+
+        // Get the new preferred height after wrapping
+        float newPreferredHeight = dialogueTMP.preferredHeight;
+        dialogueRT.sizeDelta = new Vector2(dialogueClampedWidth + padding, newPreferredHeight + padding);
     }
 
     private void PositionChoice(GameObject dialogueDuplicate, ref RectTransform lastChoiceRT)
@@ -626,14 +541,67 @@ public class MessageRenderer : MonoBehaviour, IMessageRenderer
     }
 
     public void SetButtonsInteractable(bool interactable)
-    { 
+    {
         if (sendButton != null) sendButton.GetComponent<Button>().interactable = interactable;
         if (openChoicesButton != null) openChoicesButton.GetComponent<Button>().interactable = interactable;
     }
 
+    public void goalTriggered(GameObject notes)
+    {
+        //Changes the font style of the Notes preview to show that it's done
+        Debug.Log("goalTriggered called for notes: " + notes.name);
+        TextMeshProUGUI noteTitle = notes.transform.Find("Title").GetComponent<TextMeshProUGUI>();
+        TextMeshProUGUI noteDesc = notes.transform.Find("Description").GetComponent<TextMeshProUGUI>();
+
+        if (noteTitle != null && noteTitle.fontStyle != FontStyles.Strikethrough)
+        {
+            noteTitle.fontStyle = FontStyles.Strikethrough;
+            Debug.Log("Title strikethrough applied");
+        }
+        else if (noteTitle == null)
+        {
+            Debug.LogError("Title TextMeshProUGUI not found on notes: " + notes.name);
+        }
+
+        if (noteDesc != null && noteDesc.fontStyle != FontStyles.Strikethrough)
+        {
+            noteDesc.fontStyle = FontStyles.Strikethrough;
+            Debug.Log("Description strikethrough applied");
+        }
+        else if (noteDesc == null)
+        {
+            Debug.LogError("Description TextMeshProUGUI not found on notes: " + notes.name);
+        }
+    }
+
     private void UpdateContentSize()
     {
-        content.sizeDelta = new Vector2(content.sizeDelta.x, totalHeight);
+        // Compute content height from the top of the senderBox down to the bottom
+        // of the last rendered message, and add a fixed bottom padding.
+        // This prevents the content from accumulating extra empty space as more
+        // messages render.
+        if (content == null || senderBox == null)
+        {
+            // fallback to previous behavior
+            content.sizeDelta = new Vector2(content.sizeDelta.x, totalHeight + bottomPadding);
+            return;
+        }
+
+        // If no message has been rendered yet, keep the default small content height
+        if (lastMessageRectTransform == null)
+        {
+            float defaultTop = senderBox.GetComponent<RectTransform>().anchoredPosition.y + senderBox.GetComponent<RectTransform>().sizeDelta.y / 2f;
+            float defaultBottom = senderBox.GetComponent<RectTransform>().anchoredPosition.y - senderBox.GetComponent<RectTransform>().sizeDelta.y / 2f;
+            content.sizeDelta = new Vector2(content.sizeDelta.x, Mathf.Abs(defaultTop - defaultBottom) + bottomPadding);
+            return;
+        }
+
+        RectTransform topRT = senderBox.GetComponent<RectTransform>();
+        float topEdge = topRT.anchoredPosition.y + topRT.sizeDelta.y / 2f;
+        float bottomEdge = lastMessageRectTransform.anchoredPosition.y - lastMessageRectTransform.sizeDelta.y / 2f;
+
+        float requiredHeight = Mathf.Abs(topEdge - bottomEdge) + bottomPadding;
+        content.sizeDelta = new Vector2(content.sizeDelta.x, requiredHeight);
     }
 
     public void ClearMessages()
@@ -670,11 +638,9 @@ public class MessageRenderer : MonoBehaviour, IMessageRenderer
         totalHeight = senderBox.GetComponent<RectTransform>().sizeDelta.y;
         lastMessageRectTransform = null;
 
-        // Clear the UI to prevent duplication and ensure correct order
-        ClearMessageUI();
-        RenderTimestamp();
-        RenderStartMessages();
 
+        ClearMessageUI();
+        RenderStartMessages();
         // Resume from the last interaction
         if (contactManager != null)
         {

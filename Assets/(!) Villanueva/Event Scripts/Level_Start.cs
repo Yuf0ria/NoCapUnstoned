@@ -1,13 +1,14 @@
 using System.Collections;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class Level_Start : MonoBehaviour
 {
+    // MODIFY THIS, IF YOU WANT TO CHANGE THE START OF THE CHAPTER
 
     [Header("Messages")]
     [SerializeField] bool startOnThread;
+    [SerializeField] bool startOnMessages;
     [SerializeField] float delayStartUpTime;
     [SerializeField] App_Basic messageApp;
     [SerializeField] App_Messages contactList;
@@ -18,24 +19,23 @@ public class Level_Start : MonoBehaviour
 
     void Start()
     {
-        // Open on the Message App
-        messageApp.OpenApp();
-        if (startOnThread)
-        {
-            StartCoroutine(delayStartUp());
-        }
-
-
         // Enable all Masks
         for (int i = 0; i <= MaskList.Length - 1; i++)
         {
             MaskList[i].enabled = true;
         }
+
+        
+        // Open on the Message App
+        StartCoroutine(delayStartUp());
     }
     
     IEnumerator delayStartUp()
     {
+        if(startOnMessages) messageApp.OpenApp();
+
         yield return new WaitForSeconds(delayStartUpTime);
-        contactList.OpenMessageThread(thread);
+
+        if(startOnThread) contactList.OpenMessageThread(thread);
     }
 }

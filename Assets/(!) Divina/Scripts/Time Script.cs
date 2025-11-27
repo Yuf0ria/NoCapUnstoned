@@ -13,6 +13,20 @@ public class TimeScript : MonoBehaviour
     public string hourText;
     public string minText;
 
+    void Awake()
+    {
+        if (min <= 9)
+        {
+            minText = "0" + Convert.ToInt32(min);
+        }
+        else
+        {
+            minText = "" + Convert.ToInt32(min);
+        }
+
+        hourText = "" + Convert.ToInt32(hour);
+    }
+
     // Update is called once per frame
     void Update()
     {
