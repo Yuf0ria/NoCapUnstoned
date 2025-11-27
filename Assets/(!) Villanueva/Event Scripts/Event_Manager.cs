@@ -3,8 +3,6 @@ using UnityEngine;
 using UnityEngine.UI;
 using DG.Tweening;
 using System.Collections;
-using Unity.Mathematics;
-using System.Globalization;
 
 public class Event_Manager : MonoBehaviour
 {
@@ -26,6 +24,7 @@ public class Event_Manager : MonoBehaviour
     [Header("GAME WIN")]
     [SerializeField] RectTransform gameWinPanel;
     [SerializeField] Slider gameTimer;
+    [SerializeField] Chapter1Events chapter1Events;
     [SerializeField] EventScript progress;
     [SerializeField] int maxTasks = 10;
     
@@ -237,11 +236,10 @@ public class Event_Manager : MonoBehaviour
     
     public void Run_GameWin()
     {
-        if (gameTimer.value >= 0.9990f && progress.progression >= maxTasks)
+        if (chapter1Events.AllTasksCompleted())
         {
             gameWinPanel.transform.DOMove(revealPos.position, TransitionTime).SetEase(Ease.OutCubic);
         }
-
         else if (gameTimer.value >= 0.9990f)
         {
             Debug.Log("INSTANT GAME OVER");

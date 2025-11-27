@@ -114,6 +114,11 @@ public class MessageRenderer : MonoBehaviour, IMessageRenderer
             bool alreadyRendered = startMessageList.Any(s => s.text == messageList[currentIndex].text && s.isSender == messageList[currentIndex].isSender);
             if (!alreadyRendered)
             {
+                Debug.Log("StartMessageProgression: Processing message at index " + currentIndex + ", Notes: " + (messageList[currentIndex].Notes != null ? messageList[currentIndex].Notes.name : "null"));
+                if (messageList[currentIndex].Notes != null)
+                {
+                    goalTriggered(messageList[currentIndex].Notes);
+                }
                 RenderMessage(messageList[currentIndex]);
                 startMessageList.Add(new StartMessageData { text = messageList[currentIndex].text, name = messageList[currentIndex].name, isSender = messageList[currentIndex].isSender });
             }
@@ -141,9 +146,14 @@ public class MessageRenderer : MonoBehaviour, IMessageRenderer
                 isAutoProgressing = false;
                 if (currentIndex < messageList.Count)
                 {
+                    Debug.Log("HandleAutoProgression: Processing message at index " + currentIndex + ", Notes: " + (messageList[currentIndex].Notes != null ? messageList[currentIndex].Notes.name : "null"));
                     bool alreadyRendered = startMessageList.Any(s => s.text == messageList[currentIndex].text && s.isSender == messageList[currentIndex].isSender);
                     if (!alreadyRendered)
                     {
+                        if (messageList[currentIndex].Notes != null)
+                        {
+                            goalTriggered(messageList[currentIndex].Notes);
+                        }
                         RenderMessage(messageList[currentIndex]);
                         startMessageList.Add(new StartMessageData { text = messageList[currentIndex].text, name = messageList[currentIndex].name, isSender = messageList[currentIndex].isSender });
                     }
@@ -177,6 +187,10 @@ public class MessageRenderer : MonoBehaviour, IMessageRenderer
             bool alreadyRendered = startMessageList.Any(s => s.text == messageList[currentIndex].text && s.isSender == messageList[currentIndex].isSender);
             if (!alreadyRendered)
             {
+                if (messageList[currentIndex].Notes != null)
+                {
+                    goalTriggered(messageList[currentIndex].Notes);
+                }
                 RenderMessage(messageList[currentIndex]);
                 startMessageList.Add(new StartMessageData { text = messageList[currentIndex].text, name = messageList[currentIndex].name, isSender = messageList[currentIndex].isSender });
             }
@@ -215,23 +229,7 @@ public class MessageRenderer : MonoBehaviour, IMessageRenderer
             return;
         }
 
-        if (data.Notes != null)
-        {
-            Transform noteTitle = data.Notes.transform.Find("Title");
-            Transform noteDesc = data.Notes.transform.Find("Description");
 
-            if (noteTitle != null)
-            {
-                TextMeshProUGUI noteTitleTMP = noteTitle.GetComponent<TextMeshProUGUI>();
-                if (noteTitleTMP != null) noteTitleTMP.fontStyle = FontStyles.Strikethrough;
-            }
-
-            if (noteDesc != null)
-            {
-                TextMeshProUGUI noteDescTMP = noteDesc.GetComponent<TextMeshProUGUI>();
-                if (noteDescTMP != null) noteDescTMP.fontStyle = FontStyles.Strikethrough;
-            }
-        }
 
         // Update last rendered text for chat preview
         lastRenderedText = cleanText;
@@ -543,9 +541,37 @@ public class MessageRenderer : MonoBehaviour, IMessageRenderer
     }
 
     public void SetButtonsInteractable(bool interactable)
-    { 
+    {
         if (sendButton != null) sendButton.GetComponent<Button>().interactable = interactable;
         if (openChoicesButton != null) openChoicesButton.GetComponent<Button>().interactable = interactable;
+    }
+
+    public void goalTriggered(GameObject notes)
+    {
+        //Changes the font style of the Notes preview to show that it's done
+        Debug.Log("goalTriggered called for notes: " + notes.name);
+        TextMeshProUGUI noteTitle = notes.transform.Find("Title").GetComponent<TextMeshProUGUI>();
+        TextMeshProUGUI noteDesc = notes.transform.Find("Description").GetComponent<TextMeshProUGUI>();
+
+        if (noteTitle != null && noteTitle.fontStyle != FontStyles.Strikethrough)
+        {
+            noteTitle.fontStyle = FontStyles.Strikethrough;
+            Debug.Log("Title strikethrough applied");
+        }
+        else if (noteTitle == null)
+        {
+            Debug.LogError("Title TextMeshProUGUI not found on notes: " + notes.name);
+        }
+
+        if (noteDesc != null && noteDesc.fontStyle != FontStyles.Strikethrough)
+        {
+            noteDesc.fontStyle = FontStyles.Strikethrough;
+            Debug.Log("Description strikethrough applied");
+        }
+        else if (noteDesc == null)
+        {
+            Debug.LogError("Description TextMeshProUGUI not found on notes: " + notes.name);
+        }
     }
 
     private void UpdateContentSize()

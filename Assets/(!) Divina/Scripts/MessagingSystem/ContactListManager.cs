@@ -200,7 +200,8 @@ public class ContactListManager : MonoBehaviour
                 name = md.name,
                 isSender = md.isSender,
                 Choices = md.Choices != null ? (string[])md.Choices.Clone() : null,
-                linkBox = md.linkBox
+                linkBox = md.linkBox,
+                Notes = md.Notes
             };
             newList.Add(newMd);
         }

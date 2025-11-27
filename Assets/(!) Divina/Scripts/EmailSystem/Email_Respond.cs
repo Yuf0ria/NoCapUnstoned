@@ -32,6 +32,8 @@ public class Email_Respond : MonoBehaviour
     [SerializeField] private Button backButton; // The one that goes back.
     [SerializeField] private GameObject Task; // The task gameobject.
 
+    
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -42,29 +44,40 @@ public class Email_Respond : MonoBehaviour
         replyButton.onClick.AddListener(() =>
         {
             replyBoxStatus();
+
+            dalisay_consentForm.onClick.AddListener(SendDalisay);
+            lit_consentForm.onClick.AddListener(SendLit);
+            imageFile.onClick.AddListener(SendImage);
         });
 
         backButton.onClick.AddListener(() =>
         {
             sendReplyButton.interactable = true;
-        });
 
-        dalisay_consentForm.onClick.AddListener(() =>
-        {
-            filename.text = dalisay_consentForm_response; 
-            sendMessage();
-        });
-        lit_consentForm.onClick.AddListener(() =>
-        { 
-            filename.text = lit_consentForm_response;
-            sendMessage();
-        });
-        imageFile.onClick.AddListener(() =>
-        { 
-            filename.text = imageFile_response;
-            sendMessage();
+            dalisay_consentForm.onClick.RemoveListener(SendDalisay);
+            lit_consentForm.onClick.RemoveListener(SendLit);
+            imageFile.onClick.RemoveListener(SendImage);
         });
     }
+
+    private void SendDalisay()
+    {
+        filename.text = dalisay_consentForm_response;
+        sendMessage();
+    }
+
+    private void SendLit()
+    {
+        filename.text = lit_consentForm_response;
+        sendMessage();
+    }
+
+    private void SendImage()
+    {
+        filename.text = imageFile_response;
+        sendMessage();
+    }
+
 
     void sendMessage()
     {

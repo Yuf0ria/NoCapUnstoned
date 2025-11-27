@@ -89,22 +89,6 @@ public class ChatDataModifier : MonoBehaviour
             existingChat.isUnread = true;
             contactListManager.UpdateUnreadIndicator(targetChatIndex);
 
-            // Update currentIndex with the additional messages
-            int choiceIndex = -1;
-            if (newChatData.messageList != null && newChatData.messageList.Count > 0)
-            {
-                for (int i = 0; i < newChatData.messageList.Count; i++)
-                {
-                    if (newChatData.messageList[i].Choices != null && newChatData.messageList[i].Choices.Length > 0)
-                    {
-                        choiceIndex = existingChat.messageList.Count - newChatData.messageList.Count + i;
-                        break; //STOP STOPPPP
-                    }
-                }
-            }
-            if (choiceIndex != -1) existingChat.currentIndex = choiceIndex;
-            else existingChat.currentIndex = existingChat.messageList.Count - 1;
-
             contactListManager.contacts[targetChatIndex] = existingChat; // Update the list
 
             // Update the chat preview for the modified contact

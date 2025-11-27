@@ -2,7 +2,6 @@ using UnityEngine;
 using UnityEngine.UI;
 using DG.Tweening;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 
 public class Phone_SecurityCaptcha : MonoBehaviour
 {

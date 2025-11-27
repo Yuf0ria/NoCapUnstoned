@@ -1,9 +1,7 @@
 using UnityEngine;
 using DG.Tweening;
 using TMPro;
-using System.Collections;
-using System.Xml.Serialization;
-using UnityEditor.ShaderGraph.Internal;
+using System.Collections; 
 
 
 public class App_Settings : MonoBehaviour

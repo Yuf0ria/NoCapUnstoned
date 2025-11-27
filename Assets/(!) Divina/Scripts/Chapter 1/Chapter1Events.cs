@@ -11,7 +11,6 @@ public class Chapter1Events : MonoBehaviour
     [SerializeField] private bool fifth_Research;
     [SerializeField] private bool sixth_Internship;
     [SerializeField] private bool seventh_Counseling;
-    [SerializeField] private bool eigth_Unread; //Bonus
 
     [Header("GameObjects")]
     [SerializeField] private TextMeshProUGUI goFirst_OrderCorner;
@@ -21,7 +20,11 @@ public class Chapter1Events : MonoBehaviour
     [SerializeField] private TextMeshProUGUI goFifth_Research;
     [SerializeField] private TextMeshProUGUI goSixth_Internship;
     [SerializeField] private TextMeshProUGUI goSeventh_Counseling;
-    [SerializeField] private TextMeshProUGUI goEigth_Unread; //Bonus
+
+    [Header("Event Manager")]
+    [SerializeField] private Event_Manager eventManager;
+
+    private bool wasCompleted = false;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
@@ -33,6 +36,15 @@ public class Chapter1Events : MonoBehaviour
     void Update()
     {
         checking();
+
+        if (AllTasksCompleted() && !wasCompleted)
+        {
+            if (eventManager != null)
+            {
+                eventManager.Run_GameWin();
+                wasCompleted = true;
+            }
+        }
     }
 
     void checking()
@@ -44,12 +56,16 @@ public class Chapter1Events : MonoBehaviour
         fourth_Seminar = HasStrikethrough(goFourth_Seminar);
         fifth_Research = HasStrikethrough(goFifth_Research);
         sixth_Internship = HasStrikethrough(goSixth_Internship);
-        seventh_Counseling = HasStrikethrough(goSeventh_Counseling);
-        eigth_Unread = HasStrikethrough(goEigth_Unread);
+        seventh_Counseling = HasStrikethrough(goSeventh_Counseling); 
     }
 
     bool HasStrikethrough(TextMeshProUGUI tmp)
     {
         return (tmp.fontStyle & FontStyles.Strikethrough) == FontStyles.Strikethrough;
+    }
+
+    public bool AllTasksCompleted()
+    {
+        return first_OrderCorner && second_Quiz && third_Faculty && fourth_Seminar && fifth_Research && sixth_Internship && seventh_Counseling;
     }
 }

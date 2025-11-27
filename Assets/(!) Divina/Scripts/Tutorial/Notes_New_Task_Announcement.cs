@@ -26,6 +26,13 @@ public class Notes_New_Task_Announcement : MonoBehaviour
 
     private void OnEnable()
     {
+        TriggerAnnouncement();
+        if (buttonTrigger != null)
+            buttonTrigger.onClick.AddListener(goalTriggered);
+    }
+
+    public void TriggerAnnouncement()
+    {
         TextMeshProUGUI titleTMP = transform.Find("Title").GetComponent<TextMeshProUGUI>();
 
         //Notification gameobject
@@ -38,7 +45,7 @@ public class Notes_New_Task_Announcement : MonoBehaviour
             Image iconNotif = notif.transform.Find("Icon").GetComponent<Image>();
 
             Button notifButton = notif.GetComponent<Button>();
-            notifButton.interactable = true;            
+            notifButton.interactable = true;
             notifButton.onClick.AddListener(quickHide);
 
             //CHANGING TEXT BASED ON THE TASK
@@ -67,12 +74,6 @@ public class Notes_New_Task_Announcement : MonoBehaviour
                 });
             }
         }
-
-        //Get the button of the notif game object
-        
-        
-        if (buttonTrigger != null)
-        buttonTrigger.onClick.AddListener(goalTriggered);
     }
 
     public void quickHide()
