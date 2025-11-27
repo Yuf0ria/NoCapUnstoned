@@ -60049,6 +60049,7 @@ MonoBehaviour:
     toSetFalse:
     - {fileID: 70428788}
     activeProgression:
+    - {fileID: 1810498256}
     - {fileID: 708516713}
     dialogue: 
   - toSetTrue:
