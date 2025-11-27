@@ -9658,8 +9658,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   webPageClosedPosition: {fileID: 0}
   webPageOpenedPosition: {fileID: 0}
+  FishSearches: {fileID: 0}
+  FoodSearches: {fileID: 0}
+  SecuritySearches: {fileID: 0}
+  adPrefab: {fileID: 0}
   searchBoxClosedPosition: {fileID: 0}
   searchBoxOpenedPosition: {fileID: 0}
+  searchBoxClosed: 0
   TransitionMult: 1
   SearchResultBox: {fileID: 0}
   fishResults: {fileID: 0}
@@ -11304,7 +11309,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -0.00012207031, y: 0.030761719}
+  m_AnchoredPosition: {x: -0.00012207031, y: 0.030517578}
   m_SizeDelta: {x: 0.0001, y: 1493.6}
   m_Pivot: {x: 0, y: 1}
 --- !u!1 &165937071
@@ -12133,6 +12138,7 @@ MonoBehaviour:
   messageBoxHidePosition: {fileID: 70314260}
   messageBoxClosedPosition: {fileID: 827726456}
   messageBoxOpenedPosition: {fileID: 1405234305}
+  TransitionMult: 1
   messageBox: {fileID: 437374934}
 --- !u!1 &173549385
 GameObject:
@@ -12292,8 +12298,8 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 2002596405}
   m_HandleRect: {fileID: 2002596404}
   m_Direction: 2
-  m_Value: 1.0000004
-  m_Size: 0.46666533
+  m_Value: 0.9999998
+  m_Size: 0.46666545
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -13098,8 +13104,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   webPageClosedPosition: {fileID: 0}
   webPageOpenedPosition: {fileID: 0}
+  FishSearches: {fileID: 0}
+  FoodSearches: {fileID: 0}
+  SecuritySearches: {fileID: 0}
+  adPrefab: {fileID: 0}
   searchBoxClosedPosition: {fileID: 0}
   searchBoxOpenedPosition: {fileID: 0}
+  searchBoxClosed: 0
   TransitionMult: 1
   SearchResultBox: {fileID: 0}
   fishResults: {fileID: 0}
@@ -14968,6 +14979,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   notesClosedPosition: {fileID: 0}
   notesOpenedPosition: {fileID: 0}
+  TransitionMult: 1
 --- !u!222 &215956012
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -16270,7 +16282,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &225584638
 RectTransform:
   m_ObjectHideFlags: 0
@@ -16430,6 +16442,7 @@ MonoBehaviour:
   messageBoxHidePosition: {fileID: 70314260}
   messageBoxClosedPosition: {fileID: 827726456}
   messageBoxOpenedPosition: {fileID: 1405234305}
+  TransitionMult: 1
   messageBox: {fileID: 437374934}
 --- !u!1 &228152809
 GameObject:
@@ -18051,7 +18064,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1783102782}
   m_HandleRect: {fileID: 1783102781}
   m_Direction: 0
-  m_Value: -0.00000031694222
+  m_Value: -0.00000021129485
   m_Size: 0.6478843
   m_NumberOfSteps: 0
   m_OnValueChanged:
@@ -19858,8 +19871,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   webPageClosedPosition: {fileID: 0}
   webPageOpenedPosition: {fileID: 0}
+  FishSearches: {fileID: 0}
+  FoodSearches: {fileID: 0}
+  SecuritySearches: {fileID: 0}
+  adPrefab: {fileID: 0}
   searchBoxClosedPosition: {fileID: 0}
   searchBoxOpenedPosition: {fileID: 0}
+  searchBoxClosed: 0
   TransitionMult: 1
   SearchResultBox: {fileID: 0}
   fishResults: {fileID: 0}
@@ -22874,8 +22892,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   webPageClosedPosition: {fileID: 0}
   webPageOpenedPosition: {fileID: 0}
+  FishSearches: {fileID: 0}
+  FoodSearches: {fileID: 0}
+  SecuritySearches: {fileID: 0}
+  adPrefab: {fileID: 0}
   searchBoxClosedPosition: {fileID: 0}
   searchBoxOpenedPosition: {fileID: 0}
+  searchBoxClosed: 0
   TransitionMult: 1
   SearchResultBox: {fileID: 0}
   fishResults: {fileID: 0}
@@ -23152,6 +23175,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   eduvaClosedPosition: {fileID: 628279824}
   eduvaOpenedPosition: {fileID: 1903834886}
+  TransitionMult: 1
 --- !u!114 &318187142
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -24763,6 +24787,7 @@ MonoBehaviour:
   ReplyBoxHidePosition: {fileID: 0}
   ReplyBoxClosedPosition: {fileID: 0}
   ReplyBoxOpenedPosition: {fileID: 0}
+  TransitionMult: 1
   ReplyBox: {fileID: 0}
 --- !u!1 &336693635
 GameObject:
@@ -25100,8 +25125,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   webPageClosedPosition: {fileID: 0}
   webPageOpenedPosition: {fileID: 0}
+  FishSearches: {fileID: 0}
+  FoodSearches: {fileID: 0}
+  SecuritySearches: {fileID: 0}
+  adPrefab: {fileID: 0}
   searchBoxClosedPosition: {fileID: 0}
   searchBoxOpenedPosition: {fileID: 0}
+  searchBoxClosed: 0
   TransitionMult: 1
   SearchResultBox: {fileID: 8133600411197863576}
   fishResults: {fileID: 0}
@@ -25309,6 +25339,7 @@ MonoBehaviour:
   ReplyBoxHidePosition: {fileID: 0}
   ReplyBoxClosedPosition: {fileID: 0}
   ReplyBoxOpenedPosition: {fileID: 0}
+  TransitionMult: 1
   ReplyBox: {fileID: 341551708}
 --- !u!1 &342175977
 GameObject:
@@ -25657,6 +25688,7 @@ MonoBehaviour:
   ReplyBoxHidePosition: {fileID: 0}
   ReplyBoxClosedPosition: {fileID: 0}
   ReplyBoxOpenedPosition: {fileID: 0}
+  TransitionMult: 1
   ReplyBox: {fileID: 344983621}
 --- !u!1 &346017610
 GameObject:
@@ -25975,8 +26007,8 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 207574373}
   m_HandleRect: {fileID: 207574372}
   m_Direction: 2
-  m_Value: 0.9999961
-  m_Size: 0.62292266
+  m_Value: 0.9999956
+  m_Size: 0.6229223
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -26599,7 +26631,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 2146501714}
   m_Direction: 3
   m_Value: 0
-  m_Size: 0.99998003
+  m_Size: 0.0000004903736
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -28135,8 +28167,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   webPageClosedPosition: {fileID: 0}
   webPageOpenedPosition: {fileID: 0}
+  FishSearches: {fileID: 0}
+  FoodSearches: {fileID: 0}
+  SecuritySearches: {fileID: 0}
+  adPrefab: {fileID: 0}
   searchBoxClosedPosition: {fileID: 0}
   searchBoxOpenedPosition: {fileID: 0}
+  searchBoxClosed: 0
   TransitionMult: 1
   SearchResultBox: {fileID: 0}
   fishResults: {fileID: 0}
@@ -32561,8 +32598,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   webPageClosedPosition: {fileID: 0}
   webPageOpenedPosition: {fileID: 0}
+  FishSearches: {fileID: 0}
+  FoodSearches: {fileID: 0}
+  SecuritySearches: {fileID: 0}
+  adPrefab: {fileID: 0}
   searchBoxClosedPosition: {fileID: 0}
   searchBoxOpenedPosition: {fileID: 0}
+  searchBoxClosed: 0
   TransitionMult: 1
   SearchResultBox: {fileID: 0}
   fishResults: {fileID: 0}
@@ -32980,6 +33022,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   eduvaClosedPosition: {fileID: 628279824}
   eduvaOpenedPosition: {fileID: 1903834886}
+  TransitionMult: 1
 --- !u!114 &447337227
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -34670,7 +34713,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 747257548}
   m_Direction: 3
   m_Value: 0
-  m_Size: 0.99998003
+  m_Size: 0.0000004903736
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -35895,6 +35938,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   AppIcon: {fileID: 1218494750}
   Position: {fileID: 0}
+  TransitionMult: 1
 --- !u!114 &503967626
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -35911,6 +35955,7 @@ MonoBehaviour:
   ImageView: {fileID: 1265588708566015886}
   gallleryClosedPosition: {fileID: 628279824}
   galleryOpenedPosition: {fileID: 1903834886}
+  TransitionMult: 1
 --- !u!1 &507248913
 GameObject:
   m_ObjectHideFlags: 0
@@ -41712,7 +41757,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 1763197506}
   m_Direction: 3
   m_Value: 0
-  m_Size: 0.99998003
+  m_Size: 0.0000004903736
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -42055,8 +42100,8 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1149737328}
   m_HandleRect: {fileID: 1149737327}
   m_Direction: 3
-  m_Value: 0.020576132
-  m_Size: 0.99998015
+  m_Value: 0
+  m_Size: 0.02057616
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -43099,6 +43144,7 @@ MonoBehaviour:
   ReplyBoxHidePosition: {fileID: 628279824}
   ReplyBoxClosedPosition: {fileID: 1078056314}
   ReplyBoxOpenedPosition: {fileID: 1406996240}
+  TransitionMult: 1
   ReplyBox: {fileID: 621464690}
 --- !u!114 &621464693
 MonoBehaviour:
@@ -44783,6 +44829,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   notesClosedPosition: {fileID: 628279824}
   notesOpenedPosition: {fileID: 1903834886}
+  TransitionMult: 1
 --- !u!1 &644978461
 GameObject:
   m_ObjectHideFlags: 0
@@ -46551,6 +46598,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   eduvaClosedPosition: {fileID: 628279824}
   eduvaOpenedPosition: {fileID: 1903834886}
+  TransitionMult: 1
 --- !u!114 &659712689
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -47960,7 +48008,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -0.00012207031, y: 0.030761719}
+  m_AnchoredPosition: {x: -0.00012207031, y: 0.030517578}
   m_SizeDelta: {x: 0.0001, y: 1493.6}
   m_Pivot: {x: 0, y: 1}
 --- !u!1 &678463891
@@ -49597,6 +49645,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   eduvaClosedPosition: {fileID: 628279824}
   eduvaOpenedPosition: {fileID: 1903834886}
+  TransitionMult: 1
 --- !u!114 &700451875
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -49717,8 +49766,8 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 809594764}
   m_HandleRect: {fileID: 809594763}
   m_Direction: 0
-  m_Value: 0.0000004867995
-  m_Size: 0.8091274
+  m_Value: 0.0000004867997
+  m_Size: 0.80912745
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -52143,8 +52192,8 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1563408087}
   m_HandleRect: {fileID: 1563408086}
   m_Direction: 2
-  m_Value: 1.0000002
-  m_Size: 0.4792193
+  m_Value: 1
+  m_Size: 0.47921935
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -53259,7 +53308,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 967974158}
   m_Direction: 2
   m_Value: 0.99999994
-  m_Size: 0.09476684
+  m_Size: 0.09476685
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -54637,6 +54686,7 @@ MonoBehaviour:
   ReplyBoxHidePosition: {fileID: 541650027}
   ReplyBoxClosedPosition: {fileID: 389890945}
   ReplyBoxOpenedPosition: {fileID: 1272851840}
+  TransitionMult: 1
   ReplyBox: {fileID: 2066583114}
 --- !u!114 &768824218
 MonoBehaviour:
@@ -57025,8 +57075,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   webPageClosedPosition: {fileID: 0}
   webPageOpenedPosition: {fileID: 0}
+  FishSearches: {fileID: 0}
+  FoodSearches: {fileID: 0}
+  SecuritySearches: {fileID: 0}
+  adPrefab: {fileID: 0}
   searchBoxClosedPosition: {fileID: 0}
   searchBoxOpenedPosition: {fileID: 0}
+  searchBoxClosed: 0
   TransitionMult: 1
   SearchResultBox: {fileID: 0}
   fishResults: {fileID: 0}
@@ -58182,7 +58237,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 912471671}
   m_HandleRect: {fileID: 912471670}
   m_Direction: 2
-  m_Value: 0.9999998
+  m_Value: 0.9999996
   m_Size: 0.6952434
   m_NumberOfSteps: 0
   m_OnValueChanged:
@@ -59806,6 +59861,7 @@ MonoBehaviour:
   ReplyBoxHidePosition: {fileID: 2058100142}
   ReplyBoxClosedPosition: {fileID: 1078056314}
   ReplyBoxOpenedPosition: {fileID: 1406996240}
+  TransitionMult: 1
   ReplyBox: {fileID: 621464690}
 --- !u!114 &835550816
 MonoBehaviour:
@@ -65057,6 +65113,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   eduvaClosedPosition: {fileID: 628279824}
   eduvaOpenedPosition: {fileID: 1903834886}
+  TransitionMult: 1
 --- !u!114 &901703502
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -65726,8 +65783,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   webPageClosedPosition: {fileID: 1617701950}
   webPageOpenedPosition: {fileID: 1891502359}
+  FishSearches: {fileID: 0}
+  FoodSearches: {fileID: 0}
+  SecuritySearches: {fileID: 0}
+  adPrefab: {fileID: 0}
   searchBoxClosedPosition: {fileID: 0}
   searchBoxOpenedPosition: {fileID: 0}
+  searchBoxClosed: 0
   TransitionMult: 1
   SearchResultBox: {fileID: 0}
   fishResults: {fileID: 0}
@@ -68427,6 +68489,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   AppIcon: {fileID: 0}
   Position: {fileID: 0}
+  TransitionMult: 1
 --- !u!114 &972954362
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -71096,6 +71159,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   eduvaClosedPosition: {fileID: 628279824}
   eduvaOpenedPosition: {fileID: 1903834886}
+  TransitionMult: 1
 --- !u!114 &1013105259
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -71601,6 +71665,7 @@ MonoBehaviour:
   ReplyBoxHidePosition: {fileID: 541650027}
   ReplyBoxClosedPosition: {fileID: 389890945}
   ReplyBoxOpenedPosition: {fileID: 1272851840}
+  TransitionMult: 1
   ReplyBox: {fileID: 2066583114}
 --- !u!114 &1020197115
 MonoBehaviour:
@@ -72780,6 +72845,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   AppIcon: {fileID: 0}
   Position: {fileID: 0}
+  TransitionMult: 1
 --- !u!222 &1034010373
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -75018,8 +75084,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   webPageClosedPosition: {fileID: 0}
   webPageOpenedPosition: {fileID: 0}
+  FishSearches: {fileID: 0}
+  FoodSearches: {fileID: 0}
+  SecuritySearches: {fileID: 0}
+  adPrefab: {fileID: 0}
   searchBoxClosedPosition: {fileID: 0}
   searchBoxOpenedPosition: {fileID: 0}
+  searchBoxClosed: 0
   TransitionMult: 1
   SearchResultBox: {fileID: 8133600411197863576}
   fishResults: {fileID: 0}
@@ -78315,8 +78386,8 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 498473733}
   m_HandleRect: {fileID: 498473732}
   m_Direction: 3
-  m_Value: 1.0000004
-  m_Size: 0.46666533
+  m_Value: 0.9999998
+  m_Size: 0.46666545
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -83028,8 +83099,8 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1629603406}
   m_HandleRect: {fileID: 1629603405}
   m_Direction: 3
-  m_Value: 1.0000004
-  m_Size: 0.46666533
+  m_Value: 0.9999998
+  m_Size: 0.46666545
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -86061,8 +86132,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   webPageClosedPosition: {fileID: 0}
   webPageOpenedPosition: {fileID: 0}
+  FishSearches: {fileID: 0}
+  FoodSearches: {fileID: 0}
+  SecuritySearches: {fileID: 0}
+  adPrefab: {fileID: 0}
   searchBoxClosedPosition: {fileID: 0}
   searchBoxOpenedPosition: {fileID: 0}
+  searchBoxClosed: 0
   TransitionMult: 1
   SearchResultBox: {fileID: 0}
   fishResults: {fileID: 0}
@@ -88628,6 +88704,7 @@ MonoBehaviour:
   ReplyBoxHidePosition: {fileID: 0}
   ReplyBoxClosedPosition: {fileID: 0}
   ReplyBoxOpenedPosition: {fileID: 0}
+  TransitionMult: 1
   ReplyBox: {fileID: 1262724870}
 --- !u!1 &1262974813
 GameObject:
@@ -92604,7 +92681,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 119718746}
   m_HandleRect: {fileID: 119718745}
   m_Direction: 2
-  m_Value: 1
+  m_Value: 0
   m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:
@@ -93683,8 +93760,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   webPageClosedPosition: {fileID: 0}
   webPageOpenedPosition: {fileID: 0}
+  FishSearches: {fileID: 0}
+  FoodSearches: {fileID: 0}
+  SecuritySearches: {fileID: 0}
+  adPrefab: {fileID: 0}
   searchBoxClosedPosition: {fileID: 0}
   searchBoxOpenedPosition: {fileID: 0}
+  searchBoxClosed: 0
   TransitionMult: 1
   SearchResultBox: {fileID: 0}
   fishResults: {fileID: 0}
@@ -95617,6 +95699,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   eduvaClosedPosition: {fileID: 628279824}
   eduvaOpenedPosition: {fileID: 1903834886}
+  TransitionMult: 1
 --- !u!114 &1355911050
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -95644,6 +95727,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   AppIcon: {fileID: 383233074}
   Position: {fileID: 1903834885}
+  TransitionMult: 1
 --- !u!114 &1355911052
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -95991,6 +96075,7 @@ MonoBehaviour:
   messageBoxHidePosition: {fileID: 0}
   messageBoxClosedPosition: {fileID: 0}
   messageBoxOpenedPosition: {fileID: 0}
+  TransitionMult: 1
   messageBox: {fileID: 0}
 --- !u!1 &1359250248
 GameObject:
@@ -97573,6 +97658,7 @@ MonoBehaviour:
   ReplyBoxHidePosition: {fileID: 541650027}
   ReplyBoxClosedPosition: {fileID: 389890945}
   ReplyBoxOpenedPosition: {fileID: 1272851840}
+  TransitionMult: 1
   ReplyBox: {fileID: 2066583114}
 --- !u!114 &1400654651
 MonoBehaviour:
@@ -98380,8 +98466,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   webPageClosedPosition: {fileID: 0}
   webPageOpenedPosition: {fileID: 0}
+  FishSearches: {fileID: 0}
+  FoodSearches: {fileID: 0}
+  SecuritySearches: {fileID: 0}
+  adPrefab: {fileID: 0}
   searchBoxClosedPosition: {fileID: 0}
   searchBoxOpenedPosition: {fileID: 0}
+  searchBoxClosed: 0
   TransitionMult: 1
   SearchResultBox: {fileID: 0}
   fishResults: {fileID: 0}
@@ -99428,7 +99519,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -0.00012207031, y: 0.030883789}
+  m_AnchoredPosition: {x: -0.00012207031, y: 0.030639648}
   m_SizeDelta: {x: 0.0001, y: 1493.6}
   m_Pivot: {x: 0, y: 1}
 --- !u!1 &1434218464
@@ -102056,6 +102147,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   AppIcon: {fileID: 1218494750}
   Position: {fileID: 0}
+  TransitionMult: 1
 --- !u!1 &1477209027
 GameObject:
   m_ObjectHideFlags: 0
@@ -103573,7 +103665,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 518965426}
   m_Direction: 3
   m_Value: 0
-  m_Size: 0.99998003
+  m_Size: 0.0000004903736
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -108585,8 +108677,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   webPageClosedPosition: {fileID: 0}
   webPageOpenedPosition: {fileID: 0}
+  FishSearches: {fileID: 0}
+  FoodSearches: {fileID: 0}
+  SecuritySearches: {fileID: 0}
+  adPrefab: {fileID: 0}
   searchBoxClosedPosition: {fileID: 0}
   searchBoxOpenedPosition: {fileID: 0}
+  searchBoxClosed: 0
   TransitionMult: 1
   SearchResultBox: {fileID: 0}
   fishResults: {fileID: 0}
@@ -108797,6 +108894,7 @@ MonoBehaviour:
   ReplyBoxHidePosition: {fileID: 541650027}
   ReplyBoxClosedPosition: {fileID: 389890945}
   ReplyBoxOpenedPosition: {fileID: 1272851840}
+  TransitionMult: 1
   ReplyBox: {fileID: 2066583114}
 --- !u!114 &1575862942
 MonoBehaviour:
@@ -111287,8 +111385,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   webPageClosedPosition: {fileID: 0}
   webPageOpenedPosition: {fileID: 0}
+  FishSearches: {fileID: 0}
+  FoodSearches: {fileID: 0}
+  SecuritySearches: {fileID: 0}
+  adPrefab: {fileID: 0}
   searchBoxClosedPosition: {fileID: 0}
   searchBoxOpenedPosition: {fileID: 0}
+  searchBoxClosed: 0
   TransitionMult: 1
   SearchResultBox: {fileID: 0}
   fishResults: {fileID: 0}
@@ -114341,7 +114444,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 664794289}
   m_HandleRect: {fileID: 664794288}
   m_Direction: 0
-  m_Value: -0.00000073019953
+  m_Value: -0.0000004867997
   m_Size: 0.80912745
   m_NumberOfSteps: 0
   m_OnValueChanged:
@@ -116833,7 +116936,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1336511192}
   m_HandleRect: {fileID: 1336511191}
   m_Direction: 0
-  m_Value: -0.00000031694228
+  m_Value: -0.00000021129485
   m_Size: 0.6478843
   m_NumberOfSteps: 0
   m_OnValueChanged:
@@ -117007,6 +117110,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   eduvaClosedPosition: {fileID: 628279824}
   eduvaOpenedPosition: {fileID: 1903834886}
+  TransitionMult: 1
 --- !u!114 &1718260875
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -117431,8 +117535,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   webPageClosedPosition: {fileID: 0}
   webPageOpenedPosition: {fileID: 0}
+  FishSearches: {fileID: 0}
+  FoodSearches: {fileID: 0}
+  SecuritySearches: {fileID: 0}
+  adPrefab: {fileID: 0}
   searchBoxClosedPosition: {fileID: 0}
   searchBoxOpenedPosition: {fileID: 0}
+  searchBoxClosed: 0
   TransitionMult: 1
   SearchResultBox: {fileID: 8133600411197863576}
   fishResults: {fileID: 0}
@@ -117852,7 +117961,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -0.00012207031, y: 0.030883789}
+  m_AnchoredPosition: {x: -0.00012207031, y: 0.030639648}
   m_SizeDelta: {x: 0.0001, y: 1493.6}
   m_Pivot: {x: 0, y: 1}
 --- !u!1 &1732225707
@@ -118506,8 +118615,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   webPageClosedPosition: {fileID: 0}
   webPageOpenedPosition: {fileID: 0}
+  FishSearches: {fileID: 0}
+  FoodSearches: {fileID: 0}
+  SecuritySearches: {fileID: 0}
+  adPrefab: {fileID: 0}
   searchBoxClosedPosition: {fileID: 0}
   searchBoxOpenedPosition: {fileID: 0}
+  searchBoxClosed: 0
   TransitionMult: 1
   SearchResultBox: {fileID: 8133600411197863576}
   fishResults: {fileID: 0}
@@ -118764,6 +118878,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   AppIcon: {fileID: 1218494750}
   Position: {fileID: 0}
+  TransitionMult: 1
 --- !u!1 &1749505125
 GameObject:
   m_ObjectHideFlags: 0
@@ -121341,6 +121456,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   AppIcon: {fileID: 1218494750}
   Position: {fileID: 0}
+  TransitionMult: 1
 --- !u!222 &1798305491
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -121784,6 +121900,7 @@ MonoBehaviour:
   ReplyBoxHidePosition: {fileID: 0}
   ReplyBoxClosedPosition: {fileID: 0}
   ReplyBoxOpenedPosition: {fileID: 0}
+  TransitionMult: 1
   ReplyBox: {fileID: 1808404717}
 --- !u!1 &1809431028
 GameObject:
@@ -122142,6 +122259,7 @@ MonoBehaviour:
   messageBoxHidePosition: {fileID: 0}
   messageBoxClosedPosition: {fileID: 0}
   messageBoxOpenedPosition: {fileID: 0}
+  TransitionMult: 1
   messageBox: {fileID: 0}
 --- !u!1 &1815117308
 GameObject:
@@ -123116,8 +123234,8 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 117575363}
   m_HandleRect: {fileID: 117575362}
   m_Direction: 2
-  m_Value: 1.0000007
-  m_Size: 0.80277866
+  m_Value: 1
+  m_Size: 0.8027787
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -126185,6 +126303,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f7fe7125484082a488f0eee850c71d41, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  TransitionMult: 1
 --- !u!114 &1866645278
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -126628,8 +126747,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   webPageClosedPosition: {fileID: 0}
   webPageOpenedPosition: {fileID: 0}
+  FishSearches: {fileID: 0}
+  FoodSearches: {fileID: 0}
+  SecuritySearches: {fileID: 0}
+  adPrefab: {fileID: 0}
   searchBoxClosedPosition: {fileID: 0}
   searchBoxOpenedPosition: {fileID: 0}
+  searchBoxClosed: 0
   TransitionMult: 1
   SearchResultBox: {fileID: 0}
   fishResults: {fileID: 0}
@@ -128246,6 +128370,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   AppIcon: {fileID: 1218494750}
   Position: {fileID: 0}
+  TransitionMult: 1
 --- !u!114 &1911855944
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -128662,6 +128787,7 @@ MonoBehaviour:
   ReplyBoxHidePosition: {fileID: 0}
   ReplyBoxClosedPosition: {fileID: 0}
   ReplyBoxOpenedPosition: {fileID: 0}
+  TransitionMult: 1
   ReplyBox: {fileID: 1916256271}
 --- !u!1 &1920279075
 GameObject:
@@ -129640,8 +129766,8 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 986269477}
   m_HandleRect: {fileID: 986269476}
   m_Direction: 2
-  m_Value: 0.9999997
-  m_Size: 0.60089564
+  m_Value: 0.9999994
+  m_Size: 0.6008956
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -130385,8 +130511,8 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1933792672}
   m_HandleRect: {fileID: 1933792671}
   m_Direction: 2
-  m_Value: 0.9999998
-  m_Size: 0.4856108
+  m_Value: 0.9999992
+  m_Size: 0.48561078
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -131601,7 +131727,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1954345133
 RectTransform:
   m_ObjectHideFlags: 0
@@ -131999,6 +132125,7 @@ MonoBehaviour:
   ReplyBoxHidePosition: {fileID: 0}
   ReplyBoxClosedPosition: {fileID: 0}
   ReplyBoxOpenedPosition: {fileID: 0}
+  TransitionMult: 1
   ReplyBox: {fileID: 1959488234}
 --- !u!1 &1960608717
 GameObject:
@@ -132082,8 +132209,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   webPageClosedPosition: {fileID: 0}
   webPageOpenedPosition: {fileID: 0}
+  FishSearches: {fileID: 0}
+  FoodSearches: {fileID: 0}
+  SecuritySearches: {fileID: 0}
+  adPrefab: {fileID: 0}
   searchBoxClosedPosition: {fileID: 0}
   searchBoxOpenedPosition: {fileID: 0}
+  searchBoxClosed: 0
   TransitionMult: 1
   SearchResultBox: {fileID: 0}
   fishResults: {fileID: 0}
@@ -132943,8 +133075,8 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1865344021}
   m_HandleRect: {fileID: 1865344020}
   m_Direction: 3
-  m_Value: 0.020576132
-  m_Size: 0.99998015
+  m_Value: 0
+  m_Size: 0.020576814
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -133371,6 +133503,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   AppIcon: {fileID: 834490355}
   Position: {fileID: 1903834885}
+  TransitionMult: 1
 --- !u!114 &1989150046
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -133388,6 +133521,7 @@ MonoBehaviour:
   messageBoxHidePosition: {fileID: 70314260}
   messageBoxClosedPosition: {fileID: 827726456}
   messageBoxOpenedPosition: {fileID: 1405234305}
+  TransitionMult: 1
   messageBox: {fileID: 437374934}
 --- !u!114 &1989150047
 MonoBehaviour:
@@ -135518,7 +135652,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &2011711526
 RectTransform:
   m_ObjectHideFlags: 0
@@ -136982,6 +137116,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   eduvaClosedPosition: {fileID: 628279824}
   eduvaOpenedPosition: {fileID: 1903834886}
+  TransitionMult: 1
 --- !u!114 &2026534445
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -137961,6 +138096,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   eduvaClosedPosition: {fileID: 628279824}
   eduvaOpenedPosition: {fileID: 1903834886}
+  TransitionMult: 1
 --- !u!114 &2037597527
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -140709,6 +140845,7 @@ MonoBehaviour:
   ReplyBoxHidePosition: {fileID: 541650027}
   ReplyBoxClosedPosition: {fileID: 389890945}
   ReplyBoxOpenedPosition: {fileID: 1272851840}
+  TransitionMult: 1
   ReplyBox: {fileID: 2066583114}
 --- !u!1 &2066745821
 GameObject:
@@ -142111,6 +142248,7 @@ MonoBehaviour:
   ReplyBoxHidePosition: {fileID: 541650027}
   ReplyBoxClosedPosition: {fileID: 389890945}
   ReplyBoxOpenedPosition: {fileID: 1272851840}
+  TransitionMult: 1
   ReplyBox: {fileID: 2066583114}
 --- !u!114 &2088830082
 MonoBehaviour:
@@ -142530,7 +142668,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &2091540618
 RectTransform:
   m_ObjectHideFlags: 0
@@ -142850,8 +142988,8 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 696414816}
   m_HandleRect: {fileID: 696414815}
   m_Direction: 3
-  m_Value: 1
-  m_Size: 0.78082365
+  m_Value: 0.9999988
+  m_Size: 0.7808239
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
@@ -144407,6 +144545,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   AppIcon: {fileID: 1218494750}
   Position: {fileID: 0}
+  TransitionMult: 1
 --- !u!1 &2122374642
 GameObject:
   m_ObjectHideFlags: 0
@@ -153303,6 +153442,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   AppIcon: {fileID: 1064172256}
   Position: {fileID: 1903834885}
+  TransitionMult: 1
 --- !u!114 &2413332346087474275
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -156447,8 +156587,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   webPageClosedPosition: {fileID: 0}
   webPageOpenedPosition: {fileID: 0}
+  FishSearches: {fileID: 0}
+  FoodSearches: {fileID: 0}
+  SecuritySearches: {fileID: 0}
+  adPrefab: {fileID: 0}
   searchBoxClosedPosition: {fileID: 0}
   searchBoxOpenedPosition: {fileID: 0}
+  searchBoxClosed: 0
   TransitionMult: 1
   SearchResultBox: {fileID: 8133600411197863576}
   fishResults: {fileID: 0}
@@ -158040,6 +158185,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   AppIcon: {fileID: 275757356}
   Position: {fileID: 1903834885}
+  TransitionMult: 1
 --- !u!114 &4237469730589192271
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -158158,6 +158304,7 @@ MonoBehaviour:
   ReplyBoxHidePosition: {fileID: 541650027}
   ReplyBoxClosedPosition: {fileID: 389890945}
   ReplyBoxOpenedPosition: {fileID: 1272851840}
+  TransitionMult: 1
   ReplyBox: {fileID: 2066583114}
 --- !u!222 &4285481635466758762
 CanvasRenderer:
@@ -162976,6 +163123,7 @@ MonoBehaviour:
   events: {fileID: 0}
   ClosedPosition: {fileID: 628279824}
   OpenedPosition: {fileID: 1903834886}
+  TransitionMult: 1
   CurrentWiFi: {fileID: 0}
   WiFiStatus: {fileID: 0}
 --- !u!114 &5821047442047258728
@@ -163022,6 +163170,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   AppIcon: {fileID: 1940869123}
   Position: {fileID: 1903834885}
+  TransitionMult: 1
 --- !u!114 &5821047442047258730
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -163520,6 +163669,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   AppIcon: {fileID: 961407599}
   Position: {fileID: 1903834885}
+  TransitionMult: 1
 --- !u!114 &5979382356658526759
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -163740,8 +163890,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   webPageClosedPosition: {fileID: 1617701950}
   webPageOpenedPosition: {fileID: 1891502359}
+  FishSearches: {fileID: 0}
+  FoodSearches: {fileID: 0}
+  SecuritySearches: {fileID: 0}
+  adPrefab: {fileID: 0}
   searchBoxClosedPosition: {fileID: 327832057}
   searchBoxOpenedPosition: {fileID: 738883905}
+  searchBoxClosed: 0
   TransitionMult: 1
   SearchResultBox: {fileID: 1488028964}
   fishResults: {fileID: 0}
@@ -165264,6 +165419,7 @@ MonoBehaviour:
   ReplyBoxHidePosition: {fileID: 541650027}
   ReplyBoxClosedPosition: {fileID: 389890945}
   ReplyBoxOpenedPosition: {fileID: 1272851840}
+  TransitionMult: 1
   ReplyBox: {fileID: 2066583114}
 --- !u!224 &6665313500872293565
 RectTransform:
@@ -166991,6 +167147,7 @@ MonoBehaviour:
   events: {fileID: 0}
   ClosedPosition: {fileID: 0}
   OpenedPosition: {fileID: 0}
+  TransitionMult: 1
   CurrentWiFi: {fileID: 3368078777093971032}
   WiFiStatus: {fileID: 0}
 --- !u!224 &7110187688669740565
@@ -168831,6 +168988,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   notesClosedPosition: {fileID: 628279824}
   notesOpenedPosition: {fileID: 1903834886}
+  TransitionMult: 1
 --- !u!114 &7692807412314335439
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -169214,6 +169372,7 @@ MonoBehaviour:
   events: {fileID: 0}
   ClosedPosition: {fileID: 628279824}
   OpenedPosition: {fileID: 1903834886}
+  TransitionMult: 1
   CurrentWiFi: {fileID: 0}
   WiFiStatus: {fileID: 0}
 --- !u!1 &7855041546909058136
@@ -169279,6 +169438,7 @@ MonoBehaviour:
   events: {fileID: 0}
   ClosedPosition: {fileID: 628279824}
   OpenedPosition: {fileID: 1903834886}
+  TransitionMult: 1
   CurrentWiFi: {fileID: 3368078777093971032}
   WiFiStatus: {fileID: 6545312866507320732}
 --- !u!224 &7874180255585635346
@@ -170044,6 +170204,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   AppIcon: {fileID: 547526811}
   Position: {fileID: 1903834885}
+  TransitionMult: 1
 --- !u!114 &8129137243874280319
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -170058,6 +170219,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   orderCornerClosedPosition: {fileID: 628279824}
   orderCornerOpenedPosition: {fileID: 1903834886}
+  TransitionMult: 1
 --- !u!114 &8129137243874280320
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -170181,6 +170343,7 @@ MonoBehaviour:
   events: {fileID: 0}
   ClosedPosition: {fileID: 0}
   OpenedPosition: {fileID: 0}
+  TransitionMult: 1
   CurrentWiFi: {fileID: 3368078777093971032}
   WiFiStatus: {fileID: 0}
 --- !u!1 &8139977022140375285
@@ -170846,6 +171009,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   AppIcon: {fileID: 442718814}
   Position: {fileID: 1903834885}
+  TransitionMult: 1
 --- !u!114 &8330712525565310825
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -170863,6 +171027,7 @@ MonoBehaviour:
   ReplyBoxHidePosition: {fileID: 2058100142}
   ReplyBoxClosedPosition: {fileID: 1078056314}
   ReplyBoxOpenedPosition: {fileID: 1406996240}
+  TransitionMult: 1
   ReplyBox: {fileID: 621464690}
 --- !u!114 &8330712525565310826
 MonoBehaviour:
@@ -172264,6 +172429,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   AppIcon: {fileID: 1847643183}
   Position: {fileID: 1903834885}
+  TransitionMult: 1
 --- !u!114 &8665694310967619762
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -172323,6 +172489,7 @@ MonoBehaviour:
   ImageView: {fileID: 1265588708566015886}
   gallleryClosedPosition: {fileID: 628279824}
   galleryOpenedPosition: {fileID: 1903834886}
+  TransitionMult: 1
 --- !u!114 &8690847664066548223
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -172337,6 +172504,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   AppIcon: {fileID: 1218494750}
   Position: {fileID: 0}
+  TransitionMult: 1
 --- !u!114 &8690847664066548224
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -172596,6 +172764,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   orderCornerClosedPosition: {fileID: 628279824}
   orderCornerOpenedPosition: {fileID: 1903834886}
+  TransitionMult: 1
 --- !u!114 &8741269463008511049
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -172640,6 +172809,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   AppIcon: {fileID: 470356692}
   Position: {fileID: 1903834885}
+  TransitionMult: 1
 --- !u!114 &8741269463008511051
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -172654,8 +172824,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   webPageClosedPosition: {fileID: 1617701950}
   webPageOpenedPosition: {fileID: 1891502359}
+  FishSearches: {fileID: 0}
+  FoodSearches: {fileID: 0}
+  SecuritySearches: {fileID: 0}
+  adPrefab: {fileID: 0}
   searchBoxClosedPosition: {fileID: 0}
   searchBoxOpenedPosition: {fileID: 0}
+  searchBoxClosed: 0
   TransitionMult: 1
   SearchResultBox: {fileID: 0}
   fishResults: {fileID: 0}
@@ -173837,8 +174012,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   webPageClosedPosition: {fileID: 1617701950}
   webPageOpenedPosition: {fileID: 1891502359}
+  FishSearches: {fileID: 0}
+  FoodSearches: {fileID: 0}
+  SecuritySearches: {fileID: 0}
+  adPrefab: {fileID: 0}
   searchBoxClosedPosition: {fileID: 0}
   searchBoxOpenedPosition: {fileID: 0}
+  searchBoxClosed: 0
   TransitionMult: 1
   SearchResultBox: {fileID: 0}
   fishResults: {fileID: 0}
@@ -173934,6 +174114,7 @@ MonoBehaviour:
   events: {fileID: 0}
   ClosedPosition: {fileID: 628279824}
   OpenedPosition: {fileID: 1903834886}
+  TransitionMult: 1
   CurrentWiFi: {fileID: 0}
   WiFiStatus: {fileID: 0}
 --- !u!1660057539 &9223372036854775807
