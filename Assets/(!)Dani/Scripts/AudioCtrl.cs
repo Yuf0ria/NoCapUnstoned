@@ -36,11 +36,6 @@ public class AudioCtrl : MonoBehaviour
     {
         //& a bit of sfx. why? becuase it loops if you put on update and it doesn't have a key
         //Play when open
-        var Menu = SceneManager.GetSceneByName("Main Menu").isLoaded;
-        if(Menu)
-        {
-            MusicManager.PlayBackgroundMusic(true);
-        }
         //stop if scene change
         var Tutorial = SceneManager.GetSceneByName("Tutorial").isLoaded;
         if(Tutorial)
