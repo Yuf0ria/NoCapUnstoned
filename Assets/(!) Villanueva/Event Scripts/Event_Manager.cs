@@ -33,7 +33,7 @@ public class Event_Manager : MonoBehaviour
     Vector3 Notif_HideTransform;
     Vector3 Notif_ShowTransform;
     float TransitionTime = 1;
-    float ShowTime = 3;
+    float ShowTime = 5;
 
 
 
@@ -149,10 +149,18 @@ public class Event_Manager : MonoBehaviour
                     break;
 
                 case 12: // Adds one High Severity Attack
-                    Phone_Statistics.numHighSeverity++;
+                    Phone_Statistics.isTwoFactorAuthentication = !Phone_Statistics.isTwoFactorAuthentication;
                     break;
 
-                default:
+                case 13: // Turn On/Off AntiVirus 
+                    Phone_Statistics.isAntiVirus = Phone_Statistics.isAntiVirus;
+                    break;
+
+                case 14: // Turn On/Off AdBlocker
+                    Phone_Statistics.isAdBlocker = Phone_Statistics.isAdBlocker;
+                break;
+
+            default:
                     Common_DisconnectWiFi();
                     break;
             }
