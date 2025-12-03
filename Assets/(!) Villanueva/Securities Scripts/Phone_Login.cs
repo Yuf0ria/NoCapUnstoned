@@ -88,25 +88,12 @@ public class Phone_Login : MonoBehaviour
 
     public void Login_Confirm()
     {
-        if (Phone_Statistics.isTwoFactorAuthentication)
+        if (Phone_Statistics.isTwoFactorAuthentication && !isPhishingPage)
         {
             if (OTP == otpInput.text && otpInput.text != "")
             {
-                if(!isPhishingPage)
-                {
-                    events.New_Notification(0, "App_Name", "OTP confirmed. Logging in...");
-                }
-
-                else
-                {
-                    if(phishingLevel > 1) 
-                    {
-                        Phone_Statistics.isStolenAccount = true; 
-                        Debug.Log("Account Stolen!");
-                        Phone_Statistics.numLowSeverity++;
-                    }
-                }
-
+                events.New_Notification(0, "App_Name", "OTP confirmed. Logging in...");
+                
                 loginButton.interactable = true;
                 Login_Leave();
             }

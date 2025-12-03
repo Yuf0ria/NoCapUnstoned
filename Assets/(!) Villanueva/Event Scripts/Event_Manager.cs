@@ -15,6 +15,7 @@ public class Event_Manager : MonoBehaviour
 
     [Header("GAME OVER")]
     [SerializeField] RectTransform gameOverPanel;
+    [SerializeField] TextMeshProUGUI gameOverTitle;
     [SerializeField] TextMeshProUGUI gameOverCause;
     [SerializeField] TextMeshProUGUI gameOverAdvice;
     [SerializeField] TextMeshProUGUI gameOverStats;
@@ -33,7 +34,7 @@ public class Event_Manager : MonoBehaviour
     Vector3 Notif_HideTransform;
     Vector3 Notif_ShowTransform;
     float TransitionTime = 1;
-    float ShowTime = 3;
+    float ShowTime = 5;
 
 
 
@@ -55,6 +56,8 @@ public class Event_Manager : MonoBehaviour
     void Update()
     {
         SecurityStats();
+
+        //Run_GameWin();
     }
     public void New_Notification(int icon_num, string name, string desc)
     {
@@ -149,10 +152,18 @@ public class Event_Manager : MonoBehaviour
                     break;
 
                 case 12: // Adds one High Severity Attack
-                    Phone_Statistics.numHighSeverity++;
+                    Phone_Statistics.isTwoFactorAuthentication = !Phone_Statistics.isTwoFactorAuthentication;
                     break;
 
-                default:
+                case 13: // Turn On/Off AntiVirus 
+                    Phone_Statistics.isAntiVirus = !Phone_Statistics.isAntiVirus;
+                    break;
+
+                case 14: // Turn On/Off AdBlocker
+                    Phone_Statistics.isAdBlocker = !Phone_Statistics.isAdBlocker;
+                break;
+
+            default:
                     Common_DisconnectWiFi();
                     break;
             }
@@ -165,10 +176,10 @@ public class Event_Manager : MonoBehaviour
         {
             Phone_Statistics.isCompromised = false;
 
-            if (!Phone_Statistics.isAdBlocker && !Phone_Statistics.isTwoFactorAuthentication && !Phone_Statistics.isAntiVirus && !Phone_Statistics.isSecurityUpToDate)
-                Phone_Statistics.isVulnerable = true;
+            if (Phone_Statistics.isAdBlocker && Phone_Statistics.isTwoFactorAuthentication && Phone_Statistics.isAntiVirus && Phone_Statistics.isSecurityUpToDate)
+                Phone_Statistics.isVulnerable = false;
 
-            else Phone_Statistics.isVulnerable = false;
+            else Phone_Statistics.isVulnerable = true;
         }
 
         else
@@ -182,6 +193,7 @@ public class Event_Manager : MonoBehaviour
             ChangeTransitionTime(1);
         }
 
+        /*
         if(!Phone_Statistics.isGameOverRunning)
         {
         //  ITS THE FINAL COUNTDOWN
@@ -207,8 +219,10 @@ public class Event_Manager : MonoBehaviour
             StartCoroutine(Run_GameOver(5));
             Phone_Statistics.isGameOverRunning = true;
         }
+        */
     }
 
+    /*
     IEnumerator Run_GameOver(float TimeToGameOver)
     {
         yield return new WaitForSeconds(TimeToGameOver);
@@ -232,30 +246,91 @@ public class Event_Manager : MonoBehaviour
 
         else Debug.Log("Game Over Cancelled");
     }
+    */
 
-    
+
     public void Run_GameWin()
     {
-        if (chapter1Events.AllTasksCompleted())
-        {
-            gameWinPanel.transform.DOMove(revealPos.position, TransitionTime).SetEase(Ease.OutCubic);
-        }
-        else if (gameTimer.value >= 0.9990f)
-        {
-            Debug.Log("INSTANT GAME OVER");
-            StartCoroutine(Run_GameOver(1));
-            Phone_Statistics.isGameOverRunning = true;
+        if(!Phone_Statistics.isGameOverRunning)
+        { 
+            int attackSum = Phone_Statistics.numLowSeverity + Phone_Statistics.numHighSeverity;
 
-            cause = "You ran out of time!";
+            if (progress.progression >= maxTasks && attackSum > 0) // Tasks Complete but was phished
+            {
+                    gameOverTitle.text = "Congratulations!";
 
-            advice = "You have ten minutes to complete all tasks and not get phished. <br><br>Keep an eye on the timer to see how much time you have left.";
+                    gameOverCause.text = "Your final score is " + gameScore() + "!";
+
+                    gameOverAdvice.text = "You completed " + progress.progression + " out of " + maxTasks + " tasks and were hit with " + attackSum + " Phishing Attacks Before Game Over.";
+
+                    gameOverStats.text = advice;
+
+                    Phone_Statistics.isGameOverRunning = true;
+                    gameOverPanel.transform.DOMove(revealPos.position, TransitionTime).SetEase(Ease.OutCubic);
+
+            }
+
+            else if (progress.progression >= maxTasks && attackSum <= 0) // Tasks Complete wasn't phished
+            {
+                    gameOverPanel.gameObject.GetComponent<Image>().color = new Color(0f, 138f / 255f, 27f / 255f, 1f);
+
+                    gameOverTitle.text = "Congratulations!";
+
+                    gameOverCause.text = "Your final score is " + gameScore() + "!";
+
+                    gameOverAdvice.text = "You completed " + progress.progression + " out of " + maxTasks + " tasks and were hit with " + attackSum + " Phishing Attacks Before Game Over.";
+
+                    gameOverStats.text = "You successfully avoided all Phishing Attacks and completed all tasks! \n\n\n Thank you for playing!";
+
+                    Phone_Statistics.isGameOverRunning = true;
+                    gameOverPanel.transform.DOMove(revealPos.position, TransitionTime).SetEase(Ease.OutCubic);
+
+
+            }
+            else if (gameTimer.value >= 0.9990f)
+            {
+
+                    gameOverCause.text = "Your final score is " + gameScore() + "!";
+
+                    gameOverAdvice.text = "You completed " + progress.progression + " out of " + maxTasks + " tasks and were hit with " + attackSum + " Phishing Attacks Before Game Over.";
+
+                    gameOverStats.text = advice;
+
+                    Phone_Statistics.isGameOverRunning = true; 
+                    gameOverPanel.transform.DOMove(revealPos.position, TransitionTime).SetEase(Ease.OutCubic);
+            }
         }
+ 
+    }
+
+    int gameScore()
+    {
+        int attacksScore = 2*Phone_Statistics.numLowSeverity + 5*Phone_Statistics.numHighSeverity;
+        Debug.Log(attacksScore);
+
+        int tasksScore = progress.progression;
+        Debug.Log(progress.progression);
+
+        int safetyScore = 0;
+        if (Phone_Statistics.isSecurityUpToDate) safetyScore += 5;
+        if (Phone_Statistics.isTwoFactorAuthentication) safetyScore += 5;
+        if (Phone_Statistics.isAntiVirus) safetyScore += 5;
+        if (Phone_Statistics.isAdBlocker) safetyScore += 5;
+        if (!Phone_Statistics.isVulnerable) safetyScore += 10;
+
+        
+        Debug.Log(Phone_Statistics.isSecurityUpToDate + ", " + Phone_Statistics.isTwoFactorAuthentication + ", " + Phone_Statistics.isAntiVirus + ", " + Phone_Statistics.isAdBlocker + ", " + Phone_Statistics.isVulnerable);
+
+        int finalScore = tasksScore + safetyScore - attacksScore;
+
+        return finalScore;
     }
 
     #endregion
 
     string cause;
     string advice;
+    string stats;
 
     public void SetGameOverCause(string c)
     {

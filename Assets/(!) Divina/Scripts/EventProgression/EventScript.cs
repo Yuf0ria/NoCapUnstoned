@@ -62,6 +62,8 @@ public class EventScript : MonoBehaviour
     {
         if (prog < 0 || prog >= p.Count) return; //Verification that it's in the exact progression as god intended
 
+        // Truly as god intended
+
         foreach (Button btn in p[prog].activeProgression)
         {
             if (btn != null)

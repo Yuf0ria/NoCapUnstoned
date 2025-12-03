@@ -50,8 +50,10 @@ public class Phone_Statistics : MonoBehaviour
         isVulnerable = isVulnerableInsp;
         isCompromised = isCompromisedInsp;
 
-        numLowSeverity = numLowSeverityInsp;
-        numHighSeverity = numHighSeverityInsp;
+        numLowSeverity = 0;
+        numHighSeverity = 0;
+        
+        isGameOverRunning = false;
     }
 
     void Update()
