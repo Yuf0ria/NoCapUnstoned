@@ -1,0 +1,702 @@
+fileFormatVersion: 2
+guid: 606c5c658b442a742963aaa672725e38
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 6197881666362183888
+    second: Phishing_0
+  - first:
+      213: -6926620541261060261
+    second: Phishing_1
+  - first:
+      213: -8049884175813436059
+    second: Phishing_2
+  - first:
+      213: 4786423258460488316
+    second: Phishing_3
+  - first:
+      213: 421624831954167091
+    second: Phishing_4
+  - first:
+      213: -1248218906948712690
+    second: Phishing_5
+  - first:
+      213: -8384877606934873119
+    second: Phishing_6
+  - first:
+      213: 6696309297258856480
+    second: Phishing_7
+  - first:
+      213: -9030035726708883134
+    second: Phishing_8
+  - first:
+      213: 7369968482481058945
+    second: Phishing_9
+  - first:
+      213: 388889783411879303
+    second: Phishing_10
+  - first:
+      213: -6920649938531859954
+    second: Phishing_11
+  - first:
+      213: -5145609675051112577
+    second: Phishing_12
+  - first:
+      213: -2517091742484188939
+    second: Phishing_13
+  - first:
+      213: 2078299882929561721
+    second: Phishing_14
+  - first:
+      213: -124952695312088034
+    second: Phishing_15
+  - first:
+      213: -2679973749278079958
+    second: Phishing_16
+  - first:
+      213: -7028338172268357507
+    second: Phishing_17
+  - first:
+      213: -461827123255160280
+    second: Phishing_18
+  - first:
+      213: -1786379187915051366
+    second: Phishing_19
+  - first:
+      213: -682397373260384504
+    second: Phishing_20
+  - first:
+      213: -3034199419948506565
+    second: Phishing_21
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 1
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: Phishing_0
+      rect:
+        serializedVersion: 2
+        x: 119
+        y: 756
+        width: 405
+        height: 191
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0d09c6ba98c430650800000000000000
+      internalID: 6197881666362183888
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Phishing_1
+      rect:
+        serializedVersion: 2
+        x: 560
+        y: 865
+        width: 22
+        height: 86
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b57e5380153bfdf90800000000000000
+      internalID: -6926620541261060261
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Phishing_2
+      rect:
+        serializedVersion: 2
+        x: 635
+        y: 618
+        width: 292
+        height: 300
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 56d1a910ef0194090800000000000000
+      internalID: -8049884175813436059
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Phishing_3
+      rect:
+        serializedVersion: 2
+        x: 521
+        y: 797
+        width: 13
+        height: 20
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c728431189acc6240800000000000000
+      internalID: 4786423258460488316
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Phishing_4
+      rect:
+        serializedVersion: 2
+        x: 564
+        y: 814
+        width: 33
+        height: 33
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 335ac110d89e9d500800000000000000
+      internalID: 421624831954167091
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Phishing_5
+      rect:
+        serializedVersion: 2
+        x: 63
+        y: 536
+        width: 105
+        height: 265
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e074569748f6daee0800000000000000
+      internalID: -1248218906948712690
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Phishing_6
+      rect:
+        serializedVersion: 2
+        x: 169
+        y: 667
+        width: 81
+        height: 103
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1ebf481dd3ee2ab80800000000000000
+      internalID: -8384877606934873119
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Phishing_7
+      rect:
+        serializedVersion: 2
+        x: 247
+        y: 524
+        width: 147
+        height: 185
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0208249c3d11eec50800000000000000
+      internalID: 6696309297258856480
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Phishing_8
+      rect:
+        serializedVersion: 2
+        x: 366
+        y: 642
+        width: 113
+        height: 122
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2414e68895edea280800000000000000
+      internalID: -9030035726708883134
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Phishing_9
+      rect:
+        serializedVersion: 2
+        x: 513
+        y: 647
+        width: 115
+        height: 138
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 184bb1c7943674660800000000000000
+      internalID: 7369968482481058945
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Phishing_10
+      rect:
+        serializedVersion: 2
+        x: 474
+        y: 510
+        width: 118
+        height: 121
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 78d2b05923d956500800000000000000
+      internalID: 388889783411879303
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Phishing_11
+      rect:
+        serializedVersion: 2
+        x: 651
+        y: 605
+        width: 33
+        height: 34
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e02cafe4c89e4ff90800000000000000
+      internalID: -6920649938531859954
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Phishing_12
+      rect:
+        serializedVersion: 2
+        x: 66
+        y: 374
+        width: 169
+        height: 163
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f77e3cd534f1798b0800000000000000
+      internalID: -5145609675051112577
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Phishing_13
+      rect:
+        serializedVersion: 2
+        x: 280
+        y: 442
+        width: 95
+        height: 46
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5f03926756e711dd0800000000000000
+      internalID: -2517091742484188939
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Phishing_14
+      rect:
+        serializedVersion: 2
+        x: 666
+        y: 466
+        width: 203
+        height: 124
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 970a0c27bba97dc10800000000000000
+      internalID: 2078299882929561721
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Phishing_15
+      rect:
+        serializedVersion: 2
+        x: 101
+        y: 84
+        width: 518
+        height: 363
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e1402368f24144ef0800000000000000
+      internalID: -124952695312088034
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Phishing_16
+      rect:
+        serializedVersion: 2
+        x: 395
+        y: 418
+        width: 36
+        height: 34
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a2488eaf212decad0800000000000000
+      internalID: -2679973749278079958
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Phishing_17
+      rect:
+        serializedVersion: 2
+        x: 705
+        y: 444
+        width: 19
+        height: 18
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d7850a88ba3567e90800000000000000
+      internalID: -7028338172268357507
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Phishing_18
+      rect:
+        serializedVersion: 2
+        x: 563
+        y: 73
+        width: 376
+        height: 301
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8225cb2ada24799f0800000000000000
+      internalID: -461827123255160280
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Phishing_19
+      rect:
+        serializedVersion: 2
+        x: 606
+        y: 348
+        width: 26
+        height: 29
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a9e2c2ed7918537e0800000000000000
+      internalID: -1786379187915051366
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Phishing_20
+      rect:
+        serializedVersion: 2
+        x: 622
+        y: 356
+        width: 20
+        height: 25
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 807b72b5433a786f0800000000000000
+      internalID: -682397373260384504
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Phishing_21
+      rect:
+        serializedVersion: 2
+        x: 642
+        y: 364
+        width: 13
+        height: 24
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b32e54414bb54e5d0800000000000000
+      internalID: -3034199419948506565
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      Phishing_0: 6197881666362183888
+      Phishing_1: -6926620541261060261
+      Phishing_10: 388889783411879303
+      Phishing_11: -6920649938531859954
+      Phishing_12: -5145609675051112577
+      Phishing_13: -2517091742484188939
+      Phishing_14: 2078299882929561721
+      Phishing_15: -124952695312088034
+      Phishing_16: -2679973749278079958
+      Phishing_17: -7028338172268357507
+      Phishing_18: -461827123255160280
+      Phishing_19: -1786379187915051366
+      Phishing_2: -8049884175813436059
+      Phishing_20: -682397373260384504
+      Phishing_21: -3034199419948506565
+      Phishing_3: 4786423258460488316
+      Phishing_4: 421624831954167091
+      Phishing_5: -1248218906948712690
+      Phishing_6: -8384877606934873119
+      Phishing_7: 6696309297258856480
+      Phishing_8: -9030035726708883134
+      Phishing_9: 7369968482481058945
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

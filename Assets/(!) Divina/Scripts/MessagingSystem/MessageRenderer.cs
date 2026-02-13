@@ -25,10 +25,10 @@ public class MessageRenderer : MonoBehaviour, IMessageRenderer
     public GameObject openChoicesButton; //Reference to OpenChoices button
 
     [Header("Paddings n shi")]
-    [SerializeField] private float spacing = 30f; //Space between duplicates and choices (increased by +10)
-    [SerializeField] private float senderTopPadding = 10f; // Top padding for sender messages (default 30 + extra 30)
+    [SerializeField] private float spacing = 50f; //Space between duplicates and choices (increased by +10)
+    [SerializeField] private float senderTopPadding = 30f; // Top padding for sender messages (default 30 + extra 30)
     [SerializeField] private float bottomPadding = 10f; // Fixed padding under the last message
-    [SerializeField] private float padding = 20f; //Padding on right and bottom sides for text resizing
+    [SerializeField] private float padding = 30f; //Padding on right and bottom sides for text resizing
     [SerializeField] private float dialoguePadding = 20f; //Padding from the left side of the screen for dialogue boxes
     private const float MaxMessageWidth = 555f; //Maximum width for messages
     private const float MaxDialogueWidth = 750f; //Maximum width for messages
@@ -266,88 +266,83 @@ public class MessageRenderer : MonoBehaviour, IMessageRenderer
         TextMeshProUGUI textTMP = textTransform.GetComponent<TextMeshProUGUI>();
         if (textTMP == null) return "";
 
-        string originalText = data.text;
-        MatchCollection matches = Regex.Matches(originalText, @"\[([^\]]+)\]");
-        string cleanText = Regex.Replace(originalText, @"\[([^\]]+)\]", "$1");
+        textTMP.rectTransform.anchorMin = new Vector2(0, 1);
+        textTMP.rectTransform.anchorMax = new Vector2(0, 1);
+        textTMP.rectTransform.pivot = new Vector2(0, 1);
+        //textTMP.alignment = data.isSender ? TextAlignmentOptions.TopLeft : TextAlignmentOptions.TopRight;
+        textTMP.enableWordWrapping = true;
+
+        string cleanText = data.text;
 
         textTMP.text = cleanText;
         LayoutRebuilder.ForceRebuildLayoutImmediate(textTMP.rectTransform);
         textTMP.ForceMeshUpdate();
 
-        if (matches.Count > 0) CreateHighlights(textTransform, textTMP, matches, originalText, data.linkBox);
+        float preferredWidth = textTMP.preferredWidth;
+        float preferredHeight = textTMP.preferredHeight;
+        textTMP.rectTransform.sizeDelta = new Vector2(preferredWidth, preferredHeight);
+        LayoutRebuilder.ForceRebuildLayoutImmediate(textTMP.rectTransform);
+        textTMP.ForceMeshUpdate();
 
-        ResizeMessageBackground(duplicate, textTMP);
+        float clampedWidth = Mathf.Min(preferredWidth + padding, MaxMessageWidth);
+        textTMP.rectTransform.sizeDelta = new Vector2(clampedWidth, textTMP.rectTransform.sizeDelta.y);
+        LayoutRebuilder.ForceRebuildLayoutImmediate(textTMP.rectTransform);
+        textTMP.ForceMeshUpdate();
+        preferredHeight = textTMP.preferredHeight;
+        textTMP.rectTransform.sizeDelta = new Vector2(clampedWidth, preferredHeight);
+        LayoutRebuilder.ForceRebuildLayoutImmediate(textTMP.rectTransform);
+        textTMP.ForceMeshUpdate();
+
+        ResizeMessageBackground(duplicate, textTMP, clampedWidth, preferredHeight);
+
+        if (data.linkBox != null)
+        {
+            Debug.Log("Setting up linkBox for message: " + data.text);
+            if (textTransform != null)
+            {
+                Button linkButton = textTransform.GetComponent<Button>();
+                if (linkButton == null)
+                {
+                    linkButton = textTransform.gameObject.AddComponent<Button>();
+                    Debug.Log("Added new Button to text");
+                }
+                else
+                {
+                    Debug.Log("Using existing Button on text");
+                }
+                Button linkBoxButton = data.linkBox.GetComponent<Button>();
+                if (linkBoxButton != null)
+                {
+                    Debug.Log("Copying button properties from linkBox");
+                    linkButton.interactable = true;
+                    linkButton.transition = linkBoxButton.transition;
+                    linkButton.colors = linkBoxButton.colors;
+                    linkButton.spriteState = linkBoxButton.spriteState;
+                    linkButton.animationTriggers = linkBoxButton.animationTriggers;
+                    linkButton.navigation = linkBoxButton.navigation;
+                    // Set target graphic to the TextMeshPro component
+                    TextMeshProUGUI tmp = textTransform.GetComponent<TextMeshProUGUI>();
+                    linkButton.targetGraphic = tmp;
+                    linkButton.onClick = linkBoxButton.onClick;
+                    Debug.Log("Button setup complete, interactable: " + linkButton.interactable);
+                }
+                else
+                {
+                    Debug.Log("No Button component found on linkBox prefab");
+                }
+            }
+            else
+            {
+                Debug.Log("textTransform not found");
+            }
+        }
 
         return cleanText;
     }
 
-    private void CreateHighlights(Transform textTransform, TextMeshProUGUI textTMP, MatchCollection matches, string originalText, GameObject messageLinkBox)
-    {
-        if (messageLinkBox == null) return; // Skip if no linkBox provided for this message
-        // Force mesh data to be up to date (ParseAndRenderText should already call ForceMeshUpdate())
-        textTMP.ForceMeshUpdate();
 
-        var charInfos = textTMP.textInfo.characterInfo;
-        if (charInfos == null || charInfos.Length == 0) return;
 
-        foreach (Match match in matches)
-        {
-            int bracketCountBefore = Regex.Matches(originalText.Substring(0, match.Index), @"\[").Count;
-            int startIndex = match.Groups[1].Index - bracketCountBefore - 1;
-            int length = match.Groups[1].Length;
-
-            if (startIndex < 0) continue;
-            int endIndex = startIndex + length - 1;
-            if (endIndex >= charInfos.Length) endIndex = charInfos.Length - 1;
-
-            // Create one single bounding highlight that covers the whole match range
-            // (even when the text wraps to multiple lines). This makes the link box
-            // appear as a single unified rectangle over the whole bracketed text.
-            float minLeft = float.MaxValue;
-            float maxRight = float.MinValue;
-            float maxAsc = float.MinValue;
-            float minDesc = float.MaxValue;
-
-            for (int idx = startIndex; idx <= endIndex; idx++)
-            {
-                var ci = charInfos[idx];
-                // skip invisible / whitespace characters if TMP marks them as such
-                minLeft = Mathf.Min(minLeft, ci.bottomLeft.x);
-                maxRight = Mathf.Max(maxRight, ci.bottomRight.x);
-                maxAsc = Mathf.Max(maxAsc, ci.ascender);
-                minDesc = Mathf.Min(minDesc, ci.descender);
-            }
-
-            // sanity check
-            if (minLeft <= maxRight && maxAsc > minDesc)
-            {
-                // Optional visual padding around the highlight so it doesn't sit flush
-                // exactly on glyph edges; tweak if you want a tighter or looser box.
-                const float visualPaddingX = 4f;
-                const float visualPaddingY = 4f;
-
-                float width = (maxRight - minLeft) + visualPaddingX * 2f;
-                float height = (maxAsc - minDesc) + visualPaddingY * 2f;
-
-                GameObject highlightDuplicate = Instantiate(messageLinkBox, textTransform);
-                HideHighlightText(highlightDuplicate);
-                RectTransform highlightRT = highlightDuplicate.GetComponent<RectTransform>();
-                if (highlightRT != null)
-                {
-                    highlightRT.sizeDelta = new Vector2(width, height);
-                    highlightRT.localPosition = new Vector3(minLeft + (width - visualPaddingX * 2f) / 2f, minDesc + (height - visualPaddingY * 2f) / 2f, 0f);
-                }
-            }
-        }
-    }
-
-    private void HideHighlightText(GameObject highlight)
-    {
-        Transform highlightTextTransform = highlight.transform.Find("Text");
-        if (highlightTextTransform != null) highlightTextTransform.gameObject.SetActive(false); 
-    }
-
-    private void ResizeMessageBackground(GameObject duplicate, TextMeshProUGUI textTMP)
+    private void ResizeMessageBackground(GameObject duplicate, TextMeshProUGUI textTMP, float clampedWidth, float preferredHeight)
     {
         Transform backgroundTransform = duplicate.transform.Find("Background");
         if (backgroundTransform == null) return;
@@ -355,10 +350,7 @@ public class MessageRenderer : MonoBehaviour, IMessageRenderer
         RectTransform backgroundRT = backgroundTransform.GetComponent<RectTransform>();
         if (backgroundRT == null) return;
 
-        float preferredWidth = textTMP.preferredWidth;
-        float preferredHeight = textTMP.preferredHeight;
-        float clampedWidth = Mathf.Min(preferredWidth + padding, MaxMessageWidth);
-        backgroundRT.sizeDelta = new Vector2(clampedWidth + padding, preferredHeight + padding);
+        backgroundRT.sizeDelta = new Vector2(MaxMessageWidth + padding, preferredHeight + padding);
 
         RectTransform duplicateRT = duplicate.GetComponent<RectTransform>();
         duplicateRT.sizeDelta = new Vector2(duplicateRT.sizeDelta.x, backgroundRT.sizeDelta.y);

@@ -80,7 +80,7 @@ public class Software_Update_Function : MonoBehaviour
             me.hideNotifPhishingLink();
 
             //Progression
-            te.progression = 22;
+            te.progression = 23;
             te.clickProgression();
 
             isUpdating = false;
